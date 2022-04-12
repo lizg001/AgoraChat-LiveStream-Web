@@ -2,7 +2,7 @@ import React,{ memo } from 'react'
 import { Box, Avatar, Typography } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import i18next from "i18next";
-import liveAvatar from '../../assets/Subtractlive.png'
+import agoraAvatar from '../../assets/Subtractlive.png'
 
 const useStyles = makeStyles((theme) => {
     return {
@@ -12,14 +12,13 @@ const useStyles = makeStyles((theme) => {
             left: "0px",
             top: "144px",
             background: "#393939",
-            marginBottom:"10px",
         },
         headerStyle:{
             height:"100%",
             width:"100%",
             display:'flex',
             alignItems: "center",
-            marginLeft:"15px"
+            paddingLeft:"15px"
         },
         avatarStayle:{
             width:'40px',
@@ -49,7 +48,7 @@ const Header = () => {
         <Box className={classes.root}>
             <Box className={classes.headerStyle}>
                 <Box className={classes.avatarStayle}>
-                    <Avatar src={liveAvatar} style={{ width: "32px", height: "32px" }}></Avatar>
+                    <Avatar src={agoraAvatar} style={{ width: "32px", height: "32px" }}></Avatar>
                 </Box>
                 <Typography className={classes.titleStyle}>{i18next.t('Agora LiveStream')}</Typography>
             </Box>
