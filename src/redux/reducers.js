@@ -1,6 +1,8 @@
 
 let defaultState = {
-    rooms:[]
+    rooms:[],
+    roomInfo:{},
+    roomAllowed:[]
 };
 
 const reducer = (state = defaultState, action) => {
@@ -10,7 +12,17 @@ const reducer = (state = defaultState, action) => {
             return {
                 ...state,
                 rooms: data
-            }
+            };
+        case "ROOM_INFO_ACTION":
+            return {
+                ...state,
+                roomInfo:data
+            };
+        case "roomAllowedAction":
+            return {
+                ...state,
+                roomAllowed: data
+            };
         default:
             break;
     }

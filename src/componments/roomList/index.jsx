@@ -25,6 +25,13 @@ const useStyles = makeStyles((theme) => {
             width: "100%",
             overflowX: "scroll",
             cursor:"pointer"
+        },
+        itemLeft:{
+            paddingLeft: "5px"
+        },
+        itemStyle:{
+            width: "225px", 
+            height: "225px"
         }
     }
 });
@@ -59,8 +66,8 @@ const RoomList = () => {
             <Box className={classes.roomBox}>
                 {roomList.length > 0 && roomList.map((item, i) => {
                     return (
-                        <Box key={i} style={{ paddingLeft: "5px" }} onClick={() => handleJoinRoom(item.id)}>
-                            <Box style={{ width: "225px", height: "225px" }}>
+                        <Box key={i} className={classes.itemLeft} onClick={() => handleJoinRoom(item.id)}>
+                            <Box className={classes.itemStyle}>
                                 <img src={aaa} alt="" />
                             </Box>
                         </Box>

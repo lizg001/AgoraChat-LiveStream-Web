@@ -29,6 +29,10 @@ const useStyles = makeStyles((theme) => {
             alignItems: "center",
             justifyContent: "center"
         },
+        avatarStyle:{
+            width: "32px", 
+            height: "32px"
+        },
         titleStyle:{
             height: "28px",
             width: "auto",
@@ -48,7 +52,7 @@ const Header = () => {
         <Box className={classes.root}>
             <Box className={classes.headerStyle}>
                 <Box className={classes.avatarStayle}>
-                    <Avatar src={agoraAvatar} style={{ width: "32px", height: "32px" }}></Avatar>
+                    <Avatar src={agoraAvatar} className={classes.avatarStyle}></Avatar>
                 </Box>
                 <Typography className={classes.titleStyle}>{i18next.t('Agora LiveStream')}</Typography>
             </Box>
