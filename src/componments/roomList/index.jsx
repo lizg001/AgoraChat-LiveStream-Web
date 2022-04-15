@@ -5,7 +5,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import { EaseApp } from 'chat-uikit-live';
 import i18next from "i18next";
 import roomApi from '../../api/room'
-import aaa from '../../assets/aaa.png'
+import aaa from '../../assets/images/aaa.png'
 const useStyles = makeStyles((theme) => {
     return {
         root: {

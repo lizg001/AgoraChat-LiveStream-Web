@@ -8,6 +8,7 @@ import { EaseLivestream } from 'chat-uikit-live';
 import Gift from './componments/gift'
 import RoomInfo from './componments/roomInfo'
 import RoomList from './componments/roomList'
+import Footer from './componments/footer'
 import './App.css';
 
 
@@ -20,11 +21,11 @@ function App() {
 	return (
 		<Box className="App">
 			<Header />
-			<Box style={{ display: "flex", justifyContent: "space-between",padding:"10px" }}>
+			<Box style={{ display: "flex", justifyContent: "space-between",padding:"5px 10px" }}>
 				<Box style={{ width: "100%", marginRight: "10px"}}>
 					<Box style={{ display: "flex", width: "100%" }}>
 						<VideoPlayer />
-						<Box style={{ height: "500px", width: "100%" }}>
+						<Box style={{ height: "420px", width: "100%" }}>
 							<EaseLivestream />
 						</Box>
 					</Box>
@@ -33,6 +34,7 @@ function App() {
 				<RoomInfo />
 			</Box>
 			<RoomList />
+			<Footer />
 		</Box>
 	);
 }

@@ -15,9 +15,9 @@ const useStyles = makeStyles((theme) => {
     return ({
         root: {
             width: "340px",
-            height: "580px",
-            borderRadius: "12px 12px 0 0",
-            border: "1px solid #3D3D3D",
+            height: "520px",
+            borderRadius: "16px",
+            border: "1px solid",
         },
         titleBox: {
             display: "flex",

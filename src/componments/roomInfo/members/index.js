@@ -6,7 +6,7 @@ import ListItemButton from '@mui/material/ListItemButton';
 
 import i18next from "i18next";
 
-import acarat from '../../../assets/Subtractlive.png'
+import acarat from '../../../assets/images/subtractLive.png'
 import { color, height } from '@mui/system';
 const useStyles = makeStyles((theme) => {
     return {
