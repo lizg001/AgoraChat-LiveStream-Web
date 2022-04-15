@@ -1,4 +1,8 @@
 
+export const userInfoAction = (data) => {
+    return { type: 'USER_INFO_ACTION', data };
+}
+
 export const roomsAction = (data) => {
     return { type: 'ROOMS_ACTION', data };
 };

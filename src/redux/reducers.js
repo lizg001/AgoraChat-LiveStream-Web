@@ -1,5 +1,6 @@
 
 let defaultState = {
+    userInfo: {},
     rooms:[],
     roomInfo:{},
     roomAllowed:[]
@@ -8,6 +9,11 @@ let defaultState = {
 const reducer = (state = defaultState, action) => {
     const { type, data, option } = action;
     switch (type) {
+        case "USER_INFO_ACTION":
+            return {
+                ...state,
+                userInfo: data
+            };
         case "ROOMS_ACTION":
             return {
                 ...state,

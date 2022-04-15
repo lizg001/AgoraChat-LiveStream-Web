@@ -4,7 +4,7 @@ import { Box, Avatar, Typography, InputBase } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import { EaseApp } from 'chat-uikit-live';
 import i18next from "i18next";
-import roomApi from '../../api/room'
+import { joinRoom } from '../../api/room'
 import aaa from '../../assets/images/aaa.png'
 const useStyles = makeStyles((theme) => {
     return {
@@ -49,7 +49,7 @@ const RoomList = () => {
     };
     const handleJoinRoom = (roomId) => {
         console.log('roomId>>>',roomId);
-        roomApi.joinRoom(roomId, addSessionItem)
+        joinRoom(roomId, addSessionItem)
     }
 
     

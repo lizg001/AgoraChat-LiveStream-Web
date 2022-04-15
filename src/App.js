@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react'
 import initListen from './utils/WebIMListen'
-import layoutApi from './api/layout'
+import { openIM } from './api/layout'
 import Box from '@mui/material/Box';
 import Header from './componments/header'
 import VideoPlayer from './componments/videoPleyer'
@@ -15,7 +15,7 @@ import './App.css';
 function App() {
 	useEffect(() => {
 		initListen()
-		layoutApi.openIM()
+		openIM()
 	}, [])
 
 	return (

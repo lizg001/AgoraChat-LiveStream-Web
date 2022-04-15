@@ -1,0 +1,50 @@
+import React, { memo,useState } from 'react'
+import { Box, Typography } from "@material-ui/core";
+import { makeStyles } from "@material-ui/core/styles";
+import i18next from "i18next";
+import UserPopover from "./userPopover";
+import settingIcon from '../../assets/images/settings.png'
+
+const useStyles = makeStyles((theme) => {
+    return {
+        root: {
+            display: "flex",
+            alignItems: "center",
+            width: "128px",
+            background: "#262626",
+            cursor: "pointer"
+        },
+        IconStyle: {
+            width: "24px",
+            height: "24px"
+        },
+        textStyle: {
+            fontFamily: "Roboto",
+            fontSize: "14px",
+            fontWeight: "500",
+            lineHeight: "20px",
+            letterSpacing: "0px",
+            textAlign: "left",
+            color: "#FFFFFF"
+        }
+    }
+});
+const UserSettings = () => {
+    const classes = useStyles();
+    const [anchorEl, setAnchorEl] = React.useState(null);
+    const handleClick = (event) => {
+        setAnchorEl(event.currentTarget);
+    };
+
+    const handleClose = () => {
+        setAnchorEl(null);
+    };
+    return (
+        <Box className={classes.root} onClick={handleClick}>
+            <img src={settingIcon} alt="" className={classes.IconStyle} />
+            <Typography className={classes.textStyle}>{i18next.t("Settings")}</Typography>
+            <UserPopover open={anchorEl} onClose={handleClose} />
+        </Box>
+    )
+}
+export default memo(UserSettings);
