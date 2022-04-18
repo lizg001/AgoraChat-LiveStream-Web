@@ -2,12 +2,12 @@ import React, { memo,useState } from 'react'
 import { Box, Typography } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import i18next from "i18next";
-import UserPopover from "./userPopover";
+import UserDialog from "./userDialog";
 import settingIcon from '../../assets/images/settings.png'
 
 const useStyles = makeStyles((theme) => {
     return {
-        root: {
+        settingBox: {
             display: "flex",
             alignItems: "center",
             width: "128px",
@@ -40,10 +40,12 @@ const UserSettings = () => {
         setAnchorEl(null);
     };
     return (
-        <Box className={classes.root} onClick={handleClick}>
-            <img src={settingIcon} alt="" className={classes.IconStyle} />
-            <Typography className={classes.textStyle}>{i18next.t("Settings")}</Typography>
-            <UserPopover open={anchorEl} onClose={handleClose} />
+        <Box>
+            <Box className={classes.settingBox} onClick={handleClick}>
+                <img src={settingIcon} alt="" className={classes.IconStyle} />
+                <Typography className={classes.textStyle}>{i18next.t("Settings")}</Typography>
+            </Box>
+            <UserDialog open={anchorEl} onClose={handleClose} />
         </Box>
     )
 }

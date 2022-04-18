@@ -12,6 +12,7 @@
     "chat-uikit-live": "^1.1.2",
     "easemob-websdk": "^4.0.3",
     "i18next": "^21.6.15",
+    "moment": "^2.29.3",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
     "react-scripts": "5.0.0",

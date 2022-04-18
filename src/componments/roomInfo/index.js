@@ -2,7 +2,7 @@ import React, { useState, memo } from 'react'
 import { Box, Typography } from "@material-ui/core";
 import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
-import { TabPanel, a11yProps } from './tabs'
+import { TabPanel, a11yProps } from '../common/tab'
 import { makeStyles } from "@material-ui/core/styles";
 import i18next from "i18next";
 import Members from './members'
