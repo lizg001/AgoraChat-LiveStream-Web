@@ -3,7 +3,8 @@ let defaultState = {
     userInfo: {},
     rooms:[],
     roomInfo:{},
-    roomAllowed:[]
+    roomAllowed:[],
+    isMini: false
 };
 
 const reducer = (state = defaultState, action) => {
@@ -28,6 +29,11 @@ const reducer = (state = defaultState, action) => {
             return {
                 ...state,
                 roomAllowed: data
+            };
+        case "MINI_ROOM_INFO_ACTION":
+            return {
+                ...state,
+                isMini: data
             };
         default:
             break;

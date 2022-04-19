@@ -1,4 +1,5 @@
 import React, { useEffect } from 'react'
+import { useSelector } from 'react-redux'
 import initListen from './utils/WebIMListen'
 import { openIM } from './api/layout'
 import Box from '@mui/material/Box';
@@ -9,29 +10,58 @@ import Gift from './componments/gift'
 import RoomInfo from './componments/roomInfo'
 import RoomList from './componments/roomList'
 import Footer from './componments/footer'
-import './App.css';
+import { makeStyles } from "@material-ui/core/styles";
+import store from './redux/store'
+import { miniRoomInfoAction } from './redux/actions'
+import unionIcon from './assets/images/union.png'
+const useStyles = makeStyles((theme) => {
+	return {
+		root: {
+			textAlign: "center",
+			backgroundColor: "#292929",
+			overflow: "hidden"
+		},
+		iconBox: {
+			height: "44px",
+			width: "44px",
+			display: "flex",
+			alignItems: "center",
+			justifyContent: "center",
+			background:" #3D3D3D",
+			cursor:"pointer",
+			borderRadius:"12px"
+		},
+		iconStyle: {
 
+		}
+	}
+});
+const App = () => {
+	const classes = useStyles();
 
-function App() {
 	useEffect(() => {
 		initListen()
 		openIM()
 	}, [])
-
+	const isMini = useSelector(state => state?.isMini);
+	const openRoomInfo = () => {
+		store.dispatch(miniRoomInfoAction(false));
+	}
 	return (
-		<Box className="App">
+		<Box className={classes.root}>
 			<Header />
-			<Box style={{ display: "flex", justifyContent: "space-between",padding:"5px 10px" }}>
-				<Box style={{ width: "100%", marginRight: "10px"}}>
-					<Box style={{ display: "flex", width: "100%" }}>
+			<Box style={{ display: "flex", justifyContent: "space-between", padding: "5px 10px" }}>
+				<Box style={{ width: "100%", marginRight: "10px" }}>
+					<Box style={{ display: "flex", width: "100%", }}>
 						<VideoPlayer />
-						<Box style={{ height: "420px", width: "100%" }}>
+						<Box style={{ height: "420px", width: "100%", border: "1px soild", borderRadius: "12px" }}>
 							<EaseLivestream />
 						</Box>
 					</Box>
 					<Gift />
 				</Box>
-				<RoomInfo />
+				{isMini ? <Box onClick={() => openRoomInfo()} className={classes.iconBox}>
+					<img src={unionIcon} alt="" /></Box> : <RoomInfo />}
 			</Box>
 			<RoomList />
 			<Footer />

@@ -1,4 +1,4 @@
-import React, { memo } from 'react'
+import React, { memo, useState } from 'react'
 import { useSelector } from 'react-redux'
 import { Box, Avatar, Typography, InputBase } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
@@ -6,11 +6,12 @@ import { EaseApp } from 'chat-uikit-live';
 import i18next from "i18next";
 import { joinRoom } from '../../api/room'
 import aaa from '../../assets/images/aaa.png'
+import { padding } from '@mui/system';
 const useStyles = makeStyles((theme) => {
     return {
         root: {
             overflow: "hidden",
-            background:"#E5E5E5"
+            background: "#292929"
         },
         titleBox: {
             display: "flex",
@@ -18,20 +19,33 @@ const useStyles = makeStyles((theme) => {
             alignItems: "center"
         },
         inputStyle: {
-            marginLeft:'10px'
+            marginLeft: '10px',
+            background: "#3D3D3D",
+            borderRadius: "16px",
+            padding: "0 20px",
+            color: "#FFFFFF"
         },
         roomBox: {
             display: "flex",
             width: "100%",
             overflowX: "scroll",
-            cursor:"pointer"
+            cursor: "pointer"
         },
-        itemLeft:{
+        itemLeft: {
             paddingLeft: "5px"
         },
-        itemStyle:{
-            width: "225px", 
+        itemStyle: {
+            width: "225px",
             height: "225px"
+        },
+        textStyle: {
+            fontFamily: "Roboto",
+            fontSize: "18px",
+            fontWeight: "600",
+            lineHeight: "24px",
+            letterSpacing: "0px",
+            textAlign: "left",
+            color: "#FFFFFF"
         }
     }
 });
@@ -39,6 +53,7 @@ const useStyles = makeStyles((theme) => {
 const RoomList = () => {
     const classes = useStyles();
     const roomList = useSelector(state => state?.rooms) || [];
+    let roomsLength = roomList.length > 0;
 
     const addSessionItem = (roomId) => {
         let session = {
@@ -48,27 +63,30 @@ const RoomList = () => {
         EaseApp.addConversationItem(session);
     };
     const handleJoinRoom = (roomId) => {
-        console.log('roomId>>>',roomId);
         joinRoom(roomId, addSessionItem)
     }
 
-    
+    const handleValueChange = (e) => {
+        let searchValue = e.target.value;
+    }
+
     return (
         <Box className={classes.root}>
             <Box className={classes.titleBox}>
-                <Typography>{i18next.t('Stream Channels')}</Typography>
+                <Typography className={classes.textStyle}>{i18next.t('Stream Channels')}</Typography>
                 <InputBase
                     type="search"
-                    placeholder={i18next.t("Member ID")}
+                    placeholder={i18next.t("search")}
                     className={classes.inputStyle}
+                    onChange={handleValueChange}
                 />
             </Box>
             <Box className={classes.roomBox}>
-                {roomList.length > 0 && roomList.map((item, i) => {
+                {roomsLength && roomList.map((item, i) => {
                     return (
                         <Box key={i} className={classes.itemLeft} onClick={() => handleJoinRoom(item.id)}>
                             <Box className={classes.itemStyle}>
-                                <img src={aaa} alt="" />
+                                {item.name}
                             </Box>
                         </Box>
                     )

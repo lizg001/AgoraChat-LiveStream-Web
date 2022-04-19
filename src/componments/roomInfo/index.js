@@ -1,5 +1,5 @@
 import React, { useState, memo } from 'react'
-import { Box, Typography } from "@material-ui/core";
+import { Box, Typography, InputBase } from "@material-ui/core";
 import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
 import { TabPanel, a11yProps } from '../common/tab'
@@ -10,6 +10,11 @@ import Moderators from './moderators'
 import Allowed from './allowed'
 import Ban from './ban'
 import Muted from './muted'
+import store from '../../redux/store'
+import { miniRoomInfoAction } from '../../redux/actions'
+
+import searchIcon from '../../assets/images/search.png'
+import closeIcon from '../../assets/images/close.png'
 
 const useStyles = makeStyles((theme) => {
     return ({
@@ -20,8 +25,10 @@ const useStyles = makeStyles((theme) => {
             border: "1px solid",
         },
         titleBox: {
+            width:"calc(100% - 20px)",
             display: "flex",
             alignItems: "center",
+            justifyContent: "space-between",
             height: "60px",
             background: "#3D3D3D",
             padding: "0 10px",
@@ -36,11 +43,8 @@ const useStyles = makeStyles((theme) => {
             letterSpacing: "0px",
             color: "#FFFFFF"
         },
-        tabsBox: {
-            // backgroud: "#393939"
-        },
-        tabStyle:{
-            color:"#FFFFFF"
+        tabStyle: {
+            color: "#FFFFFF"
         },
         textStyle: {
             textTransform: "none",
@@ -50,7 +54,43 @@ const useStyles = makeStyles((theme) => {
             lineHeight: "22px",
             letterSpacing: "0px",
             textAlign: "center",
+            color: "#FFFFFF"
+        },
+        iconBox:{
+            display: "flex",
+            alignItems:"center",
+            // padding:"0 10px 0 0 "
+        },
+        iconStyle: {
+            width: "30px",
+            height: "30px",
+            cursor: "pointer"
+        },
+        searchBox: {
+            width: "200px",
+            display: "flex",
+            justifyContent: "space-between",
+            alignItems: "center",
+            height: "30px",
+            padding: "0 !important",
+        },
+        inputStyle: {
+            borderRadius: "16px",
+            border: "1px solid #FFFFFF",
+            padding: "0 8px",
+            marginRight: "4px",
             color:"#FFFFFF"
+        },
+        cancelStyle:{
+            textTransform: "none",
+            fontFamily: "Roboto",
+            fontSize: "14px",
+            fontWeight: "600",
+            lineHeight: "22px",
+            letterSpacing: "0px",
+            textAlign: "center",
+            color: "#FFFFFF",
+            cursor:"pointer"
         }
     })
 });
@@ -61,13 +101,55 @@ const useStyles = makeStyles((theme) => {
 const RoomInfo = () => {
     const classes = useStyles();
     const [value, setValue] = useState(1);
+    const [showSearch, setShowSearch] = useState(false);
+    const [searchValue, setSearchValue] = useState(false);
+
     const handleChange = (event, newValue) => {
         setValue(newValue);
     };
+
+    const handleChengeValue = (e) => {
+        setSearchValue(e.target.value);
+    };
+
+    const handleSearch = () => {
+        setShowSearch(true);
+    };
+
+    const handleClosrSearch = () => {
+        setShowSearch(false);
+    };
+
+    const handleCloseInfoChange = () => {
+        console.log('aaa');
+        store.dispatch(miniRoomInfoAction(true))
+    }
+
     return (
         <Box className={classes.root}>
             <Box className={classes.titleBox}>
                 <Typography className={classes.titleText} >{i18next.t("Viewers")}</Typography>
+                <Box className={classes.iconBox}>
+                    {!showSearch && <img src={searchIcon} alt="" className={classes.iconStyle} onClick={handleSearch}/>}
+                    {showSearch && (
+                        <Box className={classes.searchBox}>
+                            <InputBase
+                                type="search"
+                                placeholder={i18next.t("search")}
+                                className={classes.inputStyle}
+                                onChange={handleChengeValue}
+                            />
+                            <Typography
+                                onClick={handleClosrSearch}
+                                className={classes.cancelStyle}
+                            >
+                                {i18next.t("Cancel")}
+                            </Typography>
+                        </Box>
+                    )}
+                    <img src={closeIcon} alt="" className={classes.iconStyle} onClick={() => handleCloseInfoChange()}/>
+                </Box>
+                
             </Box>
             <Box className={classes.tabsBox}>
                 <Tabs

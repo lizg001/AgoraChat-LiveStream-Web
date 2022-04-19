@@ -14,3 +14,7 @@ export const roomInfoAction = (data) => {
 export const roomAllowedAction = (data) => {
     return { type: 'ROOM_ALLOWED_ACTION', data };
 };
+
+export const miniRoomInfoAction = (data) => {
+    return { type: 'MINI_ROOM_INFO_ACTION', data };
+}
