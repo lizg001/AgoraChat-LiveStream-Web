@@ -4,11 +4,13 @@ let defaultState = {
     rooms:[],
     roomInfo:{},
     roomAllowed:[],
-    isMini: false
+    isMini: false,
+    giftMsgs:{},
+    liveCdnUrl:""
 };
 
 const reducer = (state = defaultState, action) => {
-    const { type, data, option } = action;
+    const { type, data } = action;
     switch (type) {
         case "USER_INFO_ACTION":
             return {
@@ -34,6 +36,16 @@ const reducer = (state = defaultState, action) => {
             return {
                 ...state,
                 isMini: data
+            };
+        case "GIFT_MSG_ACTION":
+            return {
+                ...state,
+                giftMsgs: data
+            };
+        case "GET_LIVE_CDN_URL_ACTION":
+            return {
+                ...state,
+                liveCdnUrl: data
             };
         default:
             break;

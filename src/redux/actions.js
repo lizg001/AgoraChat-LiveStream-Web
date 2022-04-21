@@ -18,3 +18,12 @@ export const roomAllowedAction = (data) => {
 export const miniRoomInfoAction = (data) => {
     return { type: 'MINI_ROOM_INFO_ACTION', data };
 }
+
+export const giftMsgAction = (data) => {
+    return { type: 'GIFT_MSG_ACTION', data };
+}
+
+export const getLiveCdnUrlAction = (data) => {
+    return { type: 'GET_LIVE_CDN_URL_ACTION', data };
+
+}

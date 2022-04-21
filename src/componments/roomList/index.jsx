@@ -5,8 +5,8 @@ import { makeStyles } from "@material-ui/core/styles";
 import { EaseApp } from 'chat-uikit-live';
 import i18next from "i18next";
 import { joinRoom } from '../../api/room'
-import aaa from '../../assets/images/aaa.png'
-import { padding } from '@mui/system';
+import { getLiveCdnUrl, getLiveRoomInfo } from '../../api/liveCdn'
+import defaultImg from '../../assets/gift/six.png'
 const useStyles = makeStyles((theme) => {
     return {
         root: {
@@ -29,14 +29,24 @@ const useStyles = makeStyles((theme) => {
             display: "flex",
             width: "100%",
             overflowX: "scroll",
+            marginTop: "10px",
             cursor: "pointer"
         },
-        itemLeft: {
-            paddingLeft: "5px"
-        },
         itemStyle: {
-            width: "225px",
-            height: "225px"
+            // width: "200px",
+            // height: "200px",
+            marginLeft: "10px",
+            borderRadius: "16px",
+            border: "1px solid"
+        },
+        liveImgStyle: {
+            width: "180px",
+            height: "180px",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center"
+            // borderRadius: "16px",
+            // border: "1px solid",
         },
         textStyle: {
             fontFamily: "Roboto",
@@ -62,8 +72,10 @@ const RoomList = () => {
         };
         EaseApp.addConversationItem(session);
     };
-    const handleJoinRoom = (roomId) => {
-        joinRoom(roomId, addSessionItem)
+    const handleJoinRoom = (liveroomId) => {
+        joinRoom(liveroomId, addSessionItem);
+        getLiveCdnUrl(liveroomId);
+        // getLiveRoomInfo(liveroomId)
     }
 
     const handleValueChange = (e) => {
@@ -83,11 +95,11 @@ const RoomList = () => {
             </Box>
             <Box className={classes.roomBox}>
                 {roomsLength && roomList.map((item, i) => {
+                    console.log('item>>>',item);
+                    let { cover, description, id, name } = item
                     return (
-                        <Box key={i} className={classes.itemLeft} onClick={() => handleJoinRoom(item.id)}>
-                            <Box className={classes.itemStyle}>
-                                {item.name}
-                            </Box>
+                        <Box key={i} className={classes.itemStyle} onClick={() => handleJoinRoom(id)}>
+                            <img src={cover || defaultImg} alt="" className={classes.liveImgStyle} />
                         </Box>
                     )
                 })}

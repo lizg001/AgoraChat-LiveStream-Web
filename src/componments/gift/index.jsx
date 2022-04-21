@@ -1,8 +1,9 @@
-import React, { memo } from 'react'
-import { GiftsAry } from './renderGifts'
+import React, { useState,memo } from 'react'
 import { Box, Typography } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import i18next from "i18next";
+import { GiftsAry } from './renderGifts'
+import SendGifts from './sendGift'
 
 const useStyles = makeStyles((theme) => {
 	return {
@@ -33,7 +34,8 @@ const useStyles = makeStyles((theme) => {
 			width: "68px",
 			height: "72px",
 			padding: "3px",
-			borderRadius:"12px"
+			borderRadius:"12px",
+			cursor:"pointer"
 		},
 		giftImg: {
 			width: "52px",
@@ -60,6 +62,15 @@ const useStyles = makeStyles((theme) => {
 });
 const Gift = () => {
 	const classes = useStyles();
+	const [selectGift, setSelectGift] = useState({})
+	const [anchorEl, setAnchorEl] = useState(null)
+	const handleGiftClick = (e,item) => {
+		setAnchorEl(e.currentTarget);
+		setSelectGift(item);
+	}
+	const handleCloseGift = () => {
+		setAnchorEl(null)
+	}
 	return (
 		<Box className={classes.root}>
 			<Typography className={classes.textStyle}>{i18next.t("Gifts")}</Typography>
@@ -68,7 +79,7 @@ const Gift = () => {
 					(GiftsAry.map).map((item, i) => {
 						let { giftImg, goldCoins, price } = item;
 						return (
-							<Box className={classes.giftStyle} key={i}>
+							<Box className={classes.giftStyle} key={i} onClick={(e) => handleGiftClick(e,item)}>
 								<img
 									className={classes.giftImg}
 									src={require(`../../assets/gift/${giftImg}`)}
@@ -84,10 +95,10 @@ const Gift = () => {
 								</Box>
 							</Box>
 						)
-
 					})
 				}
 			</Box>
+			<SendGifts open={anchorEl} onClose={handleCloseGift} selectGift={selectGift}></SendGifts>
 		</Box>
 	)
 }

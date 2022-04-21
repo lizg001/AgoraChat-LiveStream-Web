@@ -1,13 +1,13 @@
 import WebIM from "./WebIM";
 import i18next from "i18next";
 import { updateUserInfo } from '../api/userInfo'
-import { getJoinedRoom } from '../api/room'
+import { getLiverooms } from '../api/liveCdn'
 const initListen = () => {
 	WebIM.conn.listen({
 		onOpened: () => {
 			console.log('login succes>>>');
 			updateUserInfo();
-			getJoinedRoom();
+			getLiverooms();
 		},
 		onClosed: () => {
 		},
