@@ -17,7 +17,6 @@ import unionIcon from './assets/images/union.png'
 const useStyles = makeStyles((theme) => {
 	return {
 		root: {
-			textAlign: "center",
 			backgroundColor: "#292929",
 			overflow: "hidden"
 		},

@@ -91,7 +91,6 @@ const InfoSetting = () => {
     }
 
     const handleGenderChange = (e) => {
-        console.log('e>>>',e);
         setGenderValue(e.target.value);
     }
 

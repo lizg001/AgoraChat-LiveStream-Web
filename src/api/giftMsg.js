@@ -5,20 +5,20 @@ import { giftMsgAction } from '../redux/actions'
 export const sendGiftsMsg = (giftImg, name, inputValue, onClose) => {
     let currentUser = WebIM.conn.context.userId;
     let roomId = store.getState().roomInfo?.id
-    var id = WebIM.conn.getUniqueId();                 // 生成本地消息id
-    var msg = new WebIM.message('custom', id);   // 创建自定义消息
-    var customEvent = "customEvent";             // 创建自定义事件
+    var id = WebIM.conn.getUniqueId();         
+    var msg = new WebIM.message('custom', id);   
+    var customEvent = "customEvent";            
     var customExts = {
         name,
         inputValue,
         giftImg: `../assets/gift/${giftImg}`
-    };                         // 消息内容，key/value 需要 string 类型
+    };                        
     msg.set({
-        to: roomId,                          // 接收消息对象（用户id）
+        to: roomId,                        
         customEvent,
         customExts,
         form: currentUser,
-        ext: {},                                  // 消息扩展
+        ext: {},                                 
         chatType: 'chatRoom',               
         success: function (id, serverMsgId) {
             console.log('id,serverMsgId', id, serverMsgId);

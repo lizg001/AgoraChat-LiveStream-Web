@@ -1,4 +1,5 @@
-import React, { useState, memo } from 'react'
+import React, { useState,useEffect, memo } from 'react'
+import { useSelector } from 'react-redux'
 import { Box, Typography, InputBase } from "@material-ui/core";
 import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
@@ -46,6 +47,13 @@ const useStyles = makeStyles((theme) => {
         tabStyle: {
             color: "#FFFFFF"
         },
+        menusBox: {
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            width: '100%',
+            cursor: 'pointer',
+        },
         textStyle: {
             textTransform: "none",
             fontFamily: "Roboto",
@@ -53,8 +61,7 @@ const useStyles = makeStyles((theme) => {
             fontWeight: "600",
             lineHeight: "22px",
             letterSpacing: "0px",
-            textAlign: "center",
-            color: "#FFFFFF"
+            color: "#FFFFFF40",
         },
         iconBox:{
             display: "flex",
@@ -100,9 +107,66 @@ const useStyles = makeStyles((theme) => {
 
 const RoomInfo = () => {
     const classes = useStyles();
-    const [value, setValue] = useState(1);
+    const [value, setValue] = useState(0);
     const [showSearch, setShowSearch] = useState(false);
-    const [searchValue, setSearchValue] = useState(false);
+    const [searchValue, setSearchValue] = useState("");
+    const [roomMembers, setRoomMembers] = useState([]);
+    const [searchMembers, setSearchMembers] = useState([]);
+    const memberList = useSelector(state => state?.roomInfo.affiliations);
+    let searchMembersLength = searchValue.length > 0;
+    let exportMembers = searchMembersLength ? searchMembers : roomMembers;
+    useEffect(() => {
+        let membersAry = [];
+        if (memberList) {
+            memberList.length > 0 && memberList.forEach((item) => {
+                if (item.owner) return;
+                membersAry.push(item.member);
+            });
+            setRoomMembers(membersAry);
+        }
+    }, [memberList])
+    
+
+
+
+    const roomTabs = {
+        all: () => {
+            return (
+                <Box className={classes.menusBox}>
+                    <Typography className={classes.textStyle}>{i18next.t('All')}</Typography>
+                </Box>
+            )
+        },
+        moderators: () => {
+            return (
+                <Box className={classes.menusBox}>
+                    <Typography className={classes.textStyle}>{i18next.t('Moderators')}</Typography>
+                </Box>
+            )
+        },
+        allowed: () => {
+            return (
+                <Box className={classes.menusBox}>
+                    <Typography className={classes.textStyle}>{i18next.t('Allowed')}</Typography>
+                </Box>
+            )
+        },
+        muted: () => {
+            return (
+                <Box className={classes.menusBox}>
+                    <Typography className={classes.textStyle}>{i18next.t('Muted')}</Typography>
+                </Box>
+            )
+        },
+        ban: () => {
+            return (
+                <Box className={classes.menusBox}>
+                    <Typography className={classes.textStyle}>{i18next.t('Ban')}</Typography>
+                </Box>
+            )
+        },
+
+    }
 
     const handleChange = (event, newValue) => {
         setValue(newValue);
@@ -110,6 +174,8 @@ const RoomInfo = () => {
 
     const handleChengeValue = (e) => {
         setSearchValue(e.target.value);
+        setSearchMembers(roomMembers.filter((v) => v.includes(searchValue)));
+
     };
 
     const handleSearch = () => {
@@ -124,6 +190,7 @@ const RoomInfo = () => {
         console.log('aaa');
         store.dispatch(miniRoomInfoAction(true))
     }
+
 
     return (
         <Box className={classes.root}>
@@ -161,15 +228,15 @@ const RoomInfo = () => {
                     aria-label="scrollable force tabs example"
                     className={classes.tabStyle}
                 >
-                    <Tab label={i18next.t('All')} {...a11yProps(0)} className={classes.textStyle} />
-                    <Tab label={i18next.t('Moderators')} {...a11yProps(1)} className={classes.textStyle} />
-                    <Tab label={i18next.t('Allowed')} {...a11yProps(2)} className={classes.textStyle} />
-                    <Tab label={i18next.t('Muted')} {...a11yProps(3)} className={classes.textStyle} />
-                    <Tab label={i18next.t('Ban')} {...a11yProps(4)} className={classes.textStyle} />
+                    <Tab label={roomTabs.all()} {...a11yProps(0)} />
+                    <Tab label={roomTabs.moderators()} {...a11yProps(1)}  />
+                    <Tab label={roomTabs.allowed()} {...a11yProps(2)} />
+                    <Tab label={roomTabs.muted()} {...a11yProps(3)} />
+                    <Tab label={roomTabs.ban()} {...a11yProps(4)} />
 
                 </Tabs>
                 <TabPanel value={value} index={0} >
-                    <Members />
+                    <Members roomMembers={exportMembers}/>
                 </TabPanel>
                 <TabPanel value={value} index={1} >
                     <Moderators />

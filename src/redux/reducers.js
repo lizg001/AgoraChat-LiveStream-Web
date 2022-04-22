@@ -2,8 +2,11 @@
 let defaultState = {
     userInfo: {},
     rooms:[],
-    roomInfo:{},
-    roomAllowed:[],
+    roomInfo: {},
+    roomAdmins: [],
+    roomAllowed: [],
+    roomMuted:[],
+    roomBans:[],
     isMini: false,
     giftMsgs:{},
     liveCdnUrl:""
@@ -27,10 +30,25 @@ const reducer = (state = defaultState, action) => {
                 ...state,
                 roomInfo:data
             };
-        case "roomAllowedAction":
+        case "ROOM_ADMMINS_ACTION":
+            return {
+                ...state,
+                roomAdmins: data
+            };
+        case "ROOM_ALLOWED_ACTION":
             return {
                 ...state,
                 roomAllowed: data
+            };
+        case "ROOM_MUTED_ACTION":
+            return {
+                ...state,
+                roomMuted: data
+            };
+        case "ROOM_BAN_ACTION":
+            return {
+                ...state,
+                roomBans: data
             };
         case "MINI_ROOM_INFO_ACTION":
             return {

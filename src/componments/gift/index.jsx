@@ -35,6 +35,7 @@ const useStyles = makeStyles((theme) => {
 			height: "72px",
 			padding: "3px",
 			borderRadius:"12px",
+			textAlign:"center",
 			cursor:"pointer"
 		},
 		giftImg: {

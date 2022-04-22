@@ -1,6 +1,6 @@
 import React, { useState,memo } from "react";
 import { makeStyles } from "@material-ui/core/styles";
-import { Popover, Box, Typography, InputBase, Button } from "@material-ui/core";
+import { Popover, Box, Typography, InputBase } from "@material-ui/core";
 import i18next from "i18next";
 import { sendGiftsMsg } from '.././../api/giftMsg'
 import goldIcon from '../../assets/gift/gold.png'
@@ -167,7 +167,7 @@ const SenfGifts = ({ open, onClose, selectGift }) => {
                     <Box className={classes.btnStyle}>
                         <Typography 
                             className={classes.sendTextStyle} 
-                            onClick={() => sendGiftsMsg(giftImg, name, inputValue,onClose)}>
+                            onClick={() => sendGiftsMsg(giftImg, name, inputValue, onClose)}>
                                 {i18next.t('Send')}
                             </Typography>
                     </Box>

@@ -1,17 +1,18 @@
-import React, { memo, useState } from 'react'
+import React, { memo } from 'react'
 import { useSelector } from 'react-redux'
-import { Box, Avatar, Typography, InputBase } from "@material-ui/core";
+import { Box, Typography, InputBase } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import { EaseApp } from 'chat-uikit-live';
 import i18next from "i18next";
 import { joinRoom } from '../../api/room'
-import { getLiveCdnUrl, getLiveRoomInfo } from '../../api/liveCdn'
+import { getLiveCdnUrl } from '../../api/liveCdn'
 import defaultImg from '../../assets/gift/six.png'
 const useStyles = makeStyles((theme) => {
     return {
         root: {
             overflow: "hidden",
-            background: "#292929"
+            // background: "#292929",
+            padding:" 20px 0"
         },
         titleBox: {
             display: "flex",
@@ -95,7 +96,6 @@ const RoomList = () => {
             </Box>
             <Box className={classes.roomBox}>
                 {roomsLength && roomList.map((item, i) => {
-                    console.log('item>>>',item);
                     let { cover, description, id, name } = item
                     return (
                         <Box key={i} className={classes.itemStyle} onClick={() => handleJoinRoom(id)}>

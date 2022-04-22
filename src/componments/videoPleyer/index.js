@@ -9,7 +9,10 @@ import video from '../../assets/images/video.png'
 import defaultAvatar from '../../assets/images/panda.jpg'
 const useStyles = makeStyles((theme) => {
     return {
-
+        videoBox:{
+            width: "300px !important",
+            height: "420px !important"
+        }
     }
 });
 const VideoPlayer = () => {
@@ -20,9 +23,7 @@ const VideoPlayer = () => {
     return (
         <Box >
             <Box>
-                {/* <img src={video} alt="" style={{ height: '400px' }} /> */}
-                <ReactPlayer controls url={liveCdnUrl} autoplay />
-                {/* <video src={liveCdnUrl} autoplay controls></video> */}
+                <ReactPlayer controls url={liveCdnUrl} autoPlay className={classes.videoBox}/>
             </Box>
             {/* <Box>
                 {isGiftMsg && Object.keys(giftMsgs).map((item,i) => {

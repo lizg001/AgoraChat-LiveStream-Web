@@ -1,13 +1,13 @@
-import React, { memo } from 'react'
-import { useSelector } from 'react-redux'
+import React, { useState, memo } from 'react'
 import { makeStyles } from "@material-ui/core/styles";
 import { Box, List, ListItem, ListItemText, Avatar } from "@material-ui/core";
 import ListItemButton from '@mui/material/ListItemButton';
-
-import i18next from "i18next";
+import Menus from './menus'
+// import i18next from "i18next";
+import WebIM from '../../../utils/WebIM'
 
 import acarat from '../../../assets/images/subtractLive.png'
-import { color, height } from '@mui/system';
+import menusIcon from '../../../assets/images/menu.png'
 const useStyles = makeStyles((theme) => {
     return {
         root: {
@@ -21,38 +21,73 @@ const useStyles = makeStyles((theme) => {
         listBox: {
             overflowY: "scroll",
             overflowX: "hidden",
-            height: "100%"
+            height: "100%",
+            cursor: "pointer"
+        },
+        listItem: {
+            height: "54px",
+            width: "100%",
+            borderRadius: "12px",
+            background: (props) => (props.hideMenus ? "#393939" : ""),
+            display: "flex",
+            justifyContent: "space-between",
         },
         memberStyle: {
-            paddingLeft: "10px",
+            display: "flex",
+            alignItems: "center"
+        },
+        memberTextStyle: {
+            paddingLeft: "5px",
             fontFamily: "Roboto",
-            fontsize: "14px",
+            fontSize: "14px",
             fontWeight: "500",
             lineHeight: "18px",
             letterSpacing: "0px",
-            textAlign: "left",
-            color:"#FFFFFF"
+            color: "#FFFFFF",
+        },
+        menuStyle: {
+            cursor: "pointer"
         }
     }
 });
-const Members = () => {
-    const classes = useStyles();
-
-    const memberList = useSelector(state => state?.roomInfo.affiliations) || [];
-    console.log('memberList>>>', memberList);
+const Members = ({ roomMembers }) => {
+    const [hideMenus, setHideMenus] = useState(false)
+    const [anchorEl, setAnchorEl] = useState(null);
+    const [selectUserId, setSelectUserId] = useState("")
+    const classes = useStyles(
+        hideMenus,
+    );
+    let currentLoginUser = WebIM.conn.context.userId || "";
+    const handleMenus = (e,item) => {
+        setAnchorEl(e.currentTarget);
+        setSelectUserId(item)
+    }
+    const handleMenusClose = () => {
+        setAnchorEl(null);
+    };
     return (
         <Box className={classes.root}>
-            {memberList.length > 0 && memberList.map((item, i) => {
-                return (
-                    <List>
-                        <ListItem disablePadding>
+            <List
+                className={classes.listBox}
+                onMouseOver={() => { setHideMenus(true) }}
+                onMouseLeave={() => { setHideMenus(false) }}
+            >
+                {roomMembers.length > 0 && roomMembers.map((item, i) => {
+                    let mySelf = currentLoginUser === item
+                    return <ListItem className={classes.listItem} key={i}>
+                        <Box className={classes.memberStyle}>
                             <Avatar src={acarat} className={classes.acaratStyle}></Avatar>
                             <ListItemButton>
-                                <ListItemText primary={item.member} className={classes.memberStyle} />
+                                <ListItemText primary={item} className={classes.memberTextStyle} />
                             </ListItemButton>
-                        </ListItem>
-                    </List>)
-            })}
+                        </Box>
+                        {!mySelf &&  <Box className={classes.menuStyle} onClick={(e) => handleMenus(e,item)}>
+                            <img src={menusIcon} alt="" />
+                        </Box>}
+                    </ListItem>
+                })}
+            </List>
+            <Menus open={anchorEl} onClose={handleMenusClose} selectUserId={selectUserId} />
         </Box>
     )
 }

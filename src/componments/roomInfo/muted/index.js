@@ -3,40 +3,26 @@ import { useSelector } from 'react-redux'
 import { makeStyles } from "@material-ui/core/styles";
 import { Box } from "@material-ui/core";
 
-import i18next from "i18next";
+// import i18next from "i18next";
 
 const useStyles = makeStyles((theme) => {
     return {
         root: {
-            overflow: "hidden",
-            height: "426px"
+            
         },
-        acaratStyle: {
-            width: "24px",
-            height: "24px"
-        },
-        listBox: {
-            overflowY: "scroll",
-            overflowX: "hidden",
-            height: "100%"
-        },
-        memberStyle: {
-            paddingLeft: "10px",
-            fontFamily: "Roboto",
-            fontsize: "14px",
-            fontWeight: "500",
-            lineHeight: "18px",
-            letterSpacing: "0px",
-            textAlign: "left",
-            color: "#FFFFFF"
-        }
     }
 });
 const Muted = () => {
     const classes = useStyles();
-    const memberList = useSelector(state => state?.roomInfo.affiliations) || [];
+    const memberMuteList = useSelector(state => state?.roomBans) || [];
     return (
-        <div>暂无数据</div>
+        <Box className={classes.root}>
+            {
+                memberMuteList.length > 0 ? memberMuteList.map((item, i) => {
+                    return <Box key={i}>{item}</Box>
+                }) : <>暂无数据</>
+            }
+        </Box>
     )
 }
 export default memo(Muted);
