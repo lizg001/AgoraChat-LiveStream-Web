@@ -6,13 +6,14 @@ import { EaseApp } from 'chat-uikit-live';
 import i18next from "i18next";
 import { joinRoom } from '../../api/room'
 import { getLiveCdnUrl } from '../../api/liveCdn'
-import defaultImg from '../../assets/gift/six.png'
+import defaultImg from '../../assets/images/cat-cute.png'
+import lrsImg from '../../assets/images/lrs.png'
 const useStyles = makeStyles((theme) => {
     return {
         root: {
             overflow: "hidden",
             // background: "#292929",
-            padding:" 20px 0"
+            padding: " 20px 0"
         },
         titleBox: {
             display: "flex",
@@ -34,8 +35,9 @@ const useStyles = makeStyles((theme) => {
             cursor: "pointer"
         },
         itemStyle: {
-            // width: "200px",
-            // height: "200px",
+            position: "relative",
+            height: "180px",
+            width: "180px",
             marginLeft: "10px",
             borderRadius: "16px",
             border: "1px solid"
@@ -57,6 +59,38 @@ const useStyles = makeStyles((theme) => {
             letterSpacing: "0px",
             textAlign: "left",
             color: "#FFFFFF"
+        },
+        lrsInfoBox: {
+            position: "absolute",
+            bottom: "10px",
+            left: "10px"
+        },
+        nameStyle: {
+            fontFamily: "Roboto",
+            fontSize: "16px",
+            fontWeight: "600",
+            lineHeight: "20px",
+            letterSpacing: "0em",
+            textAlign: "left",
+            color: "#FFFFFF"
+        },
+        lrsBox: {
+            display: "flex",
+            alignItems: "center"
+        },
+        lrsNameStyle: {
+            fontFamily: "Roboto",
+            fontSize: "12px",
+            fontWeight: "400",
+            lineHeight: "16px",
+            letterSpacing: "0em",
+            textAlign: "left",
+            color: "#FFFFFF",
+            width: "120px",
+            textOverflow: "ellipsis",
+            overflow: "hidden",
+            whiteSpace: "nowrap",
+            marginLeft: "10px"
         }
     }
 });
@@ -96,10 +130,17 @@ const RoomList = () => {
             </Box>
             <Box className={classes.roomBox}>
                 {roomsLength && roomList.map((item, i) => {
-                    let { cover, description, id, name } = item
+                    let { cover, id, name, owner } = item
                     return (
                         <Box key={i} className={classes.itemStyle} onClick={() => handleJoinRoom(id)}>
                             <img src={cover || defaultImg} alt="" className={classes.liveImgStyle} />
+                            <Box className={classes.lrsInfoBox}>
+                                <Typography className={classes.nameStyle}>{name}</Typography>
+                                <Box className={classes.lrsBox}>
+                                    <img src={lrsImg} alt="" />
+                                    <Typography className={classes.lrsNameStyle}>{owner}</Typography>
+                                </Box>
+                            </Box>
                         </Box>
                     )
                 })}

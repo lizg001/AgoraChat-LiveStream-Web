@@ -1,7 +1,7 @@
 import React, { useState, memo } from 'react'
 import { makeStyles } from "@material-ui/core/styles";
-import { Box, List, ListItem, ListItemText, Avatar } from "@material-ui/core";
-import ListItemButton from '@mui/material/ListItemButton';
+import { Box, List, ListItem, ListItemText, Avatar, Button, Typography } from "@material-ui/core";
+// import ListItemButton from '@mui/material/ListItemButton';
 import Menus from './menus'
 // import i18next from "i18next";
 import WebIM from '../../../utils/WebIM'
@@ -44,6 +44,12 @@ const useStyles = makeStyles((theme) => {
             lineHeight: "18px",
             letterSpacing: "0px",
             color: "#FFFFFF",
+            width: "180px",
+            textOverflow: "ellipsis",
+            overflow: "hidden",
+            whiteSpace: "nowrap",
+            textAlign: "left",
+            textTransform: "none"
         },
         menuStyle: {
             cursor: "pointer"
@@ -58,7 +64,7 @@ const Members = ({ roomMembers }) => {
         hideMenus,
     );
     let currentLoginUser = WebIM.conn.context.userId || "";
-    const handleMenus = (e,item) => {
+    const handleMenus = (e, item) => {
         setAnchorEl(e.currentTarget);
         setSelectUserId(item)
     }
@@ -67,26 +73,24 @@ const Members = ({ roomMembers }) => {
     };
     return (
         <Box className={classes.root}>
-            <List
+            <Box
                 className={classes.listBox}
                 onMouseOver={() => { setHideMenus(true) }}
                 onMouseLeave={() => { setHideMenus(false) }}
             >
                 {roomMembers.length > 0 && roomMembers.map((item, i) => {
                     let mySelf = currentLoginUser === item
-                    return <ListItem className={classes.listItem} key={i}>
+                    return <Button className={classes.listItem} key={i}>
                         <Box className={classes.memberStyle}>
                             <Avatar src={acarat} className={classes.acaratStyle}></Avatar>
-                            <ListItemButton>
-                                <ListItemText primary={item} className={classes.memberTextStyle} />
-                            </ListItemButton>
+                            <Typography className={classes.memberTextStyle} >{item}</Typography>
                         </Box>
-                        {!mySelf &&  <Box className={classes.menuStyle} onClick={(e) => handleMenus(e,item)}>
+                        {!mySelf && <Box className={classes.menuStyle} onClick={(e) => handleMenus(e, item)}>
                             <img src={menusIcon} alt="" />
                         </Box>}
-                    </ListItem>
+                    </Button>
                 })}
-            </List>
+            </Box>
             <Menus open={anchorEl} onClose={handleMenusClose} selectUserId={selectUserId} />
         </Box>
     )

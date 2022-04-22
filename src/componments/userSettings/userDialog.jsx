@@ -7,7 +7,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
 import { TabPanel, a11yProps } from "../common/tab";
 import InfoSetting from './info'
-import userAcatar from '../../assets/images/cat-cute.jpg'
+import userAcatar from '../../assets/images/cat-cute.png'
 import infoIcon from '../../assets/images/info.png'
 const useStyles = makeStyles((theme) => {
     return ({

@@ -6,7 +6,7 @@ import ReactPlayer from 'react-player'
 
 
 import video from '../../assets/images/video.png'
-import defaultAvatar from '../../assets/images/panda.jpg'
+import defaultAvatar from '../../assets/images/panda.png'
 const useStyles = makeStyles((theme) => {
     return {
         videoBox:{
