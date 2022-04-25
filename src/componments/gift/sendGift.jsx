@@ -105,8 +105,9 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const SenfGifts = ({ open, onClose, selectGift }) => {
+    console.log('selectGift>>>',selectGift);
     const classes = useStyles();
-    let { giftImg, goldCoins, name, price } = selectGift;
+    let { gift_id, gift_img, gift_name, gift_price, goldCoins } = selectGift;
     const [inputValue, setInputValue] = useState(1)
     const handleInputBaseValue = (e) => {
         let value = e.target.value;
@@ -131,19 +132,19 @@ const SenfGifts = ({ open, onClose, selectGift }) => {
             <Box className={classes.root}>
                 <Box className={classes.giftBox}>
                     <Box className={classes.giftStyle}>
-                        <img src={giftImg ? require(`../../assets/gift/${giftImg}`) : heartIcon}
+                        <img src={gift_img ? require(`../../assets/gift/${gift_img}`) : heartIcon}
                             alt=""
                             className={classes.giftImg} />
                     </Box>
                     <Box className={classes.giftInfo}>
-                        <Typography className={classes.giftNameStyle}>{name}</Typography>
+                        <Typography className={classes.giftNameStyle}>{gift_name}</Typography>
                         <Box className={classes.giftPriceBox}>
                             <img
                                 className={classes.priceImg}
                                 src={goldCoins ? require(`../../assets/gift/${goldCoins}`) : goldIcon}
                                 alt=""
                             />
-                            <Typography className={classes.priceText} >{price}</Typography>
+                            <Typography className={classes.priceText} >{gift_price}</Typography>
                         </Box>
                         <InputBase 
                             type="number" 
@@ -167,7 +168,7 @@ const SenfGifts = ({ open, onClose, selectGift }) => {
                     <Box className={classes.btnStyle}>
                         <Typography 
                             className={classes.sendTextStyle} 
-                            onClick={() => sendGiftsMsg(giftImg, name, inputValue, onClose)}>
+                            onClick={() => sendGiftsMsg(gift_id, gift_img, gift_name, inputValue, onClose)}>
                                 {i18next.t('Send')}
                             </Typography>
                     </Box>

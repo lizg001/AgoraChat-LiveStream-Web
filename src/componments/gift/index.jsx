@@ -78,12 +78,12 @@ const Gift = () => {
 			<Box className={classes.giftBox}>
 				{
 					(GiftsAry.map).map((item, i) => {
-						let { giftImg, goldCoins, price } = item;
+						let { gift_img, goldCoins, gift_price } = item;
 						return (
 							<Box className={classes.giftStyle} key={i} onClick={(e) => handleGiftClick(e,item)}>
 								<img
 									className={classes.giftImg}
-									src={require(`../../assets/gift/${giftImg}`)}
+									src={require(`../../assets/gift/${gift_img}`)}
 									alt=""
 								/>
 								<Box className={classes.priceBox}>
@@ -92,7 +92,7 @@ const Gift = () => {
 										src={require(`../../assets/gift/${goldCoins}`)}
 										alt=""
 									/>
-									<Typography className={classes.priceText} >{price}</Typography>
+									<Typography className={classes.priceText} >{gift_price}</Typography>
 								</Box>
 							</Box>
 						)

@@ -2,6 +2,8 @@ import WebIM from "./WebIM";
 import i18next from "i18next";
 import { updateUserInfo } from '../api/userInfo'
 import { getLiverooms } from '../api/liveCdn'
+import store from '../redux/store'
+import { giftMsgAction } from '../redux/actions'
 const initListen = () => {
 	WebIM.conn.listen({
 		onOpened: () => {
@@ -21,6 +23,9 @@ const initListen = () => {
 			console.log("onContactInvited", msg);
 		},
 
+		onCustomMessage: (msg) => {
+			store.dispatch(giftMsgAction(msg))
+		},
 		onTokenWillExpire: () => {
 			
 		},

@@ -3,54 +3,116 @@ import { useSelector } from 'react-redux'
 import { Box, Avatar, Typography, InputBase } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import ReactPlayer from 'react-player'
-
-
-import video from '../../assets/images/video.png'
+import WebIM from '../../utils/WebIM'
+import store from '../../redux/store'
+import { clearGigtMsgAction } from '../../redux/actions'
 import defaultAvatar from '../../assets/images/panda.png'
 const useStyles = makeStyles((theme) => {
     return {
-        videoBox:{
+        videoBox: {
             width: "300px !important",
             height: "420px !important"
+        },
+        giftBox: {
+            height: "100px",
+            position: "absolute",
+            bottom: "30px",
+            left: "20px",
+        },
+        giftMsgStyle: {
+            height: "36px",
+            borderRadius: "30px",
+            display: "flex",
+            marginTop: "15px"
+        },
+        userBox: {
+            marginLeft: "8px"
+        },
+        giftUserStyle: {
+            fontFamily: "Roboto",
+            fontSize: "14px",
+            fontWeight: "500",
+            lineHeight: "18px",
+            letterSpacing: "0.15px",
+            textAlign: "left",
+            color: "#FFFFFF"
+        },
+        giftNameStyle: {
+            fontFamily: "Roboto",
+            fontSize: "12px",
+            fontWeight: "400",
+            lineHeight: "14px",
+            letterSpacing: "0.15px",
+            textAlign: "left",
+            color: "#FFFFFFBD"
+        },
+        giftImg: {
+            width: "32px",
+            height: "32px",
+            marginLeft: "8px",
+        },
+        giftNumberStyle: {
+            fontFamily: "Roboto",
+            fontSize: "24px",
+            fontStyle: "italic",
+            fontWeight: "900",
+            lineHeight: "32px",
+            letterSpacing: "0.15px",
+            textAlign: "left",
+            color: "#FFFFFF",
+            marginLeft: "8px"
         }
     }
 });
 const VideoPlayer = () => {
     const classes = useStyles();
     const liveCdnUrl = useSelector(state => state?.liveCdnUrl) || "https://127.0.0.1";
-    const giftMsgs = useSelector(state => state?.giftMsgs) || {};
+    const giftMsgs = useSelector(state => state?.giftMsgs) || [];
     let isGiftMsg = Object.keys(giftMsgs).length > 0;
+    let currentLoginUser = WebIM.conn.context.userId;
+
+    const clearGigtMsg = (id) => {
+        let timerId = id;
+        timerId = setInterval(() => {
+            store.dispatch(clearGigtMsgAction(id));
+            clearInterval(timerId);
+        }, 3000);
+    }
     return (
-        <Box >
+        <Box style={{ position: "relative" }} >
             <Box>
-                <ReactPlayer controls url={liveCdnUrl} autoPlay className={classes.videoBox}/>
+                <ReactPlayer
+                    url={liveCdnUrl}
+                    className={classes.videoBox}
+                    playing={true}
+                />
             </Box>
-            {/* <Box>
-                {isGiftMsg && Object.keys(giftMsgs).map((item,i) => {
-                    console.log('item>>>',item);
+            <Box className={classes.giftBox}>
+                {isGiftMsg && giftMsgs.map((item, i) => {
+                    let { id, ext, from } = item;
+                    let { gift_img, gift_name, gift_num } = ext;
+                    clearGigtMsg(id);
                     return (
-                        <Box>
+                        <Box k={i} className={classes.giftMsgStyle}>
                             <Box>
                                 <Avatar src={defaultAvatar} ></Avatar>
                             </Box>
-                            <Box>
-                                <Typography>AAA</Typography>
+                            <Box className={classes.userBox}>
+                                <Typography className={classes.giftUserStyle}>{from ? from : currentLoginUser}</Typography>
+                                <Typography className={classes.giftNameStyle}>{gift_name}</Typography>
                             </Box>
+                            <img
+                                className={classes.giftImg}
+                                src={require(`../../assets/gift/${gift_img}`)}
+                                alt=""
+                            />
                             <Box>
-                                <img
-                                    className={classes.priceImg}
-                                    src="../../assets/gift/pinkHeart.png"
-                                    // src={goldCoins ? require(`../../assets/gift/${goldCoins}`) : goldIcon}
-                                    alt=""
-                                />
-                            </Box>
-                            <Box>
-                                <Typography>x99</Typography>
+                                <Typography className={classes.giftNumberStyle}>{`x${gift_num}`}</Typography>
                             </Box>
                         </Box>
                     )
                 })}
-            </Box> */}
+            </Box>
         </Box>
     )
 }

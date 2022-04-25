@@ -9,7 +9,7 @@ export const updateUserInfo = () => {
     let options = {
         nickname: '',
         avatarurl: defaultAvatarUrl,
-        gender: 'female',
+        gender: 1,
         birth: '2000-01-01'
     }
     WebIM.conn.updateOwnUserInfo(options).then((res) => {

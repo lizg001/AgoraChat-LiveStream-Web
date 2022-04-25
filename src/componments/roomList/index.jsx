@@ -102,7 +102,7 @@ const RoomList = () => {
 
     const addSessionItem = (roomId) => {
         let session = {
-            conversationType: "groupChat",
+            conversationType: "chatRoom",
             conversationId: roomId,
         };
         EaseApp.addConversationItem(session);

@@ -8,7 +8,7 @@ let defaultState = {
     roomMuted:[],
     roomBans:[],
     isMini: false,
-    giftMsgs:{},
+    giftMsgs:[],
     liveCdnUrl:""
 };
 
@@ -56,9 +56,17 @@ const reducer = (state = defaultState, action) => {
                 isMini: data
             };
         case "GIFT_MSG_ACTION":
+            let giftMsgsAry = state.giftMsgs.concat(data)
             return {
                 ...state,
-                giftMsgs: data
+                giftMsgs: giftMsgsAry
+            };
+        case "CLEAR_GIFT_MSG_ACTION":
+            let newGiftMsgs = state.giftMsgs.filter(item => item.id === data)
+            console.log('newGiftMsgs>>>', newGiftMsgs);
+            return {
+                ...state,
+                giftMsgs: newGiftMsgs
             };
         case "GET_LIVE_CDN_URL_ACTION":
             return {

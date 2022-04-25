@@ -38,3 +38,7 @@ export const giftMsgAction = (data) => {
 export const getLiveCdnUrlAction = (data) => {
     return { type: 'GET_LIVE_CDN_URL_ACTION', data };
 }
+
+export const clearGigtMsgAction = (data) => {
+    return { type: 'CLEAR_GIFT_MSG_ACTION', data };
+}

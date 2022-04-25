@@ -10,8 +10,9 @@ export const joinRoom = (roomId, addSessionItem) => {
     }
     WebIM.conn.joinChatRoom(options).then((res) => {
         console.log('joinRoom>>>', res);
-        addSessionItem && addSessionItem(roomId);
         getRoomInfo(roomId);
+        addSessionItem && addSessionItem(roomId);
+        
     })
 };
 
