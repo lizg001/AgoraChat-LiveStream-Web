@@ -1,14 +1,16 @@
 
-import React, { useState, useEffect } from 'react'
+import React, { useState, useRef } from 'react'
+import { useSelector } from 'react-redux'
 import i18next from "i18next";
 import CommonDialog from '../common/dialog'
-import { Box, Tabs, Tab, Button, } from '@material-ui/core';
+import { Box, Tabs, Tab, Button, Avatar } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
 import { TabPanel, a11yProps } from "../common/tab";
 import InfoSetting from './info'
-import userAcatar from '../../assets/images/cat-cute.png'
+import userAvatar from '../../assets/images/cat-cute.png'
 import infoIcon from '../../assets/images/info.png'
+import editIcon from '../../assets/images/edit.png'
 const useStyles = makeStyles((theme) => {
     return ({
         root: {
@@ -30,12 +32,22 @@ const useStyles = makeStyles((theme) => {
         acatarBox: {
             display: "flex",
             justifyContent: "center",
-            padding: "30px 40px"
+            padding: "30px 40px",
+            position: "relative"
         },
         avatarStyle: {
             height: "100px",
             width: "100px",
-            borderRadius: "50px"
+            borderRadius: "50px",
+        },
+        editBox:{
+            position: "absolute",
+            top: "65px",
+            left: "115px",
+            cursor: "pointer"
+        },
+        editAvatarStyle:{
+            width: "24px",
         },
         menusText: {
             fontFamily: "Roboto",
@@ -60,11 +72,25 @@ const useStyles = makeStyles((theme) => {
 
 const UserDialog = ({ open, onClose }) => {
     const classes = useStyles();
-
+    const userInfo = useSelector(state => state?.userInfo) || {};
     const [value, setValue] = useState(0);
+    const [userAvatar, setUserAvatar] = useState(userInfo.avatarurl)
+    
+    const couterRef = useRef();
+    const handleAvatarChange = () => {
+        couterRef.current.focus();
+        couterRef.current.click();
+    };
+
     const handleChange = (event, newValue) => {
+        console.log('newValue>>>', newValue);
         setValue(newValue);
     };
+
+    const handleUserAvatarChange = (e) => {
+        console.log('e>>>',e);
+    }
+   
 
     const infoLabel = () => {
         return (
@@ -85,8 +111,21 @@ const UserDialog = ({ open, onClose }) => {
         return (
             <Box className={classes.userBox}>
                 <Box style={{ width: "30%" }}>
-                    <Box className={classes.acatarBox}>
-                        <img src={userAcatar} alt="" className={classes.avatarStyle} />
+                    <Box className={classes.acatarBox} onClick={handleAvatarChange}>
+                        <Avatar src={userAvatar} className={classes.avatarStyle}>
+                        </Avatar>
+                        <Box className={classes.editBox}>
+                            <img src={editIcon} alt="" className={classes.editAvatarStyle} />
+                            <input
+                                id="uploadImage"
+                                type="file"
+                                ref={couterRef}
+                                style={{
+                                    display: 'none',
+                                }}
+                                onChange={handleUserAvatarChange}
+                            />
+                        </Box>
                     </Box>
                     <Tabs
                         orientation="vertical"

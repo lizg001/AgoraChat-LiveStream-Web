@@ -1,7 +1,9 @@
 import React, { memo, useState } from 'react'
+import { useSelector } from 'react-redux'
 import { Box, InputBase, Typography, InputLabel, MenuItem, FormControl, Select } from "@material-ui/core";
 import { makeStyles } from '@material-ui/core/styles';
 import i18next from "i18next";
+import {updateUserInfo} from '../../../api/userInfo'
 
 const useStyles = makeStyles((theme) => {
     return {
@@ -39,9 +41,8 @@ const useStyles = makeStyles((theme) => {
             width: "100%",
             margin: "0 15px",
             padding:"0 15px",
-            color: "#FFFFFF",
             border: (props) => (props.nameEditStatus ? "" : "1px solid #FFFFFF") ,
-            borderRadius:"16px"
+            borderRadius:"16px",
         },
         editStyle: {
             fontFamily: " PingFang SC",
@@ -73,25 +74,32 @@ const useStyles = makeStyles((theme) => {
     };
 });
 const InfoSetting = () => {
-    
-    const [nameValue, setNameValue] = useState("");
+    const userInfo = useSelector(state => state?.userInfo) || {};
+    const [userAcatar, setUserAcatar] = useState(userInfo.avatarurl || "");
+    const [nameValue, setNameValue] = useState(userInfo.nickname || "");
     const [nameEditStatus, setNameEditStatus] = useState(true);
-    const [genderValue, setGenderValue] = useState(1);
-    const [value, setValue] = React.useState(new Date('2014-08-18T21:11:54'));
+    const [genderValue, setGenderValue] = useState(userInfo.gender);
+    // const [value, setValue] = React.useState(new Date('2014-08-18T21:11:54'));
 
-    const handleChange = (newValue) => {
-        setValue(newValue);
-    };
+    // const handleChange = (newValue) => {
+    //     setValue(newValue);
+    // };
     const classes = useStyles({
         nameEditStatus: nameEditStatus
     });
-
+ 
     const handleNameChange = (e) => {
         setNameValue(e.target.value)
     }
 
     const handleGenderChange = (e) => {
         setGenderValue(e.target.value);
+        updateUserInfo(userAcatar, nameValue, e.target.value)
+    }
+
+    const handleUpdateUserInfo = () => {
+        updateUserInfo(userAcatar, nameValue, genderValue)
+        setNameEditStatus(true);
     }
 
     const rendernameEditStatus = () => {
@@ -108,7 +116,7 @@ const InfoSetting = () => {
             ) : (
                 <Typography className={classes.doneStyle} 
                         onClick={() => {
-                            setNameEditStatus(true);
+                            handleUpdateUserInfo()
                         }}>
                     {i18next.t("Done")}
                 </Typography>
@@ -131,6 +139,13 @@ const InfoSetting = () => {
                         disabled={nameEditStatus}
                         onChange={handleNameChange}
                         className={classes.inputStyle}
+                        style={{
+                            fontFamily: "Roboto",
+                            fontSize: "16px",
+                            fontWeight: "600",
+                            lineHeight: "22px",
+                            color: "#FFFFFF",
+                        }}
                     />
                 </Box>
                 <Box>
