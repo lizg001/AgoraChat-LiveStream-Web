@@ -4,7 +4,7 @@ import store from '../redux/store'
 import { userInfoAction } from '../redux/actions'
 
 
-export const updateUserInfo = () => {
+export const updateUserInfo = (avatarUrl,nickName,gender) => {
     let defaultAvatarUrl = "https://download-sdk.oss-cn-beijing.aliyuncs.com/downloads/IMDemo/avatar/Image1.png"
     let options = {
         nickname: '',
