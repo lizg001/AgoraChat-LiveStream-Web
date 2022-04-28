@@ -1,4 +1,4 @@
-import React, { memo } from 'react'
+import React, { memo, useState } from 'react'
 import { useSelector } from 'react-redux'
 import { Box, Typography, InputBase } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
@@ -6,7 +6,7 @@ import { EaseApp } from 'chat-uikit-live';
 import i18next from "i18next";
 import { joinRoom } from '../../api/room'
 import { getLiveCdnUrl } from '../../api/liveCdn'
-import defaultImg from '../../assets/images/cat-cute.png'
+import { defaultLiveStreamUrl } from '../common/contants'
 import lrsImg from '../../assets/images/lrs.png'
 const useStyles = makeStyles((theme) => {
     return {
@@ -98,8 +98,9 @@ const useStyles = makeStyles((theme) => {
 const RoomList = () => {
     const classes = useStyles();
     const roomList = useSelector(state => state?.rooms) || [];
+    const [searchValue, setSearchValue] = useState('')
     let roomsLength = roomList.length > 0;
-
+    
     const addSessionItem = (roomId) => {
         let session = {
             conversationType: "chatRoom",
@@ -115,6 +116,7 @@ const RoomList = () => {
 
     const handleValueChange = (e) => {
         let searchValue = e.target.value;
+        setSearchValue(searchValue);
     }
 
     return (
@@ -133,7 +135,7 @@ const RoomList = () => {
                     let { cover, id, name, owner } = item
                     return (
                         <Box key={i} className={classes.itemStyle} onClick={() => handleJoinRoom(id)}>
-                            <img src={cover || defaultImg} alt="" className={classes.liveImgStyle} />
+                            <img src={cover || defaultLiveStreamUrl} alt="" className={classes.liveImgStyle} />
                             <Box className={classes.lrsInfoBox}>
                                 <Typography className={classes.nameStyle}>{name}</Typography>
                                 <Box className={classes.lrsBox}>
