@@ -2,22 +2,22 @@ import WebIM from '../utils/WebIM'
 import store from '../redux/store'
 import { giftMsgAction } from '../redux/actions'
 
-export const sendGiftsMsg = (gift_id, gift_img, gift_name, inputValue, onClose) => {
+export const sendGiftsMsg = (gift_id,inputValue, onClose) => {
+    console.log(inputValue);
     let currentUser = WebIM.conn.context.userId;
     let roomId = store.getState().roomInfo?.id
     var id = WebIM.conn.getUniqueId();         
     var msg = new WebIM.message('custom', id);   
-    var customEvent = "customEvent";                              
+    var customEvent = "chatroom_gift";     
+    var customExts = {
+        gift_id,
+        gift_num: inputValue.toString()
+    };                          
     msg.set({
         to: roomId,                        
         customEvent,
-        form: currentUser,
-        ext: {
-            gift_id,
-            gift_name,
-            gift_img,
-            gift_num: inputValue
-        },                                 
+        form: currentUser, 
+        customExts,                               
         chatType: 'chatRoom',               
         success: function (id, serverMsgId) {
             console.log('id,serverMsgId', id, serverMsgId);

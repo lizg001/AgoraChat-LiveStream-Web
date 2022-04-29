@@ -5,7 +5,7 @@ import { Box, List, ListItem, ListItemText, Avatar, Button, Typography } from "@
 import Menus from './menus'
 // import i18next from "i18next";
 import WebIM from '../../../utils/WebIM'
-
+import { isChatroomAdmin } from '../../common/contants'
 import acarat from '../../../assets/images/subtractLive.png'
 import menusIcon from '../../../assets/images/menu.png'
 const useStyles = makeStyles((theme) => {
@@ -85,7 +85,7 @@ const Members = ({ roomMembers }) => {
                             <Avatar src={acarat} className={classes.acaratStyle}></Avatar>
                             <Typography className={classes.memberTextStyle} >{item}</Typography>
                         </Box>
-                        {!mySelf && <Box className={classes.menuStyle} onClick={(e) => handleMenus(e, item)}>
+                        {!mySelf && isChatroomAdmin && <Box className={classes.menuStyle} onClick={(e) => handleMenus(e, item)}>
                             <img src={menusIcon} alt="" />
                         </Box>}
                     </Button>

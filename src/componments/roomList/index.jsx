@@ -6,7 +6,7 @@ import { EaseApp } from 'chat-uikit-live';
 import i18next from "i18next";
 import { joinRoom } from '../../api/room'
 import { getLiveCdnUrl } from '../../api/liveCdn'
-import { defaultLiveStreamUrl } from '../common/contants'
+import { defaultAvatarUrl } from '../common/contants'
 import lrsImg from '../../assets/images/lrs.png'
 const useStyles = makeStyles((theme) => {
     return {
@@ -135,7 +135,7 @@ const RoomList = () => {
                     let { cover, id, name, owner } = item
                     return (
                         <Box key={i} className={classes.itemStyle} onClick={() => handleJoinRoom(id)}>
-                            <img src={cover || defaultLiveStreamUrl} alt="" className={classes.liveImgStyle} />
+                            <img src={cover || defaultAvatarUrl} alt="" className={classes.liveImgStyle} />
                             <Box className={classes.lrsInfoBox}>
                                 <Typography className={classes.nameStyle}>{name}</Typography>
                                 <Box className={classes.lrsBox}>

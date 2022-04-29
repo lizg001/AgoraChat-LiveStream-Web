@@ -8,7 +8,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
 import { TabPanel, a11yProps } from "../common/tab";
 import InfoSetting from './info'
-import userAvatar from '../../assets/images/cat-cute.png'
+import { defaultAvatarUrl } from '../common/contants'
 import infoIcon from '../../assets/images/info.png'
 import editIcon from '../../assets/images/edit.png'
 const useStyles = makeStyles((theme) => {
@@ -112,7 +112,7 @@ const UserDialog = ({ open, onClose }) => {
             <Box className={classes.userBox}>
                 <Box style={{ width: "30%" }}>
                     <Box className={classes.acatarBox} onClick={handleAvatarChange}>
-                        <Avatar src={userAvatar} className={classes.avatarStyle}>
+                        <Avatar src={userAvatar || defaultAvatarUrl} className={classes.avatarStyle}>
                         </Avatar>
                         <Box className={classes.editBox}>
                             <img src={editIcon} alt="" className={classes.editAvatarStyle} />

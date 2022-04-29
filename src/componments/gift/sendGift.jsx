@@ -2,6 +2,7 @@ import React, { useState,memo } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import { Popover, Box, Typography, InputBase } from "@material-ui/core";
 import i18next from "i18next";
+import { giftObj } from '../common/contants'
 import { sendGiftsMsg } from '.././../api/giftMsg'
 import goldIcon from '../../assets/gift/gold.png'
 import heartIcon from '../../assets/gift/pinkHeart.png'
@@ -105,13 +106,12 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const SenfGifts = ({ open, onClose, selectGift }) => {
-    console.log('selectGift>>>',selectGift);
     const classes = useStyles();
-    let { gift_id, gift_img, gift_name, gift_price, goldCoins } = selectGift;
+    let { gift_img, gift_name, gift_price, goldCoins } = giftObj[selectGift] || {};
     const [inputValue, setInputValue] = useState(1)
     const handleInputBaseValue = (e) => {
         let value = e.target.value;
-        if (value <= 0 ) return
+        if (value <= 0 || value > 99 ) return
         setInputValue(e.target.value)
     }
 
@@ -147,9 +147,9 @@ const SenfGifts = ({ open, onClose, selectGift }) => {
                             <Typography className={classes.priceText} >{gift_price}</Typography>
                         </Box>
                         <InputBase 
-                            type="number" 
+                            type="number"
                             placeholder={i18next.t('Number')}
-                            value={inputValue} 
+                            value={inputValue}
                             className={classes.inputStyle} 
                             onChange={handleInputBaseValue}
                         />
@@ -168,7 +168,7 @@ const SenfGifts = ({ open, onClose, selectGift }) => {
                     <Box className={classes.btnStyle}>
                         <Typography 
                             className={classes.sendTextStyle} 
-                            onClick={() => sendGiftsMsg(gift_id, gift_img, gift_name, inputValue, onClose)}>
+                            onClick={() => sendGiftsMsg(selectGift, inputValue, onClose)}>
                                 {i18next.t('Send')}
                             </Typography>
                     </Box>

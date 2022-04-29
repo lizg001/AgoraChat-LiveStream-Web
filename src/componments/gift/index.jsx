@@ -1,8 +1,8 @@
-import React, { useState,memo } from 'react'
+import React, { useState, memo } from 'react'
 import { Box, Typography } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import i18next from "i18next";
-import { GiftsAry } from './renderGifts'
+import { giftObj } from '../common/contants'
 import SendGifts from './sendGift'
 
 const useStyles = makeStyles((theme) => {
@@ -11,10 +11,10 @@ const useStyles = makeStyles((theme) => {
 			width: "100%",
 			borderRadius: "16px",
 			border: "1px solid",
-			marginTop:"3px"
+			marginTop: "3px"
 		},
 		textStyle: {
-			height:"19px",
+			height: "19px",
 			fontFamily: "Roboto",
 			fontSize: "16px",
 			fontWeight: "600",
@@ -34,9 +34,9 @@ const useStyles = makeStyles((theme) => {
 			width: "68px",
 			height: "72px",
 			padding: "3px",
-			borderRadius:"12px",
-			textAlign:"center",
-			cursor:"pointer"
+			borderRadius: "12px",
+			textAlign: "center",
+			cursor: "pointer"
 		},
 		giftImg: {
 			width: "52px",
@@ -65,7 +65,7 @@ const Gift = () => {
 	const classes = useStyles();
 	const [selectGift, setSelectGift] = useState({})
 	const [anchorEl, setAnchorEl] = useState(null)
-	const handleGiftClick = (e,item) => {
+	const handleGiftClick = (e, item) => {
 		setAnchorEl(e.currentTarget);
 		setSelectGift(item);
 	}
@@ -77,19 +77,19 @@ const Gift = () => {
 			<Typography className={classes.textStyle}>{i18next.t("Gifts")}</Typography>
 			<Box className={classes.giftBox}>
 				{
-					(GiftsAry.map).map((item, i) => {
-						let { gift_img, goldCoins, gift_price } = item;
+					Object.keys(giftObj).map((item, i) => {
+						let { gift_img, goldCoins, gift_price } = giftObj[item];
 						return (
-							<Box className={classes.giftStyle} key={i} onClick={(e) => handleGiftClick(e,item)}>
+							<Box className={classes.giftStyle} key={i} onClick={(e) => handleGiftClick(e, item)}>
 								<img
 									className={classes.giftImg}
-									src={require(`../../assets/gift/${gift_img}`)}
+									src={require(`../../assets/gift/${gift_img}`) || ""}
 									alt=""
 								/>
 								<Box className={classes.priceBox}>
 									<img
 										className={classes.priceImg}
-										src={require(`../../assets/gift/${goldCoins}`)}
+										src={require(`../../assets/gift/${goldCoins}`) || ""}
 										alt=""
 									/>
 									<Typography className={classes.priceText} >{gift_price}</Typography>

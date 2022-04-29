@@ -2,6 +2,7 @@ import WebIM from "./WebIM";
 import i18next from "i18next";
 import { updateUserInfo } from '../api/userInfo'
 import { getLiverooms } from '../api/liveCdn'
+import { getRoomMuteList } from '../api/room'
 import store from '../redux/store'
 import { giftMsgAction } from '../redux/actions'
 const initListen = () => {
@@ -24,6 +25,7 @@ const initListen = () => {
 		},
 
 		onCustomMessage: (msg) => {
+			console.log('onCustomMessage>>>',msg);
 			store.dispatch(giftMsgAction(msg))
 		},
 		onTokenWillExpire: () => {
@@ -38,6 +40,21 @@ const initListen = () => {
 		onGroupChange: (msg) => {
 			console.log("onGroupChange", msg);
 		},
+		onChatroomChange: (event) => {
+			console.log('onChatroomChange',event);
+			let { type,gid } = event;
+			switch (type) {
+				case "addMute":
+					getRoomMuteList(gid);
+					break;     
+				case "removeMute":
+					getRoomMuteList(gid);
+					break;
+			
+				default:
+					break;
+			}
+		}
 	});
 
 	WebIM.conn.addEventHandler("TOKENSTATUS", {

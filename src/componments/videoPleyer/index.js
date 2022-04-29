@@ -6,6 +6,8 @@ import ReactPlayer from 'react-player'
 import WebIM from '../../utils/WebIM'
 import store from '../../redux/store'
 import { clearGigtMsgAction } from '../../redux/actions'
+
+import { giftObj } from '../common/contants'
 import defaultAvatar from '../../assets/images/panda.png'
 const useStyles = makeStyles((theme) => {
     return {
@@ -73,9 +75,9 @@ const VideoPlayer = () => {
 
     const clearGigtMsg = (id) => {
         let timerId = id;
-        timerId = setInterval(() => {
+        timerId = setTimeout(() => {
             store.dispatch(clearGigtMsgAction(id));
-            clearInterval(timerId);
+            clearTimeout(timerId);
         }, 3000);
     }
     return (
@@ -89,8 +91,9 @@ const VideoPlayer = () => {
             </Box>
             <Box className={classes.giftBox}>
                 {isGiftMsg && giftMsgs.map((item, i) => {
-                    let { id, ext, from } = item;
-                    let { gift_img, gift_name, gift_num } = ext;
+                    let { id, customExts, from } = item;
+                    let { gift_id, gift_num } = customExts;
+                    let { gift_img, gift_name} = giftObj[gift_id];
                     clearGigtMsg(id);
                     return (
                         <Box k={i} className={classes.giftMsgStyle}>
