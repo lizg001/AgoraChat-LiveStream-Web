@@ -1,6 +1,6 @@
 import WebIM from '../utils/WebIM'
 import store from '../redux/store'
-import { roomInfoAction, roomAdminsAction, roomAllowedAction, roomMutedAction, roomBanAction } from '../redux/actions'
+import { roomInfoAction, roomAdminsAction, roomAllowedAction, roomMutedAction, roomBanAction, getLiveCdnUrlAction } from '../redux/actions'
 
 
 export const joinRoom = (roomId, addSessionItem) => {
@@ -142,5 +142,14 @@ export const rmRoomBlock = (roomId, username, onClose) => {
         console.log('removeGroupBlockSingle>>>', res);
         getRoomBlockList(roomId)
         onClose && onClose();
+    })
+}
+
+export const leaveRoom = (roomId) => {
+    let options = {
+        roomId: roomId
+    }
+    WebIM.conn.quitChatRoom(options).then((res) => {
+        store.dispatch(getLiveCdnUrlAction(""))
     })
 }

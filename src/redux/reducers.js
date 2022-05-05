@@ -63,7 +63,6 @@ const reducer = (state = defaultState, action) => {
             };
         case "CLEAR_GIFT_MSG_ACTION":
             let newGiftMsgs = state.giftMsgs.filter(item => item.id === data)
-            console.log('newGiftMsgs>>>', newGiftMsgs);
             return {
                 ...state,
                 giftMsgs: newGiftMsgs

@@ -2,9 +2,10 @@ import WebIM from "./WebIM";
 import i18next from "i18next";
 import { updateUserInfo } from '../api/userInfo'
 import { getLiverooms } from '../api/liveCdn'
-import { getRoomMuteList } from '../api/room'
+import { getRoomAdmins, getRoomMuteList, getRoomWriteList, leaveRoom } from '../api/room'
 import store from '../redux/store'
-import { giftMsgAction } from '../redux/actions'
+import { giftMsgAction, roomInfoAction } from '../redux/actions'
+import { isChatroomAdmin } from '../componments/common/contants'
 const initListen = () => {
 	WebIM.conn.listen({
 		onOpened: () => {
@@ -42,15 +43,30 @@ const initListen = () => {
 		},
 		onChatroomChange: (event) => {
 			console.log('onChatroomChange',event);
+			let currentLoginUser = WebIM.conn.context.userId;
 			let { type,gid } = event;
 			switch (type) {
+				case "addAdmin":
+					getRoomAdmins(gid);
+					break;
+				case "removeAdmin":
+					getRoomAdmins(gid);
+					break;
 				case "addMute":
 					getRoomMuteList(gid);
 					break;     
 				case "removeMute":
 					getRoomMuteList(gid);
 					break;
-			
+				case "addUserToChatRoomWhiteList":
+					getRoomWriteList(gid);
+					break;
+				case "rmUserFromChatRoomWhiteList":
+					getRoomWriteList(gid);
+					break;
+				case "removedFromGroup":
+					leaveRoom(gid);
+					break;
 				default:
 					break;
 			}

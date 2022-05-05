@@ -68,7 +68,7 @@ const useStyles = makeStyles((theme) => {
 });
 const VideoPlayer = () => {
     const classes = useStyles();
-    const liveCdnUrl = useSelector(state => state?.liveCdnUrl) || "https://127.0.0.1";
+    const liveCdnUrl = useSelector(state => state?.liveCdnUrl);
     const giftMsgs = useSelector(state => state?.giftMsgs) || [];
     let isGiftMsg = Object.keys(giftMsgs).length > 0;
     let currentLoginUser = WebIM.conn.context.userId;
@@ -77,7 +77,7 @@ const VideoPlayer = () => {
         let timerId = id;
         timerId = setTimeout(() => {
             store.dispatch(clearGigtMsgAction(id));
-            clearTimeout(timerId);
+            timerId && clearTimeout(timerId);
         }, 3000);
     }
     return (
