@@ -115,6 +115,11 @@ const SenfGifts = ({ open, onClose, selectGift }) => {
         setInputValue(e.target.value)
     }
 
+    const handleSendGifts = () => {
+        sendGiftsMsg(selectGift, inputValue);
+        onClose && onClose();
+    }
+
     return (
         <Popover
             open={Boolean(open)}
@@ -168,7 +173,7 @@ const SenfGifts = ({ open, onClose, selectGift }) => {
                     <Box className={classes.btnStyle}>
                         <Typography 
                             className={classes.sendTextStyle} 
-                            onClick={() => sendGiftsMsg(selectGift, inputValue, onClose)}>
+                            onClick={handleSendGifts}>
                                 {i18next.t('Send')}
                             </Typography>
                     </Box>

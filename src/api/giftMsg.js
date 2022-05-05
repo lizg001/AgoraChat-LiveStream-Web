@@ -2,7 +2,7 @@ import WebIM from '../utils/WebIM'
 import store from '../redux/store'
 import { giftMsgAction } from '../redux/actions'
 
-export const sendGiftsMsg = (gift_id,inputValue, onClose) => {
+export const sendGiftsMsg = (gift_id,inputValue) => {
     console.log(inputValue);
     let currentUser = WebIM.conn.context.userId;
     let roomId = store.getState().roomInfo?.id
@@ -24,7 +24,6 @@ export const sendGiftsMsg = (gift_id,inputValue, onClose) => {
             msg.body.id = serverMsgId;
             console.log('msg.body', msg.body);
             store.dispatch(giftMsgAction(msg.body))
-            onClose && onClose();
         },
         fail: function (e) { }
     });

@@ -67,6 +67,9 @@ const initListen = () => {
 				case "removedFromGroup":
 					leaveRoom(gid);
 					break;
+				case "deleteGroupChat":
+					leaveRoom(gid);
+					break;
 				default:
 					break;
 			}
