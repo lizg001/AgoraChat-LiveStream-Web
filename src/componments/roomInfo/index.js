@@ -175,7 +175,6 @@ const RoomInfo = () => {
     const handleChengeValue = (e) => {
         setSearchValue(e.target.value);
         setSearchMembers(roomMembers.filter((v) => v.includes(searchValue)));
-
     };
 
     const handleSearch = () => {

@@ -98,8 +98,10 @@ const useStyles = makeStyles((theme) => {
 const RoomList = () => {
     const classes = useStyles();
     const roomList = useSelector(state => state?.rooms) || [];
-    const [searchValue, setSearchValue] = useState('')
+    const [searchRoomList, setSearchRoomList] = useState([])
     let roomsLength = roomList.length > 0;
+    let searchRoomLength = searchRoomList.length > 0;
+    let exportRoomList = searchRoomLength && roomsLength ? searchRoomList : roomList;
     
     const addSessionItem = (roomId) => {
         let session = {
@@ -116,7 +118,8 @@ const RoomList = () => {
 
     const handleValueChange = (e) => {
         let searchValue = e.target.value;
-        setSearchValue(searchValue);
+        console.log('roomList.filter((v) =>(v.name).includes(searchValue))',roomList.filter((v) =>(v.name).includes(searchValue)));
+        setSearchRoomList(roomList.filter((v) =>(v.name).includes(searchValue)));
     }
 
     return (
@@ -131,7 +134,7 @@ const RoomList = () => {
                 />
             </Box>
             <Box className={classes.roomBox}>
-                {roomsLength && roomList.map((item, i) => {
+                {exportRoomList.map((item, i) => {
                     let { cover, id, name, owner } = item
                     return (
                         <Box key={i} className={classes.itemStyle} onClick={() => handleJoinRoom(id)}>
