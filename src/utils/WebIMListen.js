@@ -4,7 +4,7 @@ import { updateUserInfo } from '../api/userInfo'
 import { getLiverooms } from '../api/liveCdn'
 import { getRoomAdmins, getRoomMuteList, getRoomWriteList, leaveRoom } from '../api/room'
 import store from '../redux/store'
-import { giftMsgAction, roomInfoAction } from '../redux/actions'
+import { giftMsgAction, roomInfoAction, roomBanAction } from '../redux/actions'
 import { isChatroomAdmin } from '../componments/common/contants'
 const initListen = () => {
 	WebIM.conn.listen({
@@ -44,7 +44,7 @@ const initListen = () => {
 		onChatroomChange: (event) => {
 			console.log('onChatroomChange',event);
 			let currentLoginUser = WebIM.conn.context.userId;
-			let { type,gid } = event;
+			let { type,gid,to } = event;
 			switch (type) {
 				case "addAdmin":
 					getRoomAdmins(gid);
@@ -66,6 +66,7 @@ const initListen = () => {
 					break;
 				case "removedFromGroup":
 					leaveRoom(gid);
+					store.dispatch(roomBanAction(to))
 					break;
 				case "deleteGroupChat":
 					leaveRoom(gid);

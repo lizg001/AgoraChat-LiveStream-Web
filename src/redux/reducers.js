@@ -48,7 +48,7 @@ const reducer = (state = defaultState, action) => {
         case "ROOM_BAN_ACTION":
             return {
                 ...state,
-                roomBans: data
+                roomBans: state.roomBans.concat(data)
             };
         case "MINI_ROOM_INFO_ACTION":
             return {
