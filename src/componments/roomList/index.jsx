@@ -118,7 +118,6 @@ const RoomList = () => {
 
     const handleValueChange = (e) => {
         let searchValue = e.target.value;
-        console.log('roomList.filter((v) =>(v.name).includes(searchValue))',roomList.filter((v) =>(v.name).includes(searchValue)));
         setSearchRoomList(roomList.filter((v) =>(v.name).includes(searchValue)));
     }
 

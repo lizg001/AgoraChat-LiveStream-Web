@@ -1,5 +1,6 @@
 import WebIM from '../utils/WebIM'
 import store from '../redux/store'
+import { getUserInfo } from './userInfo'
 import { roomInfoAction, roomAdminsAction, roomAllowedAction, roomMutedAction, roomBanAction, getLiveCdnUrlAction } from '../redux/actions'
 
 
@@ -22,7 +23,16 @@ export const getRoomInfo = (roomId) => {
     }
     WebIM.conn.getChatRoomDetails(options).then((res) => {
         store.dispatch(roomInfoAction(res.data[0]));
-        getRoomAdmins(roomId)
+        getRoomAdmins(roomId);
+        let newArr = [];
+        res.data[0].affiliations.map((item) => {
+            if (item.owner) {
+                newArr.push(item.owner)
+            } else {
+                newArr.push(item.member);
+            }
+        });
+        getUserInfo(newArr);
     })
 };
 

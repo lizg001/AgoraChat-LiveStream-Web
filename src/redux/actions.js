@@ -11,6 +11,10 @@ export const roomInfoAction = (data) => {
     return { type: 'ROOM_INFO_ACTION', data };
 };
 
+export const roomMemberInfoAction = (data) => {
+    return { type: 'ROOM_MEMBER_INFO_ACTION', data };
+};
+
 export const roomAdminsAction = (data) => {
     return { type: 'ROOM_ADMMINS_ACTION', data };
 };

@@ -113,22 +113,21 @@ const RoomInfo = () => {
     const [roomMembers, setRoomMembers] = useState([]);
     const [searchMembers, setSearchMembers] = useState([]);
     const memberList = useSelector(state => state?.roomInfo.affiliations);
+    // let memberInfoLength = Object.keys(roomMemberInfo).length > 0
     let searchMembersLength = searchValue.length > 0;
     let exportMembers = searchMembersLength ? searchMembers : roomMembers;
     useEffect(() => {
         let membersAry = [];
         if (memberList) {
             memberList.length > 0 && memberList.forEach((item) => {
-                if (item.owner) return;
-                membersAry.push(item.member);
+                // if (item.owner) return;
+                membersAry.push(item.owner || item.member);
             });
             setRoomMembers(membersAry);
         }
     }, [memberList])
-    
 
-
-
+    console.log('roomMembers>>>', roomMembers);
     const roomTabs = {
         all: () => {
             return (

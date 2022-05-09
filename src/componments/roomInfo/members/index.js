@@ -1,4 +1,5 @@
 import React, { useState, memo } from 'react'
+import { useSelector } from 'react-redux'
 import { makeStyles } from "@material-ui/core/styles";
 import { Box, List, ListItem, ListItemText, Avatar, Button, Typography } from "@material-ui/core";
 // import ListItemButton from '@mui/material/ListItemButton';
@@ -64,6 +65,8 @@ const Members = ({ roomMembers }) => {
         hideMenus,
     );
     let currentLoginUser = WebIM.conn.context.userId || "";
+    const roomMemberInfo = useSelector(state => state?.roomMemberInfo) || {};
+    const roomOwner = useSelector(state => state?.roomInfo?.owner) || "";
     const handleMenus = (e, item) => {
         setAnchorEl(e.currentTarget);
         setSelectUserId(item)
@@ -79,13 +82,14 @@ const Members = ({ roomMembers }) => {
                 onMouseLeave={() => { setHideMenus(false) }}
             >
                 {roomMembers.length > 0 && roomMembers.map((item, i) => {
-                    let mySelf = currentLoginUser === item
+                    let isRoomAdmins = roomOwner === item || isChatroomAdmin(item)
+                    let mySelf = currentLoginUser === item;
                     return <Button className={classes.listItem} key={i}>
                         <Box className={classes.memberStyle}>
-                            <Avatar src={acaratIcon} className={classes.acaratStyle}></Avatar>
-                            <Typography className={classes.memberTextStyle} >{item}</Typography>
+                            <Avatar src={roomMemberInfo[item]?.avatarurl || acaratIcon} className={classes.acaratStyle}></Avatar>
+                            <Typography className={classes.memberTextStyle} >{roomMemberInfo[item]?.nickname || item}</Typography>
                         </Box>
-                        {!mySelf && isChatroomAdmin && <Box className={classes.menuStyle} onClick={(e) => handleMenus(e, item)}>
+                        {!mySelf && !isRoomAdmins && <Box className={classes.menuStyle} onClick={(e) => handleMenus(e, item)}>
                             <img src={menusIcon} alt="" />
                         </Box>}
                     </Button>
