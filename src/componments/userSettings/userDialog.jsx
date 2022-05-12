@@ -83,12 +83,10 @@ const UserDialog = ({ open, onClose }) => {
     };
 
     const handleChange = (event, newValue) => {
-        console.log('newValue>>>', newValue);
         setValue(newValue);
     };
 
     const handleUserAvatarChange = (e) => {
-        console.log('e>>>',e);
     }
    
 

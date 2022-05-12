@@ -1,6 +1,7 @@
 import WebIM from '../utils/WebIM'
 import store from '../redux/store'
 import { getUserInfo } from './userInfo'
+import { getLiveCdnUrl } from './liveCdn'
 import { roomInfoAction, roomAdminsAction, roomAllowedAction, roomMutedAction, roomBanAction, getLiveCdnUrlAction } from '../redux/actions'
 
 
@@ -11,9 +12,11 @@ export const joinRoom = (roomId, addSessionItem) => {
     }
     WebIM.conn.joinChatRoom(options).then((res) => {
         console.log('joinRoom>>>', res);
+        getLiveCdnUrl(roomId);
         getRoomInfo(roomId);
         addSessionItem && addSessionItem(roomId);
-        
+    }).catch((err) => {
+        console.log('eer>>>',err);
     })
 };
 
@@ -42,7 +45,7 @@ export const getRoomAdmins = (roomId) => {
         chatRoomId: roomId
     }
     WebIM.conn.getChatRoomAdmin(options).then((res) => {
-        console.log('getRoomAdmins>>>',res);
+        console.log('getRoomAdmins>>>', res);
         store.dispatch(roomAdminsAction(res.data));
         if ((res.data.includes(currentLoginUser))) {
             getRoomWriteList(roomId);
@@ -89,7 +92,7 @@ export const getRoomMuteList = (roomId) => {
         chatRoomId: roomId
     };
     WebIM.conn.getChatRoomMuted(options).then((res) => {
-        console.log('getRoomMuteList>>>',res)
+        console.log('getRoomMuteList>>>', res)
         store.dispatch(roomMutedAction(res.data))
     })
 }
@@ -126,12 +129,12 @@ export const getRoomBlockList = (roomId) => {
         chatRoomId: roomId
     };
     WebIM.conn.getChatRoomBlacklistNew(option).then((res) => {
-        console.log('getGroupBlockList>>>',res);
+        console.log('getGroupBlockList>>>', res);
         store.dispatch(roomBanAction(res.data));
     })
 }
 
-export const addRoomBlock = (roomId,username,onClose) => {
+export const addRoomBlock = (roomId, username, onClose) => {
     let options = {
         chatRoomId: roomId,
         username: username

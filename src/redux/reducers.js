@@ -10,7 +10,81 @@ let defaultState = {
     roomBans: [],
     isMini: false,
     giftMsgs: [],
-    liveCdnUrl: ""
+    giftAry:[
+        {
+            id:1,
+            gift_id: "gift_1",
+            gift_img: "pinkHeart.png",
+            goldCoins: "gold.png",
+            gift_price: 1,
+            gift_name: "PinkHeart",
+            clickStatus: false
+        },
+        {
+            id:2,
+            gift_id: "gift_2",
+            gift_img: "pinkFlowers.png",
+            goldCoins: "gold.png",
+            gift_price: 5,
+            gift_name: "PlasticFlower",
+            clickStatus: false
+        },
+        {
+            id:3,
+            gift_id: "gift_3",
+            gift_img: "thePushBox.png",
+            goldCoins: "gold.png",
+            gift_price: 10,
+            gift_name: "ThePushBox",
+            clickStatus: false
+        },
+        {
+            id:4,
+            gift_id: "gift_4",
+            gift_img: "bigAce.png",
+            goldCoins: "gold.png",
+            gift_price: 20,
+            gift_name: "BigAce",
+            clickStatus: false
+        },
+        {
+            id:5,
+            gift_id: "gift_5",
+            gift_img: "star.png",
+            goldCoins: "gold.png",
+            gift_price: 50,
+            gift_name: "Star",
+            clickStatus: false
+        },
+        {
+            id:6,
+            gift_id: "gift_6",
+            gift_img: "lollipop.png",
+            goldCoins: "gold.png",
+            gift_price: 100,
+            gift_name: "Lollipop",
+            clickStatus: false
+        },
+        {
+            id:7,
+            gift_id: "gift_7",
+            gift_img: "diamond.png",
+            goldCoins: "gold.png",
+            gift_price: 500,
+            gift_name: "Diamond",
+            clickStatus: false
+        },
+        {
+            id:8,
+            gift_id: "gift_8",
+            gift_img: "crown.png",
+            goldCoins: "gold.png",
+            gift_price: 1000,
+            gift_name: "Crown",
+            clickStatus: false
+        }
+    ],
+    liveCdnUrl: "",
 };
 
 const reducer = (state = defaultState, action) => {
@@ -68,7 +142,7 @@ const reducer = (state = defaultState, action) => {
                 giftMsgs: giftMsgsAry
             };
         case "CLEAR_GIFT_MSG_ACTION":
-            let newGiftMsgs = state.giftMsgs.filter(item => item.id === data)
+            let newGiftMsgs = (state?.giftMsgs).filter(item => item.id === data);
             return {
                 ...state,
                 giftMsgs: newGiftMsgs
@@ -78,6 +152,18 @@ const reducer = (state = defaultState, action) => {
                 ...state,
                 liveCdnUrl: data
             };
+        case "UPDATE_GIFT_STATUS_ACTION":
+            let { giftAry } = state;
+            const giftAryCp = [...giftAry]
+            giftAryCp.forEach((item) => {
+                if (item.gift_id === data.gift_id){
+                    item = data
+                }
+            })
+            return{
+                ...state,
+                giftAry: giftAryCp
+            }
         default:
             break;
     }

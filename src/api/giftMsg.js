@@ -1,8 +1,8 @@
 import WebIM from '../utils/WebIM'
 import store from '../redux/store'
-import { giftMsgAction } from '../redux/actions'
+import { giftMsgAction, updateGiftStatusAction } from '../redux/actions'
 
-export const sendGiftsMsg = (gift_id,inputValue) => {
+export const sendGiftsMsg = (selectGift, inputValue) => {
     console.log(inputValue);
     let currentUser = WebIM.conn.context.userId;
     let roomId = store.getState().roomInfo?.id
@@ -10,7 +10,7 @@ export const sendGiftsMsg = (gift_id,inputValue) => {
     var msg = new WebIM.message('custom', id);   
     var customEvent = "chatroom_gift";     
     var customExts = {
-        gift_id,
+        gift_id: selectGift.gift_id,
         gift_num: inputValue.toString()
     };                          
     msg.set({
@@ -20,10 +20,14 @@ export const sendGiftsMsg = (gift_id,inputValue) => {
         customExts,                               
         chatType: 'chatRoom',               
         success: function (id, serverMsgId) {
-            console.log('id,serverMsgId', id, serverMsgId);
             msg.body.id = serverMsgId;
-            console.log('msg.body', msg.body);
-            store.dispatch(giftMsgAction(msg.body))
+            store.dispatch(giftMsgAction(msg.body));
+            selectGift.clickStatus = true;
+            store.dispatch(updateGiftStatusAction(selectGift))
+            setTimeout(() => {
+                selectGift.clickStatus = false;
+                store.dispatch(updateGiftStatusAction(selectGift))
+            }, 3000);
         },
         fail: function (e) { }
     });

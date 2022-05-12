@@ -5,7 +5,6 @@ import { makeStyles } from "@material-ui/core/styles";
 import { EaseApp } from 'chat-uikit-live';
 import i18next from "i18next";
 import { joinRoom } from '../../api/room'
-import { getLiveCdnUrl } from '../../api/liveCdn'
 import { defaultAvatarUrl } from '../common/contants'
 import lrsImg from '../../assets/images/lrs.png'
 const useStyles = makeStyles((theme) => {
@@ -112,7 +111,6 @@ const RoomList = () => {
     };
     const handleJoinRoom = (liveroomId) => {
         joinRoom(liveroomId, addSessionItem);
-        getLiveCdnUrl(liveroomId);
         // getLiveRoomInfo(liveroomId)
     }
 

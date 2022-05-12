@@ -46,3 +46,7 @@ export const getLiveCdnUrlAction = (data) => {
 export const clearGigtMsgAction = (data) => {
     return { type: 'CLEAR_GIFT_MSG_ACTION', data };
 }
+
+export const updateGiftStatusAction = (data) => {
+    return { type: 'UPDATE_GIFT_STATUS_ACTION', data };
+}

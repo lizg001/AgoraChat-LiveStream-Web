@@ -127,7 +127,6 @@ const RoomInfo = () => {
         }
     }, [memberList])
 
-    console.log('roomMembers>>>', roomMembers);
     const roomTabs = {
         all: () => {
             return (
@@ -185,7 +184,6 @@ const RoomInfo = () => {
     };
 
     const handleCloseInfoChange = () => {
-        console.log('aaa');
         store.dispatch(miniRoomInfoAction(true))
     }
 

@@ -16,10 +16,11 @@ const useStyles = makeStyles((theme) => {
             height: "420px !important"
         },
         giftBox: {
-            height: "100px",
+            height: "150px",
             position: "absolute",
-            bottom: "30px",
+            bottom: "80px",
             left: "20px",
+            overflowY: "scroll"
         },
         giftMsgStyle: {
             height: "36px",
@@ -70,14 +71,16 @@ const VideoPlayer = () => {
     const classes = useStyles();
     const liveCdnUrl = useSelector(state => state?.liveCdnUrl);
     const giftMsgs = useSelector(state => state?.giftMsgs) || [];
-    let isGiftMsg = Object.keys(giftMsgs).length > 0;
+    const roomMemberInfo = useSelector(state => state?.roomMemberInfo);
+
+    let isGiftMsg = giftMsgs.length > 0;
     let currentLoginUser = WebIM.conn.context.userId;
 
     const clearGigtMsg = (id) => {
         let timerId = id;
         timerId = setTimeout(() => {
             store.dispatch(clearGigtMsgAction(id));
-            timerId && clearTimeout(timerId);
+            clearTimeout(timerId);
         }, 3000);
     }
     return (
@@ -94,14 +97,15 @@ const VideoPlayer = () => {
                     let { id, customExts, from } = item;
                     let { gift_id, gift_num } = customExts;
                     let { gift_img, gift_name} = giftObj[gift_id];
+                    let giftSender = from ? from : currentLoginUser;
                     clearGigtMsg(id);
                     return (
-                        <Box k={i} className={classes.giftMsgStyle}>
+                        <Box key={id} className={classes.giftMsgStyle}>
                             <Box>
-                                <Avatar src={defaultAvatar} ></Avatar>
+                                <Avatar src={roomMemberInfo[giftSender]?.avatarurl || defaultAvatar} ></Avatar>
                             </Box>
                             <Box className={classes.userBox}>
-                                <Typography className={classes.giftUserStyle}>{from ? from : currentLoginUser}</Typography>
+                                <Typography className={classes.giftUserStyle}>{roomMemberInfo[giftSender]?.nickname || giftSender}</Typography>
                                 <Typography className={classes.giftNameStyle}>{gift_name}</Typography>
                             </Box>
                             <img

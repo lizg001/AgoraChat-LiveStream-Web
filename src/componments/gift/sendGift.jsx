@@ -2,7 +2,6 @@ import React, { useState,memo } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import { Popover, Box, Typography, InputBase } from "@material-ui/core";
 import i18next from "i18next";
-import { giftObj } from '../common/contants'
 import { sendGiftsMsg } from '.././../api/giftMsg'
 import goldIcon from '../../assets/gift/gold.png'
 import heartIcon from '../../assets/gift/pinkHeart.png'
@@ -107,18 +106,28 @@ const useStyles = makeStyles((theme) => ({
 
 const SenfGifts = ({ open, onClose, selectGift }) => {
     const classes = useStyles();
-    let { gift_img, gift_name, gift_price, goldCoins } = giftObj[selectGift] || {};
+    let { gift_img, gift_name, gift_price, goldCoins, clickStatus } = selectGift;
     const [inputValue, setInputValue] = useState(1)
+    const [clickFlag, setClickFlag] = useState(true)
     const handleInputBaseValue = (e) => {
         let value = e.target.value;
         if (value <= 0 || value > 99 ) return
         setInputValue(e.target.value)
     }
 
-    const handleSendGifts = () => {
-        sendGiftsMsg(selectGift, inputValue);
+    const handleSendGifts = (e) => {
+        e.preventDefault();
+        if (clickFlag) {
+            setClickFlag(false);
+            sendGiftsMsg(selectGift, inputValue);
+        }
+        setTimeout(() => {
+            setClickFlag(true);
+        }, 300);
         onClose && onClose();
+
     }
+
 
     return (
         <Popover

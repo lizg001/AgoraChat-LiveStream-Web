@@ -1,8 +1,8 @@
-import React, { useState, memo } from 'react'
+import React, { useState, useEffect, memo } from 'react'
 import { Box, Typography } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
+import { useSelector } from 'react-redux'
 import i18next from "i18next";
-import { giftObj } from '../common/contants'
 import SendGifts from './sendGift'
 
 const useStyles = makeStyles((theme) => {
@@ -36,7 +36,8 @@ const useStyles = makeStyles((theme) => {
 			padding: "3px",
 			borderRadius: "12px",
 			textAlign: "center",
-			cursor: "pointer"
+			cursor: "pointer",
+			position: "relative"
 		},
 		giftImg: {
 			width: "52px",
@@ -58,13 +59,40 @@ const useStyles = makeStyles((theme) => {
 			lineHeight: "16px",
 			letterSpacing: "0.15px",
 			color: "#FFFFFF"
+		},
+		delayBox: {
+			background: "linear-gradient(to right, #F87F16,#EE2EAC)",
+			opacity:".8",
+			position: "absolute",
+			height: "100%",
+			width: "100%",
+			bottom: "0",
+			display: "flex",
+			alignItems: "center",
+			justifyContent: "center"
+		},
+		delayStyle: {
+			height: "32px",
+			width: "32px"
+		},
+		delayTextStyle: {
+			fontFamily: "Roboto",
+			fontSize: "28px",
+			fontStyle: "italic",
+			fontweight: "900",
+			lineHeight: "32px",
+			letterSpacing: "0.15000000596046448px",
+			textAlign: "center",
+			color: "#FFFFFF",
 		}
 	}
 });
 const Gift = () => {
 	const classes = useStyles();
+	const giftAry = useSelector(state => state?.giftAry) || [];
 	const [selectGift, setSelectGift] = useState({})
 	const [anchorEl, setAnchorEl] = useState(null)
+	const [timeNum, setTimeNum] = useState(3)
 	const handleGiftClick = (e, item) => {
 		setAnchorEl(e.currentTarget);
 		setSelectGift(item);
@@ -72,13 +100,31 @@ const Gift = () => {
 	const handleCloseGift = () => {
 		setAnchorEl(null)
 	}
+
+	const handleTimer = () => {
+		let num = timeNum;
+		let fa = setInterval(() => {
+			if (num < 1) {
+				clearInterval(fa)
+				setTimeNum(3);
+			} else {
+				num--;
+				setTimeNum(num);
+			}
+		}, 1000);
+		return <Box className={classes.delayStyle}>
+			<Typography className={classes.delayTextStyle}>{`${timeNum}s`}</Typography>
+		</Box>
+	}
+
+
 	return (
 		<Box className={classes.root}>
 			<Typography className={classes.textStyle}>{i18next.t("Gifts")}</Typography>
 			<Box className={classes.giftBox}>
 				{
-					Object.keys(giftObj).map((item, i) => {
-						let { gift_img, goldCoins, gift_price } = giftObj[item];
+					giftAry.map((item, i) => {
+						let { gift_img, goldCoins, gift_price, clickStatus } = item;
 						return (
 							<Box className={classes.giftStyle} key={i} onClick={(e) => handleGiftClick(e, item)}>
 								<img
@@ -94,6 +140,9 @@ const Gift = () => {
 									/>
 									<Typography className={classes.priceText} >{gift_price}</Typography>
 								</Box>
+								{clickStatus && <Box className={classes.delayBox}>
+									{handleTimer()}
+								</Box>}
 							</Box>
 						)
 					})

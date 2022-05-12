@@ -8,49 +8,57 @@ export const giftObj = {
         gift_img: "pinkHeart.png",
         goldCoins: "gold.png",
         gift_price: 1, 
-        gift_name: "PinkHeart"
+        gift_name: "PinkHeart",
+        clickStatus: false
     },
     gift_2:{
         gift_img: "pinkFlowers.png", 
         goldCoins: "gold.png", 
         gift_price: 5, 
-        gift_name: "PlasticFlower"
+        gift_name: "PlasticFlower",
+        clickStatus: false
     },
     gift_3: {
         gift_img: "thePushBox.png", 
         goldCoins: "gold.png", 
         gift_price: 10, 
-        gift_name: "ThePushBox"
+        gift_name: "ThePushBox",
+        clickStatus: false
     },
     gift_4: {
         gift_img: "bigAce.png", 
         goldCoins: "gold.png", 
         gift_price: 20, 
-        gift_name: "BigAce"
+        gift_name: "BigAce",
+        clickStatus: false
     },
     gift_5: {
         gift_img: "star.png", 
         goldCoins: "gold.png", 
         gift_price: 50, 
-        gift_name: "Star"
+        gift_name: "Star",
+        clickStatus: false
     },
     gift_6: {
         gift_img: "lollipop.png", 
         goldCoins: "gold.png", 
         gift_price: 100, 
-        gift_name: "Lollipop"
+        gift_name: "Lollipop",
+        clickStatus: false
     },
     gift_7: {
         gift_img: "diamond.png", 
         goldCoins: "gold.png", 
         gift_price: 500, 
-        gift_name: "Diamond"
+        gift_name: "Diamond",
+        clickStatus: false
     },
     gift_8: {
         gift_img: "crown.png", 
         goldCoins: "gold.png", 
         gift_price: 1000, 
-        gift_name: "Crown"
+        gift_name: "Crown",
+        clickStatus: false
     }
 }
 
