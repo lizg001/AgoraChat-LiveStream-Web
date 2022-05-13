@@ -110,18 +110,38 @@ const RoomInfo = () => {
     const [value, setValue] = useState(0);
     const [showSearch, setShowSearch] = useState(false);
     const [searchValue, setSearchValue] = useState("");
-    const [roomMembers, setRoomMembers] = useState([]);
+    const [roomMembers, setRoomMembers] = useState({});
     const [searchMembers, setSearchMembers] = useState([]);
     const memberList = useSelector(state => state?.roomInfo.affiliations);
-    // let memberInfoLength = Object.keys(roomMemberInfo).length > 0
+    const roomAdmins = useSelector(state => state?.roomAdmins);
+    const roomMuted = useSelector(state => state?.roomMuted);
+    const roomMemberInfo = useSelector(state => state?.roomMemberInfo);
     let searchMembersLength = searchValue.length > 0;
     let exportMembers = searchMembersLength ? searchMembers : roomMembers;
     useEffect(() => {
-        let membersAry = [];
+        let membersAry = {};
         if (memberList) {
             memberList.length > 0 && memberList.forEach((item) => {
-                // if (item.owner) return;
-                membersAry.push(item.owner || item.member);
+                let { owner,member } = item;
+                if (owner) {
+                    membersAry[owner] = {
+                        id: owner,
+                        isStreamer: true,
+                        isAdmin: roomAdmins.includes(owner),
+                        isMuted: roomMuted.includes(owner),
+                        nickName: roomMemberInfo[owner]?.nickname || '',
+                        avatar: roomMemberInfo[owner]?.avatarurl || '',
+                    }
+                }else {
+                    membersAry[member] = {
+                        id: member,
+                        isStreamer: false,
+                        isAdmin: roomAdmins.includes(member),
+                        isMuted: roomMuted.includes(member),
+                        nickName: roomMemberInfo[member]?.nickname || '',
+                        avatar: roomMemberInfo[member]?.avatarurl || '',
+                    }
+                }
             });
             setRoomMembers(membersAry);
         }
@@ -171,8 +191,15 @@ const RoomInfo = () => {
     };
 
     const handleChengeValue = (e) => {
+        let searchObj = {}
         setSearchValue(e.target.value);
-        setSearchMembers(roomMembers.filter((v) => v.includes(searchValue)));
+        Object.keys(roomMemberInfo).forEach((item)=> {
+            let isIncludes = roomMemberInfo[item].nickname && (roomMemberInfo[item].nickname).includes(e.target.value);
+            if (isIncludes) {
+                searchObj[item] = roomMemberInfo[item]
+            }
+        })
+        setSearchMembers(searchObj)
     };
 
     const handleSearch = () => {

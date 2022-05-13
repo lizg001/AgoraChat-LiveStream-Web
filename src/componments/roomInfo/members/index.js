@@ -16,8 +16,8 @@ const useStyles = makeStyles((theme) => {
             height: "426px"
         },
         acaratStyle: {
-            width: "24px",
-            height: "24px"
+            width: "40px",
+            height: "40px"
         },
         listBox: {
             overflowY: "scroll",
@@ -67,6 +67,7 @@ const Members = ({ roomMembers }) => {
     let currentLoginUser = WebIM.conn.context.userId || "";
     const roomMemberInfo = useSelector(state => state?.roomMemberInfo) || {};
     const roomOwner = useSelector(state => state?.roomInfo?.owner) || "";
+    let roomMembersObj = Object.keys(roomMembers);
     const handleMenus = (e, item) => {
         setAnchorEl(e.currentTarget);
         setSelectUserId(item)
@@ -74,14 +75,14 @@ const Members = ({ roomMembers }) => {
     const handleMenusClose = () => {
         setAnchorEl(null);
     };
-    return (
+    return ( 
         <Box className={classes.root}>
             <Box
                 className={classes.listBox}
                 onMouseOver={() => { setHideMenus(true) }}
                 onMouseLeave={() => { setHideMenus(false) }}
             >
-                {roomMembers.length > 0 && roomMembers.map((item, i) => {
+                {roomMembersObj.length > 0 && roomMembersObj.map((item, i) => {
                     let isRoomAdmins = roomOwner === item || isChatroomAdmin(item)
                     let mySelf = currentLoginUser === item;
                     return <Button className={classes.listItem} key={i}>
