@@ -3,8 +3,6 @@ import { useSelector } from 'react-redux'
 import { makeStyles } from "@material-ui/core/styles";
 import { Box, Avatar, Button, Typography } from "@material-ui/core";
 import Menus from './menus'
-// import i18next from "i18next";
-import WebIM from '../../../utils/WebIM'
 import { isChatroomAdmin, currentLoginUser } from '../../common/contants'
 import acaratIcon from '../../../assets/images/defaultAvatar.png'
 import menusIcon from '../../../assets/images/menu.png'
@@ -66,7 +64,6 @@ const useStyles = makeStyles((theme) => {
     }
 });
 const Members = ({ roomMembers }) => {
-    console.log('roomMembers>>>', roomMembers);
     const [hideMenus, setHideMenus] = useState(false)
     const [anchorEl, setAnchorEl] = useState(null);
     const [selectUserId, setSelectUserId] = useState("")

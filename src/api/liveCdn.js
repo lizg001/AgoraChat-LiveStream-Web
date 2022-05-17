@@ -1,10 +1,10 @@
 import store from '../redux/store'
 import { roomsAction, getLiveCdnUrlAction } from '../redux/actions'
-
+import { liveStreamConfig } from '../componments/common/contants'
 export const getLiverooms = () => {
     let webimAuth = sessionStorage.getItem('webim_auth') || {}
     let { accessToken } = JSON.parse(webimAuth);
-    const apiURL = `http://a1.easemob.com/appserver/liverooms/ongoing`;
+    const apiURL = `${liveStreamConfig.domain}/appserver/liverooms/ongoing`;
     let liveRooms = fetch(apiURL, {
         method: 'GET',
         headers: new Headers(
@@ -36,7 +36,7 @@ export const getLiverooms = () => {
 export const getLiveRoomInfo = (liveroomId) => {
     let webimAuth = sessionStorage.getItem('webim_auth') || {}
     let { accessToken } = JSON.parse(webimAuth);
-    const apiURL = `http://a1.easemob.com/appserver/liverooms/${liveroomId}`;
+    const apiURL = `${liveStreamConfig.domain}/appserver/liverooms/${liveroomId}`;
     let liveRooms = fetch(apiURL, {
         method: 'GET',
         headers: new Headers(
@@ -66,7 +66,8 @@ export const getLiveRoomInfo = (liveroomId) => {
 }
 
 export const getLiveCdnUrl = (roomId) => {
-    const apiURL = `http://a1.easemob.com/appserver/agora/cdn/streams/url/play?protocol=hls&domain=ws-rtmp-pull.easemob.com&pushPoint=live&streamKey=${roomId}`;
+    const apiURL = `${liveStreamConfig.domain}/appserver/agora/cdn/streams/url/play?protocol=${liveStreamConfig.protocol
+}&domain=${liveStreamConfig.liveDomian}&pushPoint=${liveStreamConfig.pushPoint}&streamKey=${roomId}`;
     let liveRoomsUrl = fetch(apiURL, {
         method: 'GET',
         headers: new Headers(

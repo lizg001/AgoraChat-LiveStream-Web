@@ -3,6 +3,13 @@ import WebIM from '../../utils/WebIM'
 
 export const defaultAvatarUrl = "https://download-sdk.oss-cn-beijing.aliyuncs.com/downloads/IMDemo/avatar/Image1.png"
 
+export const currentLoginUser = WebIM.conn.context.userId;
+
+export const isChatroomAdmin = (userId) => {
+    let adminAry = store.getState()?.roomAdmins
+    return adminAry.includes(userId);
+}
+
 export const giftObj = {
     gift_1: {
         gift_img: "pinkHeart.png",
@@ -62,11 +69,11 @@ export const giftObj = {
     }
 }
 
-export const isChatroomAdmin = (userId) => {
-    let adminAry = store.getState()?.roomAdmins
-    return adminAry.includes(userId);
+export const liveStreamConfig = {
+    domain: "http://a1.easemob.com",
+    protocol:"hls",
+    liveDomian:"ws-rtmp-pull.easemob.com",
+    pushPoint:"live" 
 }
 
-
-export const currentLoginUser = WebIM.conn.context.userId;
 
