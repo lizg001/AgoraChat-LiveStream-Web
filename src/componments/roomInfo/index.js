@@ -13,6 +13,7 @@ import Ban from './ban'
 import Muted from './muted'
 import store from '../../redux/store'
 import { miniRoomInfoAction } from '../../redux/actions'
+import { isChatroomAdmin } from '../common/contants'
 
 import searchIcon from '../../assets/images/search.png'
 import closeIcon from '../../assets/images/close.png'

@@ -3,7 +3,7 @@ import store from '../redux/store'
 import { getUserInfo } from './userInfo'
 import { getLiveCdnUrl } from './liveCdn'
 import { roomInfoAction, roomAdminsAction, roomAllowedAction, roomMutedAction, roomBanAction, getLiveCdnUrlAction } from '../redux/actions'
-
+import { currentLoginUser } from '../componments/common/contants'
 
 export const joinRoom = (roomId, addSessionItem) => {
     let options = {
@@ -40,7 +40,6 @@ export const getRoomInfo = (roomId) => {
 };
 
 export const getRoomAdmins = (roomId) => {
-    let currentLoginUser = WebIM.conn.context.userId;
     let options = {
         chatRoomId: roomId
     }

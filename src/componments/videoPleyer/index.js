@@ -6,9 +6,10 @@ import ReactPlayer from 'react-player'
 import WebIM from '../../utils/WebIM'
 import store from '../../redux/store'
 import { clearGigtMsgAction } from '../../redux/actions'
+import { currentLoginUser } from '../common/contants'
 
 import { giftObj } from '../common/contants'
-import defaultAvatar from '../../assets/images/panda.png'
+import defaultAvatar from '../../assets/images/defaultAvatar.png'
 const useStyles = makeStyles((theme) => {
     return {
         videoBox: {
@@ -20,7 +21,8 @@ const useStyles = makeStyles((theme) => {
             position: "absolute",
             bottom: "80px",
             left: "20px",
-            overflowY: "scroll"
+            overflowY: "scroll",
+            width:"calc(100% - 30px)"
         },
         giftMsgStyle: {
             height: "36px",
@@ -74,7 +76,6 @@ const VideoPlayer = () => {
     const roomMemberInfo = useSelector(state => state?.roomMemberInfo);
 
     let isGiftMsg = giftMsgs.length > 0;
-    let currentLoginUser = WebIM.conn.context.userId;
 
     const clearGigtMsg = (id) => {
         let timerId = id;

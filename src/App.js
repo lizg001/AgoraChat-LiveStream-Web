@@ -37,6 +37,7 @@ const useStyles = makeStyles((theme) => {
 });
 const App = () => {
 	const classes = useStyles();
+	const roomMemberInfo = useSelector(state => state?.roomMemberInfo) || {};
 
 	useEffect(() => {
 		initListen()
@@ -54,7 +55,7 @@ const App = () => {
 					<Box style={{ display: "flex", width: "100%", }}>
 						<VideoPlayer />
 						<Box style={{ height: "420px", width: "100%", border: "1px soild", borderRadius: "12px" }}>
-							<EaseLivestream />
+							<EaseLivestream roomUserInfo={roomMemberInfo}/>
 						</Box>
 					</Box>
 					<Gift />

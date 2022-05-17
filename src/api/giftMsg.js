@@ -1,10 +1,10 @@
 import WebIM from '../utils/WebIM'
 import store from '../redux/store'
-import { giftMsgAction, updateGiftStatusAction } from '../redux/actions'
+import { giftMsgAction, updateGiftStatusAction, clearGigtMsgAction } from '../redux/actions'
+import { currentLoginUser } from '../componments/common/contants'
 
 export const sendGiftsMsg = (selectGift, inputValue) => {
     console.log(inputValue);
-    let currentUser = WebIM.conn.context.userId;
     let roomId = store.getState().roomInfo?.id
     var id = WebIM.conn.getUniqueId();         
     var msg = new WebIM.message('custom', id);   
@@ -16,7 +16,7 @@ export const sendGiftsMsg = (selectGift, inputValue) => {
     msg.set({
         to: roomId,                        
         customEvent,
-        form: currentUser, 
+        form: currentLoginUser, 
         customExts,                               
         chatType: 'chatRoom',               
         success: function (id, serverMsgId) {
@@ -27,6 +27,7 @@ export const sendGiftsMsg = (selectGift, inputValue) => {
             setTimeout(() => {
                 selectGift.clickStatus = false;
                 store.dispatch(updateGiftStatusAction(selectGift))
+                // store.dispatch(clearGigtMsgAction(serverMsgId));
             }, 3000);
         },
         fail: function (e) { }

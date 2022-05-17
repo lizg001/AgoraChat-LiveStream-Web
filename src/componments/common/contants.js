@@ -1,5 +1,5 @@
 import store from '../../redux/store'
-
+import WebIM from '../../utils/WebIM'
 
 export const defaultAvatarUrl = "https://download-sdk.oss-cn-beijing.aliyuncs.com/downloads/IMDemo/avatar/Image1.png"
 
@@ -67,4 +67,6 @@ export const isChatroomAdmin = (userId) => {
     return adminAry.includes(userId);
 }
 
+
+export const currentLoginUser = WebIM.conn.context.userId;
 
