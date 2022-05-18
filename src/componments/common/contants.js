@@ -3,7 +3,6 @@ import WebIM from '../../utils/WebIM'
 
 export const defaultAvatarUrl = "https://download-sdk.oss-cn-beijing.aliyuncs.com/downloads/IMDemo/avatar/Image1.png"
 
-export const currentLoginUser = WebIM.conn.context.userId;
 
 export const isChatroomAdmin = (userId) => {
     let adminAry = store.getState()?.roomAdmins

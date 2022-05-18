@@ -1,10 +1,9 @@
 import WebIM from '../utils/WebIM'
 import store from '../redux/store'
 import { giftMsgAction, updateGiftStatusAction, clearGigtMsgAction } from '../redux/actions'
-import { currentLoginUser } from '../componments/common/contants'
 
 export const sendGiftsMsg = (selectGift, inputValue) => {
-    console.log(inputValue);
+    const currentLoginUser = WebIM.conn.context.userId;
     let roomId = store.getState().roomInfo?.id
     var id = WebIM.conn.getUniqueId();         
     var msg = new WebIM.message('custom', id);   

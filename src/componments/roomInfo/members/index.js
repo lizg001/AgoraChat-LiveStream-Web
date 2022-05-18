@@ -3,7 +3,8 @@ import { useSelector } from 'react-redux'
 import { makeStyles } from "@material-ui/core/styles";
 import { Box, Avatar, Button, Typography } from "@material-ui/core";
 import Menus from './menus'
-import { isChatroomAdmin, currentLoginUser } from '../../common/contants'
+import WebIM from '../../../utils/WebIM'
+import { isChatroomAdmin } from '../../common/contants'
 import acaratIcon from '../../../assets/images/defaultAvatar.png'
 import menusIcon from '../../../assets/images/menu.png'
 import streamerIcon from '../../../assets/images/streamer.png'
@@ -73,6 +74,7 @@ const Members = ({ roomMembers }) => {
     const roomMemberInfo = useSelector(state => state?.roomMemberInfo) || {};
     const roomOwner = useSelector(state => state?.roomInfo?.owner) || "";
     let roomMembersObj = Object.keys(roomMembers);
+    const currentLoginUser = WebIM.conn.context.userId;
     const handleMenus = (e, item) => {
         setAnchorEl(e.currentTarget);
         setSelectUserId(item)

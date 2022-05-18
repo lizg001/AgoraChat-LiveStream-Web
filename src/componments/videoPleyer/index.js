@@ -6,7 +6,6 @@ import ReactPlayer from 'react-player'
 import WebIM from '../../utils/WebIM'
 import store from '../../redux/store'
 import { clearGigtMsgAction } from '../../redux/actions'
-import { currentLoginUser } from '../common/contants'
 
 import { giftObj } from '../common/contants'
 import defaultAvatar from '../../assets/images/defaultAvatar.png'
@@ -74,7 +73,7 @@ const VideoPlayer = () => {
     const liveCdnUrl = useSelector(state => state?.liveCdnUrl);
     const giftMsgs = useSelector(state => state?.giftMsgs) || [];
     const roomMemberInfo = useSelector(state => state?.roomMemberInfo);
-
+    const currentLoginUser = WebIM.conn.context.userId;
     let isGiftMsg = giftMsgs.length > 0;
 
     const clearGigtMsg = (id) => {
@@ -84,6 +83,7 @@ const VideoPlayer = () => {
             clearTimeout(timerId);
         }, 3000);
     }
+
     return (
         <Box style={{ position: "relative" }} >
             <Box>
