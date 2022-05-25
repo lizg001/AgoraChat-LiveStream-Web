@@ -4,7 +4,7 @@ import { Popover, Box, Typography, InputBase } from "@material-ui/core";
 import i18next from "i18next";
 import { sendGiftsMsg } from '.././../api/giftMsg'
 import goldIcon from '../../assets/gift/gold.png'
-import heartIcon from '../../assets/gift/pinkHeart.png'
+import heartIcon from '../../assets/gift/pink_heart@2x.png'
 
 const useStyles = makeStyles((theme) => ({
     root: {

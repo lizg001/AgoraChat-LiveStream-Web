@@ -14,7 +14,7 @@ let defaultState = {
         {
             id:1,
             gift_id: "gift_1",
-            gift_img: "pinkHeart.png",
+            gift_img: "pink_heart@2x.png",
             goldCoins: "gold.png",
             gift_price: 1,
             gift_name: "PinkHeart",
@@ -23,7 +23,7 @@ let defaultState = {
         {
             id:2,
             gift_id: "gift_2",
-            gift_img: "pinkFlowers.png",
+            gift_img: "plastic_flower@2x.png",
             goldCoins: "gold.png",
             gift_price: 5,
             gift_name: "PlasticFlower",
@@ -32,7 +32,7 @@ let defaultState = {
         {
             id:3,
             gift_id: "gift_3",
-            gift_img: "thePushBox.png",
+            gift_img: "the_push_box@2x.png",
             goldCoins: "gold.png",
             gift_price: 10,
             gift_name: "ThePushBox",
@@ -41,7 +41,7 @@ let defaultState = {
         {
             id:4,
             gift_id: "gift_4",
-            gift_img: "bigAce.png",
+            gift_img: "big_ace@2x.png",
             goldCoins: "gold.png",
             gift_price: 20,
             gift_name: "BigAce",
@@ -59,7 +59,7 @@ let defaultState = {
         {
             id:6,
             gift_id: "gift_6",
-            gift_img: "lollipop.png",
+            gift_img: "lollipop@2x.png",
             goldCoins: "gold.png",
             gift_price: 100,
             gift_name: "Lollipop",
@@ -68,7 +68,7 @@ let defaultState = {
         {
             id:7,
             gift_id: "gift_7",
-            gift_img: "diamond.png",
+            gift_img: "diamond@2x.png",
             goldCoins: "gold.png",
             gift_price: 500,
             gift_name: "Diamond",
@@ -77,7 +77,7 @@ let defaultState = {
         {
             id:8,
             gift_id: "gift_8",
-            gift_img: "crown.png",
+            gift_img: "crown@2x.png",
             goldCoins: "gold.png",
             gift_price: 1000,
             gift_name: "Crown",

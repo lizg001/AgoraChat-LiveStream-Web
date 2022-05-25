@@ -4325,10 +4325,10 @@ charcodes@^0.2.0:
   resolved "https://registry.npmjs.org/charcodes/-/charcodes-0.2.0.tgz"
   integrity sha512-Y4kiDb+AM4Ecy58YkuZrrSRJBDQdQ2L+NyS1vHHFtNtUjgutcZfx3yp1dAONI/oPaPmyGfCLx5CxL+zauIMyKQ==
 
-chat-uikit-live@^1.2.6:
-  version "1.2.6"
-  resolved "https://registry.yarnpkg.com/chat-uikit-live/-/chat-uikit-live-1.2.6.tgz#b29099f29b294689247492d231b889d531aad729"
-  integrity sha512-DmC4s6OJE+Ic4hNwprdJrpwdvGRKY0RJcNQdQnbNeCeTJAOojqtvi//TOVzlR8Z9q7zGOd7t+F4GFwrUPRH2OQ==
+chat-uikit-live@^1.2.8:
+  version "1.2.8"
+  resolved "https://registry.yarnpkg.com/chat-uikit-live/-/chat-uikit-live-1.2.8.tgz#a005f4adecaa903051e9668a35ec7538cd0799a6"
+  integrity sha512-aLQ+9jPbaPbqfMOM1QVvqcVXXyJx7E+DRM78NjdwTIEhKrq/EwtDHpyA0jRlfEHzTR6T0XH0CiPMkvtp+1c5Wg==
   dependencies:
     "@emotion/react" "^11.8.2"
     "@emotion/styled" "^11.8.1"

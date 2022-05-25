@@ -46,7 +46,7 @@ const useStyles = makeStyles((theme) => {
 		priceBox: {
 			display: "flex",
 			alignItems: "center",
-			justifyContent: "center"
+			justifyContent: "center",
 		},
 		priceImg: {
 			width: "12px",
@@ -58,7 +58,8 @@ const useStyles = makeStyles((theme) => {
 			fontWeight: "600",
 			lineHeight: "16px",
 			letterSpacing: "0.15px",
-			color: "#FFFFFF"
+			color: "#FFFFFF",
+			marginLeft:"5px"
 		},
 		delayBox: {
 			background: "linear-gradient(to right, #F87F16,#EE2EAC)",

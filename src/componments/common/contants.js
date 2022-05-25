@@ -1,7 +1,6 @@
 import store from '../../redux/store'
-import WebIM from '../../utils/WebIM'
 
-export const defaultAvatarUrl = "https://download-sdk.oss-cn-beijing.aliyuncs.com/downloads/IMDemo/avatar/Image1.png"
+export const defaultAvatarUrl = "https://download-sdk.oss-cn-beijing.aliyuncs.com/downloads/AgoraChatDemo_Resource/defaultAvatat%403x.png"
 
 
 export const isChatroomAdmin = (userId) => {
@@ -11,28 +10,28 @@ export const isChatroomAdmin = (userId) => {
 
 export const giftObj = {
     gift_1: {
-        gift_img: "pinkHeart.png",
+        gift_img: "pink_heart@2x.png",
         goldCoins: "gold.png",
         gift_price: 1, 
         gift_name: "PinkHeart",
         clickStatus: false
     },
     gift_2:{
-        gift_img: "pinkFlowers.png", 
+        gift_img: "plastic_flower@2x.png", 
         goldCoins: "gold.png", 
         gift_price: 5, 
         gift_name: "PlasticFlower",
         clickStatus: false
     },
     gift_3: {
-        gift_img: "thePushBox.png", 
+        gift_img: "the_push_Box@2x.png", 
         goldCoins: "gold.png", 
         gift_price: 10, 
         gift_name: "ThePushBox",
         clickStatus: false
     },
     gift_4: {
-        gift_img: "bigAce.png", 
+        gift_img: "big_ace@2x.png", 
         goldCoins: "gold.png", 
         gift_price: 20, 
         gift_name: "BigAce",
@@ -46,21 +45,21 @@ export const giftObj = {
         clickStatus: false
     },
     gift_6: {
-        gift_img: "lollipop.png", 
+        gift_img: "lollipop@2x.png", 
         goldCoins: "gold.png", 
         gift_price: 100, 
         gift_name: "Lollipop",
         clickStatus: false
     },
     gift_7: {
-        gift_img: "diamond.png", 
+        gift_img: "diamond@2x.png", 
         goldCoins: "gold.png", 
         gift_price: 500, 
         gift_name: "Diamond",
         clickStatus: false
     },
     gift_8: {
-        gift_img: "crown.png", 
+        gift_img: "crown@2x.png", 
         goldCoins: "gold.png", 
         gift_price: 1000, 
         gift_name: "Crown",
