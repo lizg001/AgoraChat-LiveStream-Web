@@ -56,14 +56,15 @@ const useStyles = makeStyles((theme) => {
 const Allowed = () => {
     const classes = useStyles();
     const memberList = useSelector(state => state?.roomAllowed) || [];
+    const roomMemberInfo = useSelector(state => state?.roomMemberInfo) || {};
     return (
         <Box className={classes.root}>
             {
                 memberList.length > 0 && memberList.map((item,i)=> {
                     return <Button className={classes.listItem} key={i}>
                         <Box className={classes.memberStyle}>
-                            <Avatar src={acaratIcon} className={classes.acaratStyle}></Avatar>
-                            <Typography className={classes.memberTextStyle} >{item}</Typography>
+                            <Avatar src={roomMemberInfo[item]?.avatarurl || acaratIcon} className={classes.acaratStyle}></Avatar>
+                            <Typography className={classes.memberTextStyle} >{roomMemberInfo[item]?.nickname || item}</Typography>
                         </Box>
                     </Button>
                 })

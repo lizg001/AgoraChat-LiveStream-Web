@@ -45,7 +45,7 @@ const useStyles = makeStyles((theme) => {
             borderRadius:"16px",
         },
         editStyle: {
-            fontFamily: " PingFang SC",
+            fontFamily: "Roboto",
             fontSize: "16px",
             fontWeight: "600",
             lineHeight: "22px",

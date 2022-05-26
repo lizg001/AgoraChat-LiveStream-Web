@@ -4,7 +4,7 @@ export const defaultAvatarUrl = "https://download-sdk.oss-cn-beijing.aliyuncs.co
 
 
 export const isChatroomAdmin = (userId) => {
-    let adminAry = store.getState()?.roomAdmins
+    let adminAry = store.getState()?.roomAdmins || []
     return adminAry.includes(userId);
 }
 
@@ -24,7 +24,7 @@ export const giftObj = {
         clickStatus: false
     },
     gift_3: {
-        gift_img: "the_push_Box@2x.png", 
+        gift_img: "the_push_box@2x.png", 
         goldCoins: "gold.png", 
         gift_price: 10, 
         gift_name: "ThePushBox",
@@ -69,7 +69,7 @@ export const giftObj = {
 
 export const liveStreamConfig = {
     domain: "http://a1.easemob.com",
-    protocol:"hls",
+    protocol:"hls",  // hls  flv  rtmp
     liveDomian:"ws-rtmp-pull.easemob.com",
     pushPoint:"live" 
 }

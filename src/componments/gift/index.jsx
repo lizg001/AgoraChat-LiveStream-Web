@@ -11,7 +11,8 @@ const useStyles = makeStyles((theme) => {
 			width: "100%",
 			borderRadius: "16px",
 			border: "1px solid",
-			marginTop: "3px"
+			// marginTop: "3px",
+			padding:"7px 3px"
 		},
 		textStyle: {
 			height: "19px",

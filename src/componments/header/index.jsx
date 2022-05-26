@@ -45,7 +45,7 @@ const useStyles = makeStyles((theme) => {
         titleStyle: {
             height: "28px",
             width: "auto",
-            fontFamily: "Baloo Tamma",
+            fontFamily: "Roboto",
             fontWeight: "400",
             fontSize: "24px",
             lineHeight: "28px",

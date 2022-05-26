@@ -14,6 +14,7 @@ import Muted from './muted'
 import store from '../../redux/store'
 import { miniRoomInfoAction } from '../../redux/actions'
 import { isChatroomAdmin } from '../common/contants'
+import WebIM from '../../utils/WebIM'
 
 import searchIcon from '../../assets/images/search.png'
 import closeIcon from '../../assets/images/close.png'
@@ -113,12 +114,14 @@ const RoomInfo = () => {
     const [searchValue, setSearchValue] = useState("");
     const [roomMembers, setRoomMembers] = useState({});
     const [searchMembers, setSearchMembers] = useState([]);
+    let isOwner = useSelector(state => state?.roomInfo?.id);
     const memberList = useSelector(state => state?.roomInfo.affiliations);
     const roomAdmins = useSelector(state => state?.roomAdmins);
     const roomMuted = useSelector(state => state?.roomMuted);
     const roomMemberInfo = useSelector(state => state?.roomMemberInfo);
     let searchMembersLength = searchValue.length > 0;
     let exportMembers = searchMembersLength ? searchMembers : roomMembers;
+    let isAdmins = isChatroomAdmin(WebIM.conn.context.userId) || isOwner === WebIM.conn.context.userId;
     useEffect(() => {
         let membersAry = {};
         if (memberList) {
@@ -242,7 +245,7 @@ const RoomInfo = () => {
                 </Box>
                 
             </Box>
-            <Box className={classes.tabsBox}>
+            {isAdmins  ? <Box className={classes.tabsBox}>
                 <Tabs
                     value={value}
                     onChange={handleChange}
@@ -274,7 +277,7 @@ const RoomInfo = () => {
                 <TabPanel value={value} index={4} >
                     <Ban />
                 </TabPanel>
-            </Box>
+            </Box> : <Members roomMembers={exportMembers} /> }
         </Box>
 
     );

@@ -66,6 +66,7 @@ export const getLiveRoomInfo = (liveroomId) => {
 }
 
 export const getLiveCdnUrl = (roomId) => {
+    // const apiURL = `http://a1.easemob.com/appserver/agora/cdn/streams/url/play?protocol=hls&domain=ws-rtmp-pull.easemob.com&pushPoint=live&streamKey=${roomId}`;
     const apiURL = `${liveStreamConfig.domain}/appserver/agora/cdn/streams/url/play?protocol=${liveStreamConfig.protocol
 }&domain=${liveStreamConfig.liveDomian}&pushPoint=${liveStreamConfig.pushPoint}&streamKey=${roomId}`;
     let liveRoomsUrl = fetch(apiURL, {

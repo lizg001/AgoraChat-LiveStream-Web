@@ -7,12 +7,14 @@ import i18next from "i18next";
 import { joinRoom } from '../../api/room'
 import { defaultAvatarUrl } from '../common/contants'
 import lrsImg from '../../assets/images/lrs.png'
+import rightIcon from '../../assets/images/channels_list_right@2x.png'
 const useStyles = makeStyles((theme) => {
     return {
         root: {
             overflow: "hidden",
             // background: "#292929",
-            padding: " 20px 0"
+            padding: " 20px 0",
+            position: "relative"
         },
         titleBox: {
             display: "flex",
@@ -90,6 +92,19 @@ const useStyles = makeStyles((theme) => {
             overflow: "hidden",
             whiteSpace: "nowrap",
             marginLeft: "10px"
+        },
+        rightBox: {
+            position: "absolute",
+            right: "8px",
+            bottom: "30px",
+            height: "40px",
+            width: "40px",
+            borderRadius: "8px",
+            background: "#FFFFFF80",
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            cursor:"pointer"
         }
     }
 });
@@ -101,7 +116,7 @@ const RoomList = () => {
     let roomsLength = roomList.length > 0;
     let searchRoomLength = searchRoomList.length > 0;
     let exportRoomList = searchRoomLength && roomsLength ? searchRoomList : roomList;
-    
+
     const addSessionItem = (roomId) => {
         let session = {
             conversationType: "chatRoom",
@@ -116,7 +131,7 @@ const RoomList = () => {
 
     const handleValueChange = (e) => {
         let searchValue = e.target.value;
-        setSearchRoomList(roomList.filter((v) =>(v.name).includes(searchValue)));
+        setSearchRoomList(roomList.filter((v) => (v.name).includes(searchValue)));
     }
 
     return (
@@ -146,6 +161,9 @@ const RoomList = () => {
                         </Box>
                     )
                 })}
+            </Box>
+            <Box className={classes.rightBox}>
+                <img src={rightIcon} alt="" style={{ width: "32px", height: "32px" }} />
             </Box>
         </Box>
     )

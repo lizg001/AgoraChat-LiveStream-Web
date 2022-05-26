@@ -54,7 +54,7 @@ const App = () => {
 				<Box style={{ width: "100%", marginRight: "10px" }}>
 					<Box style={{ display: "flex", width: "100%", }}>
 						<VideoPlayer />
-						<Box style={{ height: "420px", width: "100%", border: "1px soild", borderRadius: "12px" }}>
+						<Box style={{ height: "410px", width: "100%", border: "1px soild", borderRadius: "12px" }}>
 							<EaseLivestream roomUserInfo={roomMemberInfo}/>
 						</Box>
 					</Box>

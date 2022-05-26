@@ -54,14 +54,16 @@ const useStyles = makeStyles((theme) => {
 const Muted = () => {
     const classes = useStyles();
     const muteList = useSelector(state => state?.roomMuted) || [];
+    const roomMemberInfo = useSelector(state => state?.roomMemberInfo) || {};
+
     return (
         <Box className={classes.root}>
             {
                 muteList.length > 0 && muteList.map((item, i) => {
                     return <Button className={classes.listItem} key={i}>
                         <Box className={classes.memberStyle}>
-                            <Avatar src={acaratIcon} className={classes.acaratStyle}></Avatar>
-                            <Typography className={classes.memberTextStyle} >{item}</Typography>
+                            <Avatar src={roomMemberInfo[item]?.avatarurl || acaratIcon} className={classes.acaratStyle}></Avatar>
+                            <Typography className={classes.memberTextStyle} >{roomMemberInfo[item]?.nickname || item}</Typography>
                         </Box>
                     </Button>
                 })

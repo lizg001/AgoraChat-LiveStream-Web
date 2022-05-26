@@ -13,7 +13,7 @@ const useStyles = makeStyles((theme) => {
     return {
         videoBox: {
             width: "300px !important",
-            height: "420px !important"
+            height: "410px !important"
         },
         giftBox: {
             height: "150px",
@@ -71,6 +71,7 @@ const useStyles = makeStyles((theme) => {
 const VideoPlayer = () => {
     const classes = useStyles();
     const liveCdnUrl = useSelector(state => state?.liveCdnUrl);
+    console.log('liveCdnUrl>>>', liveCdnUrl);
     const giftMsgs = useSelector(state => state?.giftMsgs) || [];
     const roomMemberInfo = useSelector(state => state?.roomMemberInfo);
     const currentLoginUser = WebIM.conn.context.userId;

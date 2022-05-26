@@ -1,7 +1,8 @@
 import React, { useState, memo } from 'react'
 import { useSelector } from 'react-redux'
 import { makeStyles } from "@material-ui/core/styles";
-import { Box, Avatar, Button, Typography } from "@material-ui/core";
+import { Box, Avatar, Button, Typography, List } from "@material-ui/core";
+import ListItemButton from '@mui/material/ListItemButton';
 import Menus from './menus'
 import WebIM from '../../../utils/WebIM'
 import { isChatroomAdmin } from '../../common/contants'
@@ -14,7 +15,8 @@ const useStyles = makeStyles((theme) => {
     return {
         root: {
             overflow: "hidden",
-            height: "426px"
+            height: "426px",
+            width:"350px"
         },
         acaratStyle: {
             width: "40px",
@@ -30,6 +32,7 @@ const useStyles = makeStyles((theme) => {
             height: "54px",
             width: "100%",
             borderRadius: "12px",
+            padding:"0 10px",
             background: (props) => (props.hideMenus ? "#393939" : ""),
             display: "flex",
             justifyContent: "space-between",
@@ -84,17 +87,13 @@ const Members = ({ roomMembers }) => {
     };
     return ( 
         <Box className={classes.root}>
-            <Box
-                className={classes.listBox}
-                onMouseOver={() => { setHideMenus(true) }}
-                onMouseLeave={() => { setHideMenus(false) }}
-            >
+            <List className={classes.listBox}>
                 {roomMembersObj.length > 0 && roomMembersObj.map((item, i) => {
                     let mySelf = currentLoginUser === item;
                     let isRoomAdmins = roomOwner === item || isChatroomAdmin(item)
-                   
                     return <Button className={classes.listItem} key={i}>
-                        <Box className={classes.memberStyle}>
+                        <Box className={classes.memberStyle} onMouseOver={() => { setHideMenus(true) }}
+                            onMouseLeave={() => { setHideMenus(false) }}>
                             <Avatar src={roomMemberInfo[item]?.avatarurl || acaratIcon} className={classes.acaratStyle}></Avatar>
                             <Box className={classes.userInfoBox}>
                                 <Box className={classes.roleStyle}>
@@ -107,12 +106,12 @@ const Members = ({ roomMembers }) => {
                                 </Box>
                             </Box>
                         </Box>
-                        {!isRoomAdmins && !mySelf && <Box className={classes.menuStyle} onClick={(e) => handleMenus(e, item)}>
+                        {hideMenus && !isRoomAdmins && !mySelf && <Box className={classes.menuStyle} onClick={(e) => handleMenus(e, item)}>
                             <img src={menusIcon} alt="" />
                         </Box>}
                     </Button>
                 })}
-            </Box>
+            </List>
             <Menus open={anchorEl} onClose={handleMenusClose} selectUserId={selectUserId} />
         </Box>
     )
