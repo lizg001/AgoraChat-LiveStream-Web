@@ -30,8 +30,8 @@ const useStyles = makeStyles((theme) => {
             paddingLeft: "15px"
         },
         avatarStayle: {
-            width: '40px',
-            height: "40px",
+            width: '48px',
+            height: "48px",
             background: "red",
             borderRadius: "50%",
             display: "flex",
@@ -39,8 +39,8 @@ const useStyles = makeStyles((theme) => {
             justifyContent: "center"
         },
         avatarStyle: {
-            width: "32px",
-            height: "32px"
+            width: "48px",
+            height: "48px"
         },
         titleStyle: {
             height: "28px",

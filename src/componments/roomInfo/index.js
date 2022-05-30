@@ -1,4 +1,4 @@
-import React, { useState,useEffect, memo } from 'react'
+import React, { useState, useEffect, memo } from 'react'
 import { useSelector } from 'react-redux'
 import { Box, Typography, InputBase } from "@material-ui/core";
 import Tabs from '@mui/material/Tabs';
@@ -25,10 +25,10 @@ const useStyles = makeStyles((theme) => {
             width: "340px",
             height: "520px",
             borderRadius: "16px",
-            border: "1px solid",
+            border: "1px solid #3D3D3D",
         },
         titleBox: {
-            width:"calc(100% - 20px)",
+            width: "calc(100% - 20px)",
             display: "flex",
             alignItems: "center",
             justifyContent: "space-between",
@@ -44,7 +44,9 @@ const useStyles = makeStyles((theme) => {
             fontWeight: "600",
             lineHeight: "24px",
             letterSpacing: "0px",
-            color: "#FFFFFF"
+            color: "#FFFFFF",
+            fontStyle: "normal",
+            left: "16px"
         },
         tabStyle: {
             color: "#FFFFFF"
@@ -65,41 +67,47 @@ const useStyles = makeStyles((theme) => {
             letterSpacing: "0px",
             color: "#FFFFFF40",
         },
-        iconBox:{
+        iconBox: {
             display: "flex",
-            alignItems:"center",
+            alignItems: "center",
             // padding:"0 10px 0 0 "
         },
         iconStyle: {
-            width: "30px",
-            height: "30px",
+            width: "32px",
+            height: "32px",
             cursor: "pointer"
         },
         searchBox: {
-            width: "200px",
+            width: "320px",
             display: "flex",
             justifyContent: "space-between",
             alignItems: "center",
             height: "30px",
             padding: "0 !important",
+            position: "relative"
+        },
+        searchStyle:{
+            position: "absolute",
         },
         inputStyle: {
             borderRadius: "16px",
-            border: "1px solid #FFFFFF",
-            padding: "0 8px",
+            width: "100%",
+            // border: "1px solid #FFFFFF",
+            padding: "0 15px 0 30px",
             marginRight: "4px",
-            color:"#FFFFFF"
+            color: "#FFFFFF",
+            background: "#5C5C5C"
         },
-        cancelStyle:{
+        cancelStyle: {
             textTransform: "none",
             fontFamily: "Roboto",
-            fontSize: "14px",
+            fontSize: "16px",
             fontWeight: "600",
-            lineHeight: "22px",
-            letterSpacing: "0px",
+            lineHeight: "20px",
             textAlign: "center",
             color: "#FFFFFF",
-            cursor:"pointer"
+            cursor: "pointer",
+            marginLeft:"10px"
         }
     })
 });
@@ -119,6 +127,7 @@ const RoomInfo = () => {
     const roomAdmins = useSelector(state => state?.roomAdmins);
     const roomMuted = useSelector(state => state?.roomMuted);
     const roomMemberInfo = useSelector(state => state?.roomMemberInfo);
+    let memberLength = memberList?.length > 0 ? memberList?.length : "";
     let searchMembersLength = searchValue.length > 0;
     let exportMembers = searchMembersLength ? searchMembers : roomMembers;
     let isAdmins = isChatroomAdmin(WebIM.conn.context.userId) || isOwner === WebIM.conn.context.userId;
@@ -126,7 +135,7 @@ const RoomInfo = () => {
         let membersAry = {};
         if (memberList) {
             memberList.length > 0 && memberList.forEach((item) => {
-                let { owner,member } = item;
+                let { owner, member } = item;
                 if (owner) {
                     membersAry[owner] = {
                         id: owner,
@@ -136,7 +145,7 @@ const RoomInfo = () => {
                         nickName: roomMemberInfo[owner]?.nickname || '',
                         avatar: roomMemberInfo[owner]?.avatarurl || '',
                     }
-                }else {
+                } else {
                     membersAry[member] = {
                         id: member,
                         isStreamer: false,
@@ -197,7 +206,7 @@ const RoomInfo = () => {
     const handleChengeValue = (e) => {
         let searchObj = {}
         setSearchValue(e.target.value);
-        Object.keys(roomMemberInfo).forEach((item)=> {
+        Object.keys(roomMemberInfo).forEach((item) => {
             let isIncludes = roomMemberInfo[item].nickname && (roomMemberInfo[item].nickname).includes(e.target.value);
             if (isIncludes) {
                 searchObj[item] = roomMemberInfo[item]
@@ -222,14 +231,14 @@ const RoomInfo = () => {
     return (
         <Box className={classes.root}>
             <Box className={classes.titleBox}>
-                <Typography className={classes.titleText} >{i18next.t("Viewers")}</Typography>
+                {!showSearch && <Typography className={classes.titleText} >{memberLength > 0 ? `${i18next.t("Viewers")} (${memberLength})` : i18next.t("Viewers") }</Typography>}
                 <Box className={classes.iconBox}>
-                    {!showSearch && <img src={searchIcon} alt="" className={classes.iconStyle} onClick={handleSearch}/>}
+                    {!showSearch && <img src={searchIcon} alt="" className={classes.iconStyle} onClick={handleSearch} />}
                     {showSearch && (
                         <Box className={classes.searchBox}>
                             <InputBase
                                 type="search"
-                                placeholder={i18next.t("search")}
+                                placeholder={i18next.t("Search")}
                                 className={classes.inputStyle}
                                 onChange={handleChengeValue}
                             />
@@ -239,13 +248,14 @@ const RoomInfo = () => {
                             >
                                 {i18next.t("Cancel")}
                             </Typography>
+                            <img src={searchIcon} alt="" className={classes.searchStyle}/>
                         </Box>
                     )}
-                    <img src={closeIcon} alt="" className={classes.iconStyle} onClick={() => handleCloseInfoChange()}/>
+                    {!showSearch && <img src={closeIcon} alt="" className={classes.iconStyle} onClick={() => handleCloseInfoChange()} />}
                 </Box>
-                
+
             </Box>
-            {isAdmins  ? <Box className={classes.tabsBox}>
+            {isAdmins ? <Box className={classes.tabsBox}>
                 <Tabs
                     value={value}
                     onChange={handleChange}
@@ -256,14 +266,14 @@ const RoomInfo = () => {
                     className={classes.tabStyle}
                 >
                     <Tab label={roomTabs.all()} {...a11yProps(0)} />
-                    <Tab label={roomTabs.moderators()} {...a11yProps(1)}  />
+                    <Tab label={roomTabs.moderators()} {...a11yProps(1)} />
                     <Tab label={roomTabs.allowed()} {...a11yProps(2)} />
                     <Tab label={roomTabs.muted()} {...a11yProps(3)} />
                     <Tab label={roomTabs.ban()} {...a11yProps(4)} />
 
                 </Tabs>
                 <TabPanel value={value} index={0} >
-                    <Members roomMembers={exportMembers}/>
+                    <Members roomMembers={exportMembers} />
                 </TabPanel>
                 <TabPanel value={value} index={1} >
                     <Moderators />
@@ -277,7 +287,7 @@ const RoomInfo = () => {
                 <TabPanel value={value} index={4} >
                     <Ban />
                 </TabPanel>
-            </Box> : <Members roomMembers={exportMembers} /> }
+            </Box> : <Members roomMembers={exportMembers} />}
         </Box>
 
     );

@@ -140,7 +140,7 @@ const RoomList = () => {
                 <Typography className={classes.textStyle}>{i18next.t('Stream Channels')}</Typography>
                 <InputBase
                     type="search"
-                    placeholder={i18next.t("search")}
+                    placeholder={i18next.t("Search")}
                     className={classes.inputStyle}
                     onChange={handleValueChange}
                 />

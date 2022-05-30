@@ -10,7 +10,7 @@ const useStyles = makeStyles((theme) => {
 		root: {
 			width: "100%",
 			borderRadius: "16px",
-			border: "1px solid",
+			border: "1px solid #3D3D3D",
 			// marginTop: "3px",
 			padding:"7px 3px"
 		},
