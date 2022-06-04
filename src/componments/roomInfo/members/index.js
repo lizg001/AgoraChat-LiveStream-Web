@@ -28,18 +28,21 @@ const useStyles = makeStyles((theme) => {
             height: "100%",
             cursor: "pointer"
         },
-        listItem: {
+        listItemStyle: {
             height: "54px",
-            width: "100%",
+            width: "calc(100% - 10px)",
             borderRadius: "12px",
             padding:"0 10px",
             background: (props) => (props.hideMenus ? "#393939" : ""),
             display: "flex",
             justifyContent: "space-between",
+            marginTop:"4px",
+            position: "relative"
         },
         memberStyle: {
             display: "flex",
-            alignItems: "center"
+            alignItems: "center",
+            width:"100%"
         },
         memberTextStyle: {
             // paddingLeft: "5px",
@@ -57,13 +60,20 @@ const useStyles = makeStyles((theme) => {
             textTransform: "none"
         },
         menuStyle: {
-            cursor: "pointer"
+            cursor: "pointer",
+            position: "absolute",
+            right: "40px",
         },
         userInfoBox:{
             marginLeft:"10px"
         },
         roleStyle:{
             display: "flex",
+            marginTop:"4px"
+        },
+        iconStyle:{
+            width:"61px",
+            height:"16px"
         }
     }
 });
@@ -79,6 +89,8 @@ const Members = ({ roomMembers }) => {
     let roomMembersObj = Object.keys(roomMembers);
     const currentLoginUser = WebIM.conn.context.userId;
     const handleMenus = (e, item) => {
+        console.log('>>>>>');
+        e.preventDefault();
         setAnchorEl(e.currentTarget);
         setSelectUserId(item)
     }
@@ -91,14 +103,14 @@ const Members = ({ roomMembers }) => {
                 {roomMembersObj.length > 0 && roomMembersObj.map((item, i) => {
                     let mySelf = currentLoginUser === item;
                     let isRoomAdmins = roomOwner === item || isChatroomAdmin(item)
-                    return <Button className={classes.listItem} key={i}>
+                    return <Button className={classes.listItemStyle} key={i}>
                         <Box className={classes.memberStyle} onMouseOver={() => { setHideMenus(true) }}
                             onMouseLeave={() => { setHideMenus(false) }}>
                             <Avatar src={roomMemberInfo[item]?.avatarurl || acaratIcon} className={classes.acaratStyle}></Avatar>
                             <Box className={classes.userInfoBox}>
                                 <Box className={classes.roleStyle}>
                                     <Typography className={classes.memberTextStyle} >{roomMemberInfo[item]?.nickname || item}</Typography>
-                                    {roomMembers[item]?.isMuted && <img src={muteIcon} alt="" />}
+                                    {roomMembers[item]?.isMuted && <img src={muteIcon} alt="" className={classes.iconStyle}/>}
                                 </Box>
                                 <Box className={classes.roleStyle}>
                                     {roomMembers[item]?.isStreamer && <img src={streamerIcon} alt="" />}
@@ -106,7 +118,8 @@ const Members = ({ roomMembers }) => {
                                 </Box>
                             </Box>
                         </Box>
-                        {hideMenus && !isRoomAdmins && !mySelf && <Box className={classes.menuStyle} onClick={(e) => handleMenus(e, item)}>
+                        {/* hideMenus && !isRoomAdmins && !mySelf &&  */}
+                        {<Box className={classes.menuStyle} onClick={(e) => handleMenus(e, item)}>
                             <img src={menusIcon} alt="" />
                         </Box>}
                     </Button>

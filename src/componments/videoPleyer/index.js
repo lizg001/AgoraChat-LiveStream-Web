@@ -13,7 +13,8 @@ const useStyles = makeStyles((theme) => {
     return {
         videoBox: {
             width: "300px !important",
-            height: "410px !important"
+            height: "398px !important",
+            borderRadius: "12px 0 0 12px"
         },
         giftBox: {
             height: "150px",
@@ -21,13 +22,15 @@ const useStyles = makeStyles((theme) => {
             bottom: "80px",
             left: "20px",
             overflowY: "scroll",
-            width:"calc(100% - 30px)"
+            width:"calc(100% - 30px)",
         },
         giftMsgStyle: {
-            height: "36px",
+            height: "40px",
             borderRadius: "30px",
             display: "flex",
-            marginTop: "15px"
+            marginTop: "15px",
+            background: "#00000066",
+            padding:"4px"
         },
         userBox: {
             marginLeft: "8px"
@@ -39,7 +42,7 @@ const useStyles = makeStyles((theme) => {
             lineHeight: "18px",
             letterSpacing: "0.15px",
             textAlign: "left",
-            color: "#FFFFFF"
+            color: "#FFFFFF",
         },
         giftNameStyle: {
             fontFamily: "Roboto",
@@ -48,7 +51,8 @@ const useStyles = makeStyles((theme) => {
             lineHeight: "14px",
             letterSpacing: "0.15px",
             textAlign: "left",
-            color: "#FFFFFFBD"
+            color: "#FFFFFFBD",
+            marginTop:"4px"
         },
         giftImg: {
             width: "32px",
@@ -92,6 +96,7 @@ const VideoPlayer = () => {
                     url={liveCdnUrl}
                     className={classes.videoBox}
                     playing={true}
+                    controls
                 />
             </Box>
             <Box className={classes.giftBox}>

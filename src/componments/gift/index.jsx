@@ -23,7 +23,7 @@ const useStyles = makeStyles((theme) => {
 			letterSpacing: "0px",
 			textAlign: "left",
 			color: "#FFFFFF",
-			paddingLeft: "10px"
+			padding: "4px 20px"
 		},
 		giftBox: {
 			display: "flex",

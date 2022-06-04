@@ -6,6 +6,7 @@ import { getRoomInfo,getRoomAdmins, getRoomMuteList, getRoomWriteList, leaveRoom
 import store from '../redux/store'
 import { giftMsgAction, roomInfoAction, roomBanAction } from '../redux/actions'
 import { isChatroomAdmin } from '../componments/common/contants'
+import {message} from '../componments/common/alert'
 const initListen = () => {
 	WebIM.conn.listen({
 		onOpened: () => {
@@ -44,6 +45,7 @@ const initListen = () => {
 		onChatroomChange: (event) => {
 			console.log('onChatroomChange',event);
 			let { type,gid,to } = event;
+			let currentLoginUser = WebIM.conn.context.userId;
 			switch (type) {
 				case "memberJoinChatRoomSuccess":
 					getRoomInfo(gid)
@@ -56,9 +58,21 @@ const initListen = () => {
 					break;
 				case "addMute":
 					isChatroomAdmin(to) && getRoomMuteList(gid);
+					if (to === currentLoginUser){
+						message.error(i18next.t("You're under a gag order! "))
+					}
 					break;     
 				case "removeMute":
 					isChatroomAdmin(to) && getRoomMuteList(gid);
+					if (to === currentLoginUser) {
+						message.info(i18next.t("Your gag order has been lifted! "))
+					}
+					break;
+				case "muteChatRoom":
+					message.error(i18next.t("The Streamer has been gagged by all!"))
+					break;
+				case "rmChatRoomMute":
+					message.error(i18next.t("The Streamer has lifted the gag order!"))
 					break;
 				case "addUserToChatRoomWhiteList":
 					isChatroomAdmin(to) && getRoomWriteList(gid);

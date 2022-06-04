@@ -49,7 +49,11 @@ const useStyles = makeStyles((theme) => {
             left: "16px"
         },
         tabStyle: {
-            color: "#FFFFFF"
+            // height:"60px",
+            color: "#FFFFFF",
+            background:"#2E2E2E",
+            display:"flex",
+            alignItems:"center"
         },
         menusBox: {
             display: 'flex',
@@ -158,7 +162,7 @@ const RoomInfo = () => {
             });
             setRoomMembers(membersAry);
         }
-    }, [memberList])
+    }, [memberList, roomAdmins, roomMuted])
 
     const roomTabs = {
         all: () => {

@@ -5,7 +5,8 @@ import { makeStyles } from "@material-ui/core/styles";
 import { EaseApp } from 'chat-uikit-live';
 import i18next from "i18next";
 import { joinRoom } from '../../api/room'
-import { defaultAvatarUrl } from '../common/contants'
+// import { defaultAvatarUrl } from '../common/contants'
+import liveImg from '../../assets/images/defaultLive.png'
 import lrsImg from '../../assets/images/lrs.png'
 import rightIcon from '../../assets/images/channels_list_right@2x.png'
 const useStyles = makeStyles((theme) => {
@@ -40,16 +41,16 @@ const useStyles = makeStyles((theme) => {
             height: "180px",
             width: "180px",
             marginLeft: "10px",
-            borderRadius: "16px",
-            border: "1px solid"
+            borderRadius: "12px",
+            // border: "1px solid"
         },
         liveImgStyle: {
             width: "180px",
             height: "180px",
             display: "flex",
             alignItems: "center",
-            justifyContent: "center"
-            // borderRadius: "16px",
+            justifyContent: "center",
+            borderRadius: "12px",
             // border: "1px solid",
         },
         textStyle: {
@@ -150,7 +151,7 @@ const RoomList = () => {
                     let { cover, id, name, owner } = item
                     return (
                         <Box key={i} className={classes.itemStyle} onClick={() => handleJoinRoom(id)}>
-                            <img src={cover || defaultAvatarUrl} alt="" className={classes.liveImgStyle} />
+                            <img src={cover || liveImg} alt="" className={classes.liveImgStyle} />
                             <Box className={classes.lrsInfoBox}>
                                 <Typography className={classes.nameStyle}>{name}</Typography>
                                 <Box className={classes.lrsBox}>
