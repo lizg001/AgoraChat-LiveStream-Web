@@ -19,8 +19,8 @@ const useStyles = makeStyles((theme) => {
         giftBox: {
             height: "150px",
             position: "absolute",
-            bottom: "80px",
-            left: "20px",
+            bottom: "40px",
+            left: "10px",
             overflowY: "scroll",
             width:"calc(100% - 30px)",
         },

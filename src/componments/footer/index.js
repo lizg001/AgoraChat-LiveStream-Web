@@ -11,7 +11,8 @@ const useStyles = makeStyles((theme) => {
             height: "92px",
             display: "flex",
             alignItems: "center",
-            justifyContent: "center"
+            justifyContent: "center",
+            background: "#393939"
         },
         copyrightStyle: {
             fontFamily: "Roboto",
@@ -40,6 +41,14 @@ const useStyles = makeStyles((theme) => {
             color: "#2F80ED",
             marginLeft: "15px",
             cursor: "pointer"
+        },
+        iconBox: {
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center"
+        },
+        versionTextStyle:{
+            color:"#FFFFFF"
         }
     }
 })
@@ -50,23 +59,26 @@ const Footer = () => {
             <Box>
                 <Typography className={classes.copyrightStyle}>© 2022 Agora.</Typography>
                 <Box style={{ display: "flex" }}>
-                    <Typography className={classes.versionStyle}>SDK Version v1.0.0</Typography>
-                    <Typography className={classes.versionStyle}>UI Library Version v1.0.0</Typography>
+                    <Typography className={classes.versionStyle}>SDK Version <span className={classes.versionTextStyle}>v1.0.0</span></Typography>
+                    <Typography className={classes.versionStyle}>UI Library Version <span className={classes.versionTextStyle}>v1.0.0</span> </Typography>
                     <Typography className={classes.linkStyle}>
-                        {/* <a href="http://" className={classes.linkStyle}></a> */}
-                        Agora Chat Demo
+                        <a href="http://" className={classes.linkStyle}>
+                            Agora Chat Demo
+                        </a>
                     </Typography>
                     <Typography className={classes.linkStyle}>
-                        {/* <a href="http://" className={classes.linkStyle}></a> */}
-                        Agora Chat Demo
+                        <a href="http://" className={classes.linkStyle}>
+                            Agora Chat UIkit
+                        </a>
                     </Typography>
                     <Typography className={classes.linkStyle}>
-                        {/* <a href="http://" className={classes.linkStyle}></a> */}
-                        Agora Chat Demo
+                        <a href="http://" className={classes.linkStyle}>
+                            Agora.io
+                        </a>
                     </Typography>
                 </Box>
             </Box>
-            <Box>
+            <Box className={classes.iconBox}>
                 <img src={subtractIcon} alt="" />
                 <img src={agoraLogo} alt="" />
             </Box>

@@ -60,10 +60,11 @@ const Muted = () => {
         <Box className={classes.root}>
             {
                 muteList.length > 0 && muteList.map((item, i) => {
+                    let { user } = item;
                     return <Button className={classes.listItem} key={i}>
                         <Box className={classes.memberStyle}>
-                            <Avatar src={roomMemberInfo[item]?.avatarurl || acaratIcon} className={classes.acaratStyle}></Avatar>
-                            <Typography className={classes.memberTextStyle} >{roomMemberInfo[item]?.nickname || item}</Typography>
+                            <Avatar src={roomMemberInfo[user]?.avatarurl || acaratIcon} className={classes.acaratStyle}></Avatar>
+                            <Typography className={classes.memberTextStyle} >{roomMemberInfo[user]?.nickname || user}</Typography>
                         </Box>
                     </Button>
                 })

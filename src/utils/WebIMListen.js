@@ -51,9 +51,11 @@ const initListen = () => {
 					getRoomInfo(gid)
 					break;
 				case "addAdmin":
+					message.info(i18next.t("You have been added as Moderator! "))
 					getRoomAdmins(gid);
 					break;
 				case "removeAdmin":
+					message.info(i18next.t("You have been removed as Moderator! "))
 					getRoomAdmins(gid);
 					break;
 				case "addMute":
@@ -81,11 +83,12 @@ const initListen = () => {
 					isChatroomAdmin(to) && getRoomWriteList(gid);
 					break;
 				case "removedFromGroup":
-					leaveRoom(gid);
+					getLiverooms();
 					store.dispatch(roomBanAction(to))
 					break;
 				case "deleteGroupChat":
-					leaveRoom(gid);
+					getLiverooms();
+					store.dispatch(roomInfoAction({}))
 					break;
 				default:
 					break;

@@ -7,12 +7,18 @@ import settingIcon from '../../assets/images/settings.png'
 
 const useStyles = makeStyles((theme) => {
     return {
+        root:{
+            width: "222px",
+            height: "38px",
+            borderRadius: "12px",
+            background: "#262626"
+        },
         settingBox: {
             display: "flex",
             alignItems: "center",
-            width: "128px",
-            background: "#262626",
-            cursor: "pointer"
+            width: "100%",
+            height:"100%",
+            cursor: "pointer",
         },
         IconStyle: {
             width: "24px",
@@ -40,13 +46,8 @@ const UserSettings = () => {
         setAnchorEl(null);
     };
 
-    const [value, setValue] = React.useState(new Date('2014-08-18T21:11:54'));
-
-    const handleChange = (newValue) => {
-        setValue(newValue);
-    };
     return (
-        <Box>
+        <Box className={classes.root}>
             <Box className={classes.settingBox} onClick={handleClick}>
                 <img src={settingIcon} alt="" className={classes.IconStyle} />
                 <Typography className={classes.textStyle}>{i18next.t("Settings")}</Typography>

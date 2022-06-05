@@ -1,7 +1,7 @@
-import React, { memo } from "react";
+import React, { useState, memo } from "react";
 import { useSelector } from 'react-redux'
 import { makeStyles } from "@material-ui/core/styles";
-import { Popover, List, Typography } from "@material-ui/core";
+import { Popover, List, Typography, Box, Button } from "@material-ui/core";
 import ListItemButton from '@mui/material/ListItemButton';
 import i18next from "i18next";
 // import store from '../../../redux/store'
@@ -11,6 +11,7 @@ import allowIcon from '../../../assets/images/allow.png'
 import pauseIcon from '../../../assets/images/pause.png'
 import muteIcon from '../../../assets/images/mute.png'
 import banIcon from '../../../assets/images/ban.png'
+import closeIcon from '../../../assets/images/close.png'
 
 
 const useStyles = makeStyles((theme) => ({
@@ -33,14 +34,112 @@ const useStyles = makeStyles((theme) => ({
         letterSpacing: "0px",
         textAlign: "left",
         color: "#FFFFFF",
-        marginLeft:"10px"
+        marginLeft: "10px"
+    },
+    popoverBox: {
+        height: "180px",
+        width: "420px",
+        borderRadius: "12px",
+        background: "#1A1A1A",
+        position: "relative",
+        display: "flex",
+        paddingLeft: "10px"
+    },
+    closeStyle: {
+        position: "absolute",
+        right: "21px",
+        top: "23px",
+        width: "24px",
+        height: "24px",
+        cursor:"pointer"
+    },
+    renderTextStyle: {
+        display: "flex",
+        alignItems: "center",
+        color: "#FFFFFF"
+    },
+    btnBox: {
+        position: "absolute",
+        bottom: "10px",
+        right: "10px"
+    },
+    cancelBtnStyle: {
+        background: "#393939",
+        borderRadius: "26px",
+        width: "84px",
+        height: "36px",
+        textTransform: "none",
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center"
+    },
+    okayBtnStyle: {
+        background: "#114EFF",
+        borderRadius: "26px",
+        width: "84px",
+        height: "36px",
+        textTransform: "none",
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center"
     }
 }));
 
 const Menus = ({ open, onClose, selectUserId }) => {
     const classes = useStyles();
     const roomId = useSelector(state => state?.roomInfo.id);
+    const roomMemberInfo = useSelector(state => state?.roomMemberInfo) || {};
+    const [anchorEl, setAnchorEl] = useState(null);
+    const [clickType, setClickType] = useState("")
+    const [clickUser, setClickUser] = useState("")
+    const handleChange = (e, user, type) => {
+        setAnchorEl(e.currentTarget);
+        setClickType(type);
+        setClickUser(user);
+    }
 
+    const handleClose = () => {
+        setAnchorEl(null)
+    }
+
+    const handleClick = (type,user) => {
+        switch (type) {
+            case "allow":
+                addRoomWhiteUser(roomId, user, onClose)
+                break;
+            case "mute":
+                addRoomMuted(roomId, user, onClose)
+                break;
+            case "ban":
+                addRoomBlock(roomId, user, onClose)
+                break;
+            default:
+                break;
+        }
+    }
+
+    const RenderPopover = () => {
+        return <Box className={classes.popoverBox}>
+            <img src={closeIcon} alt="close popover" className={classes.closeStyle} onClick={() => { setAnchorEl(null) }}></img>
+            <Typography className={classes.renderTextStyle}>{`want to ${clickType} ${roomMemberInfo[clickUser]?.nickname || clickUser} ?`}</Typography>
+            <Box className={classes.btnBox}>
+                <Button>
+                    <Typography
+                        className={classes.cancelBtnStyle}
+                        onClick={() => { setAnchorEl(null) }}>
+                        {i18next.t("Cancel")}
+                    </Typography>
+                </Button>
+                <Button>
+                    <Typography
+                        className={classes.okayBtnStyle}
+                        onClick={() => { handleClick(clickType, clickUser) }}>
+                        {i18next.t("Okay")}
+                    </Typography>
+                </Button>
+            </Box>
+        </Box>
+    }
     return (
         <Popover
             open={Boolean(open)}
@@ -56,9 +155,9 @@ const Menus = ({ open, onClose, selectUserId }) => {
             }}
         >
             <List component="nav" aria-label="main mailbox folders" className={classes.root}>
-                <ListItemButton 
-                className={classes.itemStyle} 
-                    onClick={() => { addRoomWhiteUser(roomId, selectUserId, onClose)}}>
+                <ListItemButton
+                    className={classes.itemStyle}
+                    onClick={(e) => handleChange(e, selectUserId, 'allow')}>
                     <img
                         src={allowIcon}
                         alt=""
@@ -70,7 +169,7 @@ const Menus = ({ open, onClose, selectUserId }) => {
                 </ListItemButton>
                 <ListItemButton
                     className={classes.itemStyle}
-                   
+                    onClick={(e) => handleChange(e, selectUserId, 'mute')}
                 >
                     <img src={pauseIcon} alt="" className={classes.iconStyle} />
                     <Typography className={classes.textStyle}>
@@ -79,16 +178,7 @@ const Menus = ({ open, onClose, selectUserId }) => {
                 </ListItemButton>
                 <ListItemButton
                     className={classes.itemStyle}
-                    onClick={() => { addRoomMuted(roomId, selectUserId, onClose) }}
-                >
-                    <img src={muteIcon} alt="" className={classes.iconStyle} />
-                    <Typography className={classes.textStyle}>
-                        {i18next.t("Mute")}
-                    </Typography>
-                </ListItemButton>
-                <ListItemButton
-                    className={classes.itemStyle}
-                    onClick={() => { addRoomBlock(roomId, selectUserId, onClose) }}
+                    onClick={(e) => handleChange(e, selectUserId, 'ban')}
                 >
                     <img src={banIcon} alt="" className={classes.iconStyle} />
                     <Typography className={classes.textStyle}>
@@ -96,6 +186,21 @@ const Menus = ({ open, onClose, selectUserId }) => {
                     </Typography>
                 </ListItemButton>
             </List>
+            <Popover
+                open={Boolean(anchorEl)}
+                anchorEl={anchorEl}
+                onClose={handleClose}
+                anchorOrigin={{
+                    vertical: 'top',
+                    horizontal: 'left',
+                }}
+                transformOrigin={{
+                    vertical: 'bottom',
+                    horizontal: 'left',
+                }}
+            >
+                <RenderPopover />
+            </Popover>
         </Popover>
     );
 };

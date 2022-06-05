@@ -74,7 +74,6 @@ const useStyles = makeStyles((theme) => {
         iconBox: {
             display: "flex",
             alignItems: "center",
-            // padding:"0 10px 0 0 "
         },
         iconStyle: {
             width: "32px",
@@ -127,7 +126,7 @@ const RoomInfo = () => {
     const [roomMembers, setRoomMembers] = useState({});
     const [searchMembers, setSearchMembers] = useState([]);
     let isOwner = useSelector(state => state?.roomInfo?.id);
-    const memberList = useSelector(state => state?.roomInfo.affiliations);
+    const memberList = useSelector(state => state?.roomInfo?.affiliations);
     const roomAdmins = useSelector(state => state?.roomAdmins);
     const roomMuted = useSelector(state => state?.roomMuted);
     const roomMemberInfo = useSelector(state => state?.roomMemberInfo);
@@ -161,6 +160,8 @@ const RoomInfo = () => {
                 }
             });
             setRoomMembers(membersAry);
+        }else{
+            setRoomMembers({})
         }
     }, [memberList, roomAdmins, roomMuted])
 
@@ -225,6 +226,7 @@ const RoomInfo = () => {
 
     const handleClosrSearch = () => {
         setShowSearch(false);
+        setSearchValue("")
     };
 
     const handleCloseInfoChange = () => {

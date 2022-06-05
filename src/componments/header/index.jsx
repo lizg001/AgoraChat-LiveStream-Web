@@ -96,21 +96,21 @@ const Header = () => {
                 </Box>
                 <Typography className={classes.titleStyle}>{i18next.t('Agora LiveStream')}</Typography>
             </Box>
-            <Box className={classes.userBox} aria-describedby="user-popover" onClick={handleClick}>
-                <Avatar src={avatarurl} className={classes.avatarStyle}></Avatar>
+            <Box className={classes.userBox} >
+                <Avatar src={avatarurl} className={classes.avatarStyle} aria-describedby="user-popover" onClick={handleClick}></Avatar>
+                <Popover
+                    id="user-popover"
+                    open={Boolean(anchorEl)}
+                    anchorEl={anchorEl}
+                    onClose={handleClose}
+                    anchorOrigin={{
+                        vertical: 'bottom',
+                        horizontal: 'left',
+                    }}
+                >
+                    <UserSettings />
+                </Popover>
             </Box>
-            <Popover
-                id="user-popover"
-                open={Boolean(anchorEl)}
-                anchorEl={anchorEl}
-                onClose={handleClose}
-                anchorOrigin={{
-                    vertical: 'bottom',
-                    horizontal: 'left',
-                }}
-            >
-                <UserSettings />
-            </Popover>
         </Box >
     )
 }

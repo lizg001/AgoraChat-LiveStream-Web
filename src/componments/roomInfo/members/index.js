@@ -6,6 +6,7 @@ import ListItemButton from '@mui/material/ListItemButton';
 import Menus from './menus'
 import WebIM from '../../../utils/WebIM'
 import { isChatroomAdmin } from '../../common/contants'
+import NoSearch from '../../common/noSearch'
 import acaratIcon from '../../../assets/images/defaultAvatar.png'
 import menusIcon from '../../../assets/images/menu.png'
 import streamerIcon from '../../../assets/images/streamer.png'
@@ -97,15 +98,17 @@ const Members = ({ roomMembers }) => {
     const handleMenusClose = () => {
         setAnchorEl(null);
     };
+
+    const handleHover = () => {
+        setHideMenus(true)
+    }
     return ( 
         <Box className={classes.root}>
             <List className={classes.listBox}>
-                {roomMembersObj.length > 0 && roomMembersObj.map((item, i) => {
-                    let mySelf = currentLoginUser === item;
-                    let isRoomAdmins = roomOwner === item || isChatroomAdmin(item)
-                    return <Button className={classes.listItemStyle} key={i}>
-                        <Box className={classes.memberStyle} onMouseOver={() => { setHideMenus(true) }}
-                            onMouseLeave={() => { setHideMenus(false) }}>
+                {roomMembersObj.length > 0 ? roomMembersObj.map((item, i) => {
+                    return <Button className={classes.listItemStyle} key={i} onMouseOver={() => { handleHover() }}
+                        onMouseLeave={() => { setHideMenus(false) }}>
+                        <Box className={classes.memberStyle} >
                             <Avatar src={roomMemberInfo[item]?.avatarurl || acaratIcon} className={classes.acaratStyle}></Avatar>
                             <Box className={classes.userInfoBox}>
                                 <Box className={classes.roleStyle}>
@@ -123,7 +126,7 @@ const Members = ({ roomMembers }) => {
                             <img src={menusIcon} alt="" />
                         </Box>}
                     </Button>
-                })}
+                }) : <NoSearch />}
             </List>
             <Menus open={anchorEl} onClose={handleMenusClose} selectUserId={selectUserId} />
         </Box>

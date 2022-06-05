@@ -1,4 +1,4 @@
-import React, { memo, useState } from 'react'
+import React, { memo, useState, useRef } from 'react'
 import { useSelector } from 'react-redux'
 import { Box, Typography, InputBase } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
@@ -6,9 +6,12 @@ import { EaseApp } from 'chat-uikit-live';
 import i18next from "i18next";
 import { joinRoom } from '../../api/room'
 // import { defaultAvatarUrl } from '../common/contants'
+import NoSearch from '../common/noSearch'
 import liveImg from '../../assets/images/defaultLive.png'
 import lrsImg from '../../assets/images/lrs.png'
+import leftIcon from '../../assets/images/channels_list_left@2x.png'
 import rightIcon from '../../assets/images/channels_list_right@2x.png'
+import searchIcon from '../../assets/images/search.png'
 const useStyles = makeStyles((theme) => {
     return {
         root: {
@@ -25,8 +28,8 @@ const useStyles = makeStyles((theme) => {
         inputStyle: {
             marginLeft: '10px',
             background: "#3D3D3D",
-            borderRadius: "16px",
-            padding: "0 20px",
+            borderRadius: "18px",
+            padding: "0 30px",
             color: "#FFFFFF"
         },
         roomBox: {
@@ -74,7 +77,11 @@ const useStyles = makeStyles((theme) => {
             lineHeight: "20px",
             letterSpacing: "0em",
             textAlign: "left",
-            color: "#FFFFFF"
+            color: "#FFFFFF",
+            width: "140px",
+            height:"20px",
+            overflow: "hidden",
+            textOverflow: "ellipsis",
         },
         lrsBox: {
             display: "flex",
@@ -94,18 +101,50 @@ const useStyles = makeStyles((theme) => {
             whiteSpace: "nowrap",
             marginLeft: "10px"
         },
-        rightBox: {
-            position: "absolute",
-            right: "8px",
-            bottom: "30px",
-            height: "40px",
-            width: "40px",
+        iconRightStyle: {
+            height: "44px",
+            width: "44px",
             borderRadius: "8px",
             background: "#FFFFFF80",
+            boxShadow: "0px 4px 16px 0px #00000066",
             display: "flex",
-            justifyContent: "center",
             alignItems: "center",
+            justifyContent: "center",
+            position: "absolute",
+            right: "10px",
+            bottom: "50px",
             cursor:"pointer"
+        },
+        iconLeftStyle:{
+            height: "44px",
+            width: "44px",
+            borderRadius: "8px",
+            background: "#FFFFFF80",
+            boxShadow: "0px 4px 16px 0px #00000066",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            position: "absolute",
+            left: "10px",
+            bottom: "50px",
+            cursor: "pointer"
+        },
+        iconStyle: {
+            width: "32px",
+            height: "32px"
+        },
+        noSearchBox:{
+            height: "180px",
+            width: "100%"
+        },
+        searchBox:{
+            position: "relative",
+            display: "flex",
+            alignItems: "center",
+        },
+        searchIconBox:{
+            position: "absolute",
+            left: "8px"
         }
     }
 });
@@ -113,10 +152,11 @@ const useStyles = makeStyles((theme) => {
 const RoomList = () => {
     const classes = useStyles();
     const roomList = useSelector(state => state?.rooms) || [];
+    const [searchValue, setSearchValue] = useState("")
     const [searchRoomList, setSearchRoomList] = useState([])
-    let roomsLength = roomList.length > 0;
-    let searchRoomLength = searchRoomList.length > 0;
-    let exportRoomList = searchRoomLength && roomsLength ? searchRoomList : roomList;
+    const [leftIconChange, setLeftIconChange] = useState(false)
+    let searchValueLength = searchValue.length > 0;
+    let exportRoomList = searchValueLength ? searchRoomList : roomList;
 
     const addSessionItem = (roomId) => {
         let session = {
@@ -131,41 +171,66 @@ const RoomList = () => {
     }
 
     const handleValueChange = (e) => {
-        let searchValue = e.target.value;
-        setSearchRoomList(roomList.filter((v) => (v.name).includes(searchValue)));
+        let { value}  = e.target;
+        setSearchValue(value)
+        setSearchRoomList(roomList.filter((v) => (v.name.toLocaleLowerCase()).includes(value.toLocaleLowerCase())));
+    }
+
+    const listRef = useRef();
+    const handleLeftChange = (e) => {
+        e.preventDefault();
+        let toLeft = 0;
+        toLeft -= listRef.current.offsetWidth
+        listRef.current.scrollTo(toLeft, 0)
+        setLeftIconChange(false)
+    }
+    const handleRightChange = (e) => {
+        e.preventDefault();
+        let toRight = 0;
+        toRight += listRef.current.offsetWidth
+        listRef.current.scrollTo(toRight, 0)
+        setLeftIconChange(true)
     }
 
     return (
         <Box className={classes.root}>
             <Box className={classes.titleBox}>
                 <Typography className={classes.textStyle}>{i18next.t('Stream Channels')}</Typography>
-                <InputBase
-                    type="search"
-                    placeholder={i18next.t("Search")}
-                    className={classes.inputStyle}
-                    onChange={handleValueChange}
-                />
+                <Box className={classes.searchBox}>
+                    <InputBase
+                        type="search"
+                        placeholder={i18next.t("Search")}
+                        className={classes.inputStyle}
+                        onChange={handleValueChange}
+                    />
+                    <img src={searchIcon} alt="" className={classes.searchIconBox}/>
+                </Box>
             </Box>
-            <Box className={classes.roomBox}>
-                {exportRoomList.map((item, i) => {
+            <Box className={classes.roomBox} ref={listRef}>
+                {exportRoomList.length > 0 ? exportRoomList.map((item, i) => {
                     let { cover, id, name, owner } = item
                     return (
-                        <Box key={i} className={classes.itemStyle} onClick={() => handleJoinRoom(id)}>
-                            <img src={cover || liveImg} alt="" className={classes.liveImgStyle} />
-                            <Box className={classes.lrsInfoBox}>
-                                <Typography className={classes.nameStyle}>{name}</Typography>
-                                <Box className={classes.lrsBox}>
-                                    <img src={lrsImg} alt="" />
-                                    <Typography className={classes.lrsNameStyle}>{owner}</Typography>
+                        <Box>
+                            <Box key={i} className={classes.itemStyle} onClick={() => handleJoinRoom(id)}>
+                                <img src={cover || liveImg} alt="" className={classes.liveImgStyle} />
+                                <Box className={classes.lrsInfoBox}>
+                                    <Typography className={classes.nameStyle}>{name}</Typography>
+                                    <Box className={classes.lrsBox}>
+                                        <img src={lrsImg} alt="" />
+                                        <Typography className={classes.lrsNameStyle}>{owner}</Typography>
+                                    </Box>
                                 </Box>
                             </Box>
                         </Box>
                     )
-                })}
+                }) : <Box className={classes.noSearchBox}><NoSearch /></Box> }
             </Box>
-            <Box className={classes.rightBox}>
-                <img src={rightIcon} alt="" style={{ width: "32px", height: "32px" }} />
-            </Box>
+            {leftIconChange && <Box className={classes.iconLeftStyle} onClick={handleLeftChange}>
+                <img src={leftIcon} alt="" className={classes.iconStyle} />
+            </Box>}
+            {exportRoomList.length > 0 && <Box className={classes.iconRightStyle} onClick={handleRightChange}>
+                <img src={rightIcon} alt="" className={classes.iconStyle} />
+            </Box>}
         </Box>
     )
 }
