@@ -5,6 +5,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import { EaseApp } from 'chat-uikit-live';
 import i18next from "i18next";
 import { joinRoom } from '../../api/room'
+import { getLiverooms } from '../../api/liveCdn'
 // import { defaultAvatarUrl } from '../common/contants'
 import NoSearch from '../common/noSearch'
 import liveImg from '../../assets/images/defaultLive.png'
@@ -23,7 +24,12 @@ const useStyles = makeStyles((theme) => {
         },
         titleBox: {
             display: "flex",
-            paddingLeft: "20px",
+            padding: "0 20px",
+            alignItems: "center",
+            justifyContent: "space-between"
+        },
+        titleStyle: {
+            display: "flex",
             alignItems: "center"
         },
         inputStyle: {
@@ -71,7 +77,7 @@ const useStyles = makeStyles((theme) => {
             letterSpacing: "0.15000000596046448px",
             textAlign: "left",
             color: "#FFFFFF",
-            marginLeft:"4px"
+            marginLeft: "4px"
         },
         liveImgStyle: {
             width: "180px",
@@ -126,7 +132,7 @@ const useStyles = makeStyles((theme) => {
             textOverflow: "ellipsis",
             overflow: "hidden",
             whiteSpace: "nowrap",
-            marginLeft: "10px"
+            marginLeft: "4px"
         },
         iconRightStyle: {
             height: "44px",
@@ -172,6 +178,22 @@ const useStyles = makeStyles((theme) => {
         searchIconBox: {
             position: "absolute",
             left: "8px"
+        },
+        refreshStyle: {
+            height: "32px",
+            width: "82px",
+            borderRadius: "30px",
+            background: "linear-gradient(to right, red , #e252d3)"
+        },
+        refreshTextStyle: {
+            fontFamily: "Roboto",
+            fontSize: "14px",
+            fontWeight: "600",
+            lineHeight: "32px",
+            letterSpacing: "0px",
+            textAlign: "center",
+            color: "#FFFFFF",
+            cursor: "pointer"
         }
     }
 });
@@ -222,15 +244,20 @@ const RoomList = () => {
     return (
         <Box className={classes.root}>
             <Box className={classes.titleBox}>
-                <Typography className={classes.textStyle}>{i18next.t('Stream Channels')}</Typography>
-                <Box className={classes.searchBox}>
-                    <InputBase
-                        type="search"
-                        placeholder={i18next.t("Search")}
-                        className={classes.inputStyle}
-                        onChange={handleValueChange}
-                    />
-                    <img src={searchIcon} alt="" className={classes.searchIconBox} />
+                <Box className={classes.titleStyle}>
+                    <Typography className={classes.textStyle}>{i18next.t('Stream Channels')}</Typography>
+                    <Box className={classes.searchBox}>
+                        <InputBase
+                            type="search"
+                            placeholder={i18next.t("Search")}
+                            className={classes.inputStyle}
+                            onChange={handleValueChange}
+                        />
+                        <img src={searchIcon} alt="" className={classes.searchIconBox} />
+                    </Box>
+                </Box>
+                <Box className={classes.refreshStyle} onClick={() => getLiverooms()}>
+                    <Typography className={classes.refreshTextStyle}>{i18next.t('Refresh')}</Typography>
                 </Box>
             </Box>
             <Box className={classes.roomBox} ref={listRef}>
