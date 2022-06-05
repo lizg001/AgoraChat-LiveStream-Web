@@ -70,9 +70,11 @@ const useStyles = makeStyles((theme) => {
 			height: "100%",
 			width: "100%",
 			bottom: "0",
+			left:"0",
 			display: "flex",
 			alignItems: "center",
-			justifyContent: "center"
+			justifyContent: "center",
+			borderRadius:"12px"
 		},
 		delayStyle: {
 			height: "32px",
@@ -82,7 +84,7 @@ const useStyles = makeStyles((theme) => {
 			fontFamily: "Roboto",
 			fontSize: "28px",
 			fontStyle: "italic",
-			fontweight: "900",
+			fontWeight: "900",
 			lineHeight: "32px",
 			letterSpacing: "0.15000000596046448px",
 			textAlign: "center",
@@ -106,9 +108,9 @@ const Gift = () => {
 
 	const handleTimer = () => {
 		let num = timeNum;
-		let fa = setInterval(() => {
+		let maskInterval = setInterval(() => {
 			if (num < 1) {
-				clearInterval(fa)
+				clearInterval(maskInterval)
 				setTimeNum(3);
 			} else {
 				num--;

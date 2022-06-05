@@ -12,6 +12,7 @@ import lrsImg from '../../assets/images/lrs.png'
 import leftIcon from '../../assets/images/channels_list_left@2x.png'
 import rightIcon from '../../assets/images/channels_list_right@2x.png'
 import searchIcon from '../../assets/images/search.png'
+import ellipseIcon from '../../assets/images/ellipse.png'
 const useStyles = makeStyles((theme) => {
     return {
         root: {
@@ -47,6 +48,31 @@ const useStyles = makeStyles((theme) => {
             borderRadius: "12px",
             // border: "1px solid"
         },
+        numberBox: {
+            display: "flex",
+            alignItems: "center",
+            position: "absolute",
+            top: "10px",
+            left: "10px",
+            width: "37px",
+            height: "16px",
+            borderRadius: "8px",
+            // background: "linear-gradient(97.17deg, #FF0000 5.3 %, #8000FF 97.97 %)"
+            background: "linear-gradient(to right, #FF0000 , #8000FF);"
+        },
+        ellipseIconStyle: {
+            paddingLeft: "5px"
+        },
+        numberTextStyle: {
+            fontFamily: "Roboto",
+            fontSize: "14px",
+            fontWeight: "700",
+            lineHeight: "16px",
+            letterSpacing: "0.15000000596046448px",
+            textAlign: "left",
+            color: "#FFFFFF",
+            marginLeft:"4px"
+        },
         liveImgStyle: {
             width: "180px",
             height: "180px",
@@ -79,9 +105,10 @@ const useStyles = makeStyles((theme) => {
             textAlign: "left",
             color: "#FFFFFF",
             width: "140px",
-            height:"20px",
+            height: "20px",
             overflow: "hidden",
             textOverflow: "ellipsis",
+            marginLeft: "4px"
         },
         lrsBox: {
             display: "flex",
@@ -113,9 +140,9 @@ const useStyles = makeStyles((theme) => {
             position: "absolute",
             right: "10px",
             bottom: "50px",
-            cursor:"pointer"
+            cursor: "pointer"
         },
-        iconLeftStyle:{
+        iconLeftStyle: {
             height: "44px",
             width: "44px",
             borderRadius: "8px",
@@ -133,16 +160,16 @@ const useStyles = makeStyles((theme) => {
             width: "32px",
             height: "32px"
         },
-        noSearchBox:{
+        noSearchBox: {
             height: "180px",
             width: "100%"
         },
-        searchBox:{
+        searchBox: {
             position: "relative",
             display: "flex",
             alignItems: "center",
         },
-        searchIconBox:{
+        searchIconBox: {
             position: "absolute",
             left: "8px"
         }
@@ -171,7 +198,7 @@ const RoomList = () => {
     }
 
     const handleValueChange = (e) => {
-        let { value}  = e.target;
+        let { value } = e.target;
         setSearchValue(value)
         setSearchRoomList(roomList.filter((v) => (v.name.toLocaleLowerCase()).includes(value.toLocaleLowerCase())));
     }
@@ -203,15 +230,20 @@ const RoomList = () => {
                         className={classes.inputStyle}
                         onChange={handleValueChange}
                     />
-                    <img src={searchIcon} alt="" className={classes.searchIconBox}/>
+                    <img src={searchIcon} alt="" className={classes.searchIconBox} />
                 </Box>
             </Box>
             <Box className={classes.roomBox} ref={listRef}>
                 {exportRoomList.length > 0 ? exportRoomList.map((item, i) => {
-                    let { cover, id, name, owner } = item
+                    console.log('item>>>', item);
+                    let { cover, id, name, owner, affiliations_count } = item
                     return (
                         <Box>
                             <Box key={i} className={classes.itemStyle} onClick={() => handleJoinRoom(id)}>
+                                <Box className={classes.numberBox}>
+                                    <img src={ellipseIcon} alt="" className={classes.ellipseIconStyle} />
+                                    <Typography className={classes.numberTextStyle}>{affiliations_count}</Typography>
+                                </Box>
                                 <img src={cover || liveImg} alt="" className={classes.liveImgStyle} />
                                 <Box className={classes.lrsInfoBox}>
                                     <Typography className={classes.nameStyle}>{name}</Typography>
@@ -223,7 +255,7 @@ const RoomList = () => {
                             </Box>
                         </Box>
                     )
-                }) : <Box className={classes.noSearchBox}><NoSearch /></Box> }
+                }) : <Box className={classes.noSearchBox}><NoSearch /></Box>}
             </Box>
             {leftIconChange && <Box className={classes.iconLeftStyle} onClick={handleLeftChange}>
                 <img src={leftIcon} alt="" className={classes.iconStyle} />
