@@ -12,7 +12,7 @@ import Allowed from './allowed'
 import Ban from './ban'
 import Muted from './muted'
 import store from '../../redux/store'
-import { miniRoomInfoAction } from '../../redux/actions'
+import { miniRoomInfoAction, newRoomMemberInfoAction } from '../../redux/actions'
 import { isChatroomAdmin } from '../common/contants'
 import WebIM from '../../utils/WebIM'
 
@@ -160,6 +160,7 @@ const RoomInfo = () => {
                 }
             });
             setRoomMembers(membersAry);
+            store.dispatch(newRoomMemberInfoAction(membersAry))
         }else{
             setRoomMembers({})
         }

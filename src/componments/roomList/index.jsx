@@ -108,7 +108,7 @@ const useStyles = makeStyles((theme) => {
             height: "20px",
             overflow: "hidden",
             textOverflow: "ellipsis",
-            marginLeft: "4px"
+            whiteSpace: "nowrap"
         },
         lrsBox: {
             display: "flex",

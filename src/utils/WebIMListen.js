@@ -4,7 +4,7 @@ import { updateUserInfo } from '../api/userInfo'
 import { getLiverooms } from '../api/liveCdn'
 import { getRoomInfo,getRoomAdmins, getRoomMuteList, getRoomWriteList, leaveRoom } from '../api/room'
 import store from '../redux/store'
-import { giftMsgAction, roomInfoAction, roomBanAction } from '../redux/actions'
+import { giftMsgAction, roomInfoAction, roomBanAction, roomMutedAction } from '../redux/actions'
 import { isChatroomAdmin } from '../componments/common/contants'
 import {message} from '../componments/common/alert'
 const initListen = () => {
@@ -62,12 +62,14 @@ const initListen = () => {
 					isChatroomAdmin(to) && getRoomMuteList(gid);
 					if (to === currentLoginUser){
 						message.error(i18next.t("You're under a gag order! "))
+						store.dispatch(roomMutedAction(currentLoginUser, { type: "add" }))
 					}
 					break;     
 				case "removeMute":
 					isChatroomAdmin(to) && getRoomMuteList(gid);
 					if (to === currentLoginUser) {
 						message.info(i18next.t("Your gag order has been lifted! "))
+						store.dispatch(roomMutedAction(currentLoginUser,{type: "remove"}))
 					}
 					break;
 				case "muteChatRoom":

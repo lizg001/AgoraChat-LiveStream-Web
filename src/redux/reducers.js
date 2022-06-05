@@ -4,6 +4,7 @@ let defaultState = {
     rooms: [],
     roomInfo: {},
     roomMemberInfo: {},
+    roomMemberInfoObj:{},
     roomAdmins: [],
     roomAllowed: [],
     roomMuted: [],
@@ -88,7 +89,7 @@ let defaultState = {
 };
 
 const reducer = (state = defaultState, action) => {
-    const { type, data } = action;
+    const { type, data, option } = action;
     switch (type) {
         case "USER_INFO_ACTION":
             return {
@@ -110,6 +111,11 @@ const reducer = (state = defaultState, action) => {
                 ...state,
                 roomMemberInfo: data
             };
+        case "NEW_ROOM_MEMBER_INFO_ACTION":
+            return {
+                ...state,
+                roomMemberInfoObj: data
+            };
         case "ROOM_ADMMINS_ACTION":
             return {
                 ...state,
@@ -121,9 +127,17 @@ const reducer = (state = defaultState, action) => {
                 roomAllowed: data
             };
         case "ROOM_MUTED_ACTION":
+            let newData = [];
+            if (option.type === "add") {
+                newData = newData.concat(data);
+            } else if (option.type === "remove"){
+                newData = (state?.roomMuted).filter(item => item !== data);
+            }else{
+                newData = data
+            }
             return {
                 ...state,
-                roomMuted: data
+                roomMuted: newData
             };
         case "ROOM_BAN_ACTION":
             return {

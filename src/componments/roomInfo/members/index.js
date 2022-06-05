@@ -53,7 +53,7 @@ const useStyles = makeStyles((theme) => {
             lineHeight: "18px",
             letterSpacing: "0px",
             color: "#FFFFFF",
-            width: "180px",
+            maxWidth: "180px",
             textOverflow: "ellipsis",
             overflow: "hidden",
             whiteSpace: "nowrap",
@@ -113,7 +113,7 @@ const Members = ({ roomMembers }) => {
                             <Box className={classes.userInfoBox}>
                                 <Box className={classes.roleStyle}>
                                     <Typography className={classes.memberTextStyle} >{roomMemberInfo[item]?.nickname || item}</Typography>
-                                    {roomMembers[item]?.isMuted && <img src={muteIcon} alt="" className={classes.iconStyle}/>}
+                                    {roomMembers[item]?.isMuted && <img src={muteIcon} alt=""/>}
                                 </Box>
                                 <Box className={classes.roleStyle}>
                                     {roomMembers[item]?.isStreamer && <img src={streamerIcon} alt="" />}
