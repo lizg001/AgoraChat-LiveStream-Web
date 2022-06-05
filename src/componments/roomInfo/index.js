@@ -23,7 +23,7 @@ const useStyles = makeStyles((theme) => {
     return ({
         root: {
             width: "340px",
-            height: "520px",
+            height: "550px",
             borderRadius: "16px",
             border: "1px solid #3D3D3D",
         },

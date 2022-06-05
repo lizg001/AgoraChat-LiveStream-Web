@@ -34,7 +34,7 @@ const useStyles = makeStyles((theme) => {
 			background: "#333333",
 			width: "68px",
 			height: "72px",
-			padding: "3px",
+			padding: "8px 12px 28px",
 			borderRadius: "12px",
 			textAlign: "center",
 			cursor: "pointer",
@@ -48,6 +48,7 @@ const useStyles = makeStyles((theme) => {
 			display: "flex",
 			alignItems: "center",
 			justifyContent: "center",
+			marginTop:"12px"
 		},
 		priceImg: {
 			width: "12px",

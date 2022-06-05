@@ -16,7 +16,7 @@ const useStyles = makeStyles((theme) => {
     return {
         root: {
             overflow: "hidden",
-            height: "426px",
+            height: "480px",
             width:"350px"
         },
         acaratStyle: {

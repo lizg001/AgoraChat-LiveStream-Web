@@ -1,15 +1,16 @@
-import React, { useState,memo } from "react";
+import React, { useState, memo } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import { Popover, Box, Typography, InputBase } from "@material-ui/core";
 import i18next from "i18next";
 import { sendGiftsMsg } from '.././../api/giftMsg'
 import goldIcon from '../../assets/gift/gold.png'
 import heartIcon from '../../assets/gift/pink_heart@2x.png'
-
+import addIcon from '../../assets/images/add.png'
+import minusIcon from '../../assets/images/minus.png'
 const useStyles = makeStyles((theme) => ({
     root: {
         height: "144px",
-        width: "230px",
+        width: "250px",
         borderRadius: "8px",
         border: "1px solid #4D4D4D",
         background: "#1A1A1A",
@@ -22,8 +23,8 @@ const useStyles = makeStyles((theme) => ({
     giftStyle: {
         marginLeft: "10px",
         background: "#333333",
-        width: "80px",
-        height: "80px",
+        width: "84px",
+        height: "84px",
         padding: "3px",
         borderRadius: "12px",
         display: "flex",
@@ -56,12 +57,12 @@ const useStyles = makeStyles((theme) => ({
         margin: "10px"
     },
     inputStyle: {
-        width: "100%",
+        width: "122px",
         height: "32px",
-        padding: "8px",
+        padding: "0 50px;",
         borderRadius: "16px",
         border: "1px solid #666666",
-        color: "#FFFFFF"
+        color: "#FFFFFF !important"
     },
     giftImg: {
         width: "62px",
@@ -89,6 +90,7 @@ const useStyles = makeStyles((theme) => ({
         display: "flex",
         alignItems: "center",
         justifyContent: "center",
+        marginRight: "18px",
         "& hover": {
             background: "#FFFFFF"
         }
@@ -99,7 +101,32 @@ const useStyles = makeStyles((theme) => ({
         fontWeight: "600",
         lineHeight: "14px",
         letterSpacing: "0px",
-        color:"#FFFFFF"
+        color: "#FFFFFF"
+    },
+    inputBox: {
+        display: "flex",
+        alignItems: "center",
+        position: "relative"
+    },
+    minusIconBox: {
+        position: "absolute",
+        left: "10px",
+        width: "16px",
+        height: "16px",
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+        cursor: "pointer",
+    },
+    addIconBox: {
+        position: "absolute",
+        right: "10px",
+        width: "16px",
+        height: "16px",
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+        cursor: "pointer",
     }
 
 }));
@@ -111,7 +138,7 @@ const SenfGifts = ({ open, onClose, selectGift }) => {
     const [clickFlag, setClickFlag] = useState(true)
     const handleInputBaseValue = (e) => {
         let value = e.target.value;
-        if (value <= 0 || value > 99 ) return
+        if (value <= 0 || value > 99) return
         setInputValue(e.target.value)
     }
 
@@ -120,6 +147,7 @@ const SenfGifts = ({ open, onClose, selectGift }) => {
         if (clickFlag) {
             setClickFlag(false);
             sendGiftsMsg(selectGift, inputValue);
+            setInputValue(1)
         }
         setTimeout(() => {
             setClickFlag(true);
@@ -128,12 +156,27 @@ const SenfGifts = ({ open, onClose, selectGift }) => {
 
     }
 
+    const handleAddChange = () => {
+        let addNumber = inputValue + 1;
+        setInputValue(addNumber);
+    }
+
+    const handleMinusChange = () => {
+        let minusNumber = inputValue - 1;
+        if (minusNumber === 0) return
+        setInputValue(minusNumber);
+    }
+
+    const handleColsePopover = () => {
+        onClose && onClose();
+        setInputValue(1)
+    }
 
     return (
         <Popover
             open={Boolean(open)}
             anchorEl={open}
-            onClose={onClose}
+            onClose={handleColsePopover}
             anchorOrigin={{
                 vertical: 'top',
                 horizontal: 'left',
@@ -160,13 +203,22 @@ const SenfGifts = ({ open, onClose, selectGift }) => {
                             />
                             <Typography className={classes.priceText} >{gift_price}</Typography>
                         </Box>
-                        <InputBase 
-                            type="number"
-                            placeholder={i18next.t('Number')}
-                            value={inputValue}
-                            className={classes.inputStyle} 
-                            onChange={handleInputBaseValue}
-                        />
+                        <Box className={classes.inputBox}>
+                            <InputBase
+                                type="text"
+                                disabled={true}
+                                placeholder={i18next.t('Number')}
+                                value={inputValue}
+                                className={classes.inputStyle}
+                                onChange={handleInputBaseValue}
+                            />
+                            <Box className={classes.minusIconBox} onClick={() => handleMinusChange()}>
+                                <img src={minusIcon} alt="" />
+                            </Box>
+                            <Box className={classes.addIconBox} onClick={() => handleAddChange()}>
+                                <img src={addIcon} alt=""  />
+                            </Box>
+                        </Box>
                     </Box>
                 </Box>
                 <Box className={classes.privateBox}>
@@ -180,11 +232,11 @@ const SenfGifts = ({ open, onClose, selectGift }) => {
                         <Typography className={classes.priceText} >32</Typography>
                     </Box>
                     <Box className={classes.btnStyle}>
-                        <Typography 
-                            className={classes.sendTextStyle} 
+                        <Typography
+                            className={classes.sendTextStyle}
                             onClick={handleSendGifts}>
-                                {i18next.t('Send')}
-                            </Typography>
+                            {i18next.t('Send')}
+                        </Typography>
                     </Box>
                 </Box>
             </Box>

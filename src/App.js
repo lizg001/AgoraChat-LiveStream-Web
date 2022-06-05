@@ -20,6 +20,11 @@ const useStyles = makeStyles((theme) => {
 			backgroundColor: "#292929",
 			overflow: "hidden"
 		},
+		bodyBox:{
+			display: "flex", 
+			justifyContent: "space-between", 
+			padding: "5px 10px" 
+		},
 		iconBox: {
 			height: "44px",
 			width: "44px",
@@ -29,6 +34,12 @@ const useStyles = makeStyles((theme) => {
 			background:" #3D3D3D",
 			cursor:"pointer",
 			borderRadius:"12px"
+		},
+		chatBox:{
+			height: "396px",
+			width: "100%",
+			borderRadius: "0 12px 12px 0",
+			border: "1px solid #3D3D3D"
 		}
 	}
 });
@@ -47,12 +58,11 @@ const App = () => {
 	return (
 		<Box className={classes.root}>
 			<Header />
-			<Box style={{ display: "flex", justifyContent: "space-between", padding: "5px 10px" }}>
+			<Box className={classes.bodyBox}>
 				<Box style={{ width: "100%", marginRight: "10px" }}>
 					<Box style={{ display: "flex", width: "100%",marginBottom:"4px" }}>
 						<VideoPlayer />
-						<Box style={{ height: "396px", width: "100%", borderRadius: "0 12px 12px 0",
-    border: "1px solid #3D3D3D" }}>
+						<Box className={classes.chatBox}>
 							<EaseLivestream roomUserInfo={roomMemberInfo}/>
 						</Box>
 					</Box>
