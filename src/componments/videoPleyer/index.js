@@ -22,7 +22,7 @@ const useStyles = makeStyles((theme) => {
             bottom: "40px",
             left: "10px",
             overflowY: "scroll",
-            width:"calc(100% - 30px)",
+            width: "calc(100% - 30px)",
         },
         giftMsgStyle: {
             height: "40px",
@@ -30,7 +30,7 @@ const useStyles = makeStyles((theme) => {
             display: "flex",
             marginTop: "15px",
             background: "#00000066",
-            padding:"4px"
+            padding: "4px"
         },
         userBox: {
             marginLeft: "8px"
@@ -52,7 +52,7 @@ const useStyles = makeStyles((theme) => {
             letterSpacing: "0.15px",
             textAlign: "left",
             color: "#FFFFFFBD",
-            marginTop:"4px"
+            marginTop: "4px"
         },
         giftImg: {
             width: "32px",
@@ -100,10 +100,11 @@ const VideoPlayer = () => {
                 />
             </Box>
             <Box className={classes.giftBox}>
-                {isGiftMsg && giftMsgs.map((item, i) => {
+                {isGiftMsg && giftMsgs.map((item) => {
                     let { id, customExts, from } = item;
                     let { gift_id, gift_num } = customExts;
-                    let { gift_img, gift_name} = giftObj[gift_id];
+                    if (!gift_id) return
+                    let { gift_img, gift_name } = giftObj[gift_id];
                     let giftSender = from ? from : currentLoginUser;
                     clearGigtMsg(id);
                     return (
@@ -117,7 +118,7 @@ const VideoPlayer = () => {
                             </Box>
                             <img
                                 className={classes.giftImg}
-                                src={require(`../../assets/gift/${gift_img}`)}
+                                src={require(`../../assets/gift/${gift_img || ""}`)}
                                 alt=""
                             />
                             <Box>

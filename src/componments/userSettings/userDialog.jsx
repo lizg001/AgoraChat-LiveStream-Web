@@ -3,12 +3,12 @@ import React, { useState, useRef } from 'react'
 import { useSelector } from 'react-redux'
 import i18next from "i18next";
 import CommonDialog from '../common/dialog'
-import { Box, Tabs, Tab, Button, Avatar } from '@material-ui/core';
+import { Box, Tabs, Tab, Button, Avatar, Typography } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
-import Typography from '@material-ui/core/Typography';
 import { TabPanel, a11yProps } from "../common/tab";
 import InfoSetting from './info'
-import { defaultAvatarUrl } from '../common/contants'
+import { uploadAvatar } from '../../api/userInfo'
+import defaultAvatarUrlImg from '../../assets/images/defaultAvatar.png'
 import infoIcon from '../../assets/images/info.png'
 import editIcon from '../../assets/images/edit.png'
 const useStyles = makeStyles((theme) => {
@@ -28,11 +28,13 @@ const useStyles = makeStyles((theme) => {
             width: "100%",
             display:"flex",
             justifyContent: "flex-start",
+            background: "#393939",
+            borderRadius: "8px"
         },
         acatarBox: {
             display: "flex",
             justifyContent: "center",
-            padding: "30px 40px",
+            padding: "20px 40px",
             position: "relative"
         },
         avatarStyle: {
@@ -40,10 +42,20 @@ const useStyles = makeStyles((theme) => {
             width: "100px",
             borderRadius: "50px",
         },
+        nameTextStyle: {
+            fontFamily: "Roboto",
+            fontSize: "16px",
+            fontWeight: "400",
+            lineHeight: "24px",
+            letterSpacing: "0.15px",
+            textAlign: "center",
+            color: "#FFFFFF",
+            marginBottom: "30px"
+        },
         editBox:{
             position: "absolute",
-            top: "65px",
-            left: "115px",
+            top: "58px",
+            left: "120px",
             cursor: "pointer"
         },
         editAvatarStyle:{
@@ -57,7 +69,8 @@ const useStyles = makeStyles((theme) => {
             letterSpacing: "0px",
             textAlign: "left",
             textTransform: "none",
-            color:"#FFFFFF"
+            color:"#FFFFFF",
+            marginLeft:"12px"
         },
         iconStyle:{
             width:"24px",
@@ -78,6 +91,7 @@ const UserDialog = ({ open, onClose }) => {
     
     const couterRef = useRef();
     const handleAvatarChange = () => {
+        console.log('couterRef111>>>', couterRef);
         couterRef.current.focus();
         couterRef.current.click();
     };
@@ -85,9 +99,6 @@ const UserDialog = ({ open, onClose }) => {
     const handleChange = (event, newValue) => {
         setValue(newValue);
     };
-
-    const handleUserAvatarChange = (e) => {
-    }
    
 
     const infoLabel = () => {
@@ -108,32 +119,37 @@ const UserDialog = ({ open, onClose }) => {
     const renderDialog = () => {
         return (
             <Box className={classes.userBox}>
-                <Box style={{ width: "30%" }}>
-                    <Box className={classes.acatarBox} onClick={handleAvatarChange}>
-                        <Avatar src={userAvatar || defaultAvatarUrl} className={classes.avatarStyle}>
-                        </Avatar>
-                        <Box className={classes.editBox}>
-                            <img src={editIcon} alt="" className={classes.editAvatarStyle} />
-                            <input
-                                id="uploadImage"
-                                type="file"
-                                ref={couterRef}
-                                style={{
-                                    display: 'none',
-                                }}
-                                onChange={handleUserAvatarChange}
-                            />
+                <Box style={{ width: "30%", background:"#1E1E1E" }}>
+                    <Box>
+                        <Box className={classes.acatarBox} onClick={handleAvatarChange}>
+                            <Avatar src={userAvatar || defaultAvatarUrlImg} className={classes.avatarStyle}>
+                            </Avatar>
+                            <Box className={classes.editBox}>
+                                <img src={editIcon} alt="" className={classes.editAvatarStyle} />
+                                <input
+                                    id="uploadImage"
+                                    type="file"
+                                    ref={couterRef}
+                                    style={{
+                                        display: 'none',
+                                    }}
+                                    // onChange={() => {
+                                    //     uploadAvatar(couterRef)
+                                    // }}
+                                />
+                            </Box>
+                        </Box>
+                        <Box>
+                            <Typography className={classes.nameTextStyle}>{userInfo?.nickname}</Typography>
                         </Box>
                     </Box>
                     <Tabs
                         orientation="vertical"
-                        // variant="scrollable"
                         value={value}
                         onChange={handleChange}
                         aria-label="Vertical tabs example"
                     >
                         <Tab label={infoLabel()} {...a11yProps(0)} className={classes.menus} />
-
                     </Tabs>
                 </Box>
                 <TabPanel value={value} index={0} className={classes.contentStyle}>
@@ -150,7 +166,8 @@ const UserDialog = ({ open, onClose }) => {
             title={i18next.t('Settings')}
             content={renderDialog()}
             maxWidth={880}
-            className={classes.root}
+            style={{background:"#292929"}}
+            // className={classes.root}
         ></CommonDialog>
     )
 }

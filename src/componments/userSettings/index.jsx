@@ -1,4 +1,4 @@
-import React, { memo,useState } from 'react'
+import React, { memo } from 'react'
 import { Box, Typography } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import i18next from "i18next";
@@ -10,8 +10,7 @@ const useStyles = makeStyles((theme) => {
         root:{
             width: "222px",
             height: "38px",
-            borderRadius: "12px",
-            background: "#262626"
+            background: "#262626",
         },
         settingBox: {
             display: "flex",
@@ -47,13 +46,13 @@ const UserSettings = () => {
     };
 
     return (
-        <Box className={classes.root}>
+        <div className={classes.root}>
             <Box className={classes.settingBox} onClick={handleClick}>
                 <img src={settingIcon} alt="" className={classes.IconStyle} />
                 <Typography className={classes.textStyle}>{i18next.t("Settings")}</Typography>
             </Box>
             <UserDialog open={anchorEl} onClose={handleClose} />
-        </Box>
+        </div>
     )
 }
 export default memo(UserSettings);

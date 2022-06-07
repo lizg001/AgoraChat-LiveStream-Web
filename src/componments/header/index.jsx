@@ -6,7 +6,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import i18next from "i18next";
 import UserSettings from '../userSettings'
 import agoraIcon from '../../assets/images/subtractLive.png'
-
+import defaultAvatarImg from '../../assets/images/defaultAvatar.png'
 const useStyles = makeStyles((theme) => {
     return {
         root: {
@@ -97,7 +97,7 @@ const Header = () => {
                 <Typography className={classes.titleStyle}>{i18next.t('Agora LiveStream')}</Typography>
             </Box>
             <Box className={classes.userBox} >
-                <Avatar src={avatarurl} className={classes.avatarStyle} aria-describedby="user-popover" onClick={handleClick}></Avatar>
+                <Avatar src={avatarurl || defaultAvatarImg} className={classes.avatarStyle} aria-describedby="user-popover" onClick={handleClick}></Avatar>
                 <Popover
                     id="user-popover"
                     open={Boolean(anchorEl)}

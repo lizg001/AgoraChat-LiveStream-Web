@@ -6,7 +6,6 @@ import { EaseApp } from 'chat-uikit-live';
 import i18next from "i18next";
 import { joinRoom } from '../../api/room'
 import { getLiverooms } from '../../api/liveCdn'
-// import { defaultAvatarUrl } from '../common/contants'
 import NoSearch from '../common/noSearch'
 import liveImg from '../../assets/images/defaultLive.png'
 import lrsImg from '../../assets/images/lrs.png'
@@ -249,7 +248,7 @@ const RoomList = () => {
                     <Box className={classes.searchBox}>
                         <InputBase
                             type="search"
-                            placeholder={i18next.t("Search")}
+                            placeholder={i18next.t("Search RoomName")}
                             className={classes.inputStyle}
                             onChange={handleValueChange}
                         />
@@ -262,7 +261,6 @@ const RoomList = () => {
             </Box>
             <Box className={classes.roomBox} ref={listRef}>
                 {exportRoomList.length > 0 ? exportRoomList.map((item, i) => {
-                    console.log('item>>>', item);
                     let { cover, id, name, owner, affiliations_count } = item
                     return (
                         <Box>

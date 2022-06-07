@@ -245,7 +245,7 @@ const RoomInfo = () => {
                         <Box className={classes.searchBox}>
                             <InputBase
                                 type="search"
-                                placeholder={i18next.t("Search")}
+                                placeholder={i18next.t("Search Username")}
                                 className={classes.inputStyle}
                                 onChange={handleChengeValue}
                             />

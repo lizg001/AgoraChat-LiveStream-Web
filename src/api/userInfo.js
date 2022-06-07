@@ -2,18 +2,24 @@
 import WebIM from '../utils/WebIM'
 import store from '../redux/store'
 import { userInfoAction, roomMemberInfoAction } from '../redux/actions'
-import { defaultAvatarUrl } from '../componments/common/contants'
+import { genderObj } from '../componments/common/contants'
+
+export const uploadAvatar = (couterRef) => {
+    console.log('couterRef>>>', couterRef.current);
+    let webimAuth = sessionStorage.getItem('webim_auth') || {}
+    let { accessToken } = JSON.parse(webimAuth);
+}
 
 
-export const updateUserInfo = (avatarUrl,nickName,gender) => {
+export const updateUserInfo = (avatarUrl, nickName, gender, Birthday) => {
     let options = {
         nickname: nickName,
-        avatarurl: avatarUrl || defaultAvatarUrl,
+        avatarurl: avatarUrl || '',
         gender: gender,
-        birth: '2000-01-01'
+        birth: Birthday || "01/01/2008"
     }
     WebIM.conn.updateOwnUserInfo(options).then((res) => {
-        console.log('updateUserInfo>>>',res)
+        console.log('updateUserInfo>>>', res)
         store.dispatch(userInfoAction(res.data))
     })
 }

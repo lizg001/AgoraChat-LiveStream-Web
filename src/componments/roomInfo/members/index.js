@@ -75,7 +75,7 @@ const useStyles = makeStyles((theme) => {
         iconStyle:{
             width:"61px",
             height:"16px"
-        }
+        },
     }
 });
 const Members = ({ roomMembers }) => {
@@ -116,7 +116,7 @@ const Members = ({ roomMembers }) => {
                                     {roomMembers[item]?.isMuted && <img src={muteIcon} alt=""/>}
                                 </Box>
                                 <Box className={classes.roleStyle}>
-                                    {roomMembers[item]?.isStreamer && <img src={streamerIcon} alt="" />}
+                                    {roomMembers[item]?.isStreamer && <img src={streamerIcon} alt="" className={classes.iconStyle} />}
                                     {roomMembers[item]?.isAdmin && <img src={moderatorIcon} alt="" />}
                                 </Box>
                             </Box>

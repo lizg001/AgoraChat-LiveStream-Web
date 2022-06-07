@@ -1,30 +1,41 @@
 import React, { memo, useState } from 'react'
 import { useSelector } from 'react-redux'
-import { Box, InputBase, Typography, InputLabel, MenuItem, FormControl, Select } from "@material-ui/core";
+import { Box, InputBase, Typography, MenuItem, FormControl, Select } from "@material-ui/core";
 import { makeStyles } from '@material-ui/core/styles';
 import i18next from "i18next";
-import {updateUserInfo} from '../../../api/userInfo'
+import { updateUserInfo } from '../../../api/userInfo'
+import { genderObj } from '../../common/contants'
+import TextField from '@mui/material/TextField';
+import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
+import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
+import { DatePicker } from '@mui/x-date-pickers/DatePicker';
+import tickIcon from '../../../assets/images/tick.png'
 
 const useStyles = makeStyles((theme) => {
     return {
         infoBox: {
-            width:"100%",
+            width: "100%",
             marginTop: "20px",
             borderRadius: "16px",
-            background: "#393939",
+            background: "#292929",
         },
         borderBox: {
-            marginTop:"20px",
+            marginTop: "20px",
             display: "flex",
             justifyContent: "space-between",
             alignItems: "center",
-            height: "55px",
+            height: "56px",
             borderRadius: "16px",
             background: "#333333",
             padding: "0 10px"
         },
+        nameStyle: {
+            height: "24px",
+            display: "flex",
+            justifyContent: "center"
+        },
         nameInputBox: {
-            width:"100%",
+            width: "100%",
             display: "flex",
             alignItems: "center"
         },
@@ -37,12 +48,12 @@ const useStyles = makeStyles((theme) => {
             textAlign: "left",
             color: "#FFFFFF"
         },
-        inputStyle:{
+        inputStyle: {
             width: "100%",
             margin: "0 15px",
-            padding:"0 15px",
-            border: (props) => (props.nameEditStatus ? "" : "1px solid #FFFFFF") ,
-            borderRadius:"16px",
+            padding: "0 15px",
+            border: (props) => (props.nameEditStatus ? "" : "1px solid #FFFFFF"),
+            borderRadius: "16px",
         },
         editStyle: {
             fontFamily: "Roboto",
@@ -62,14 +73,20 @@ const useStyles = makeStyles((theme) => {
             letterSpacing: "0px",
             textAlign: "right",
             color: "#FFFFFF",
-            cursor:"pointer"
+            cursor: "pointer"
         },
         selectStyle: {
             minWidth: "120px",
             background: "#3D3D3D",
             border: "1px solid #3A3A3A",
-            borderRadius: "12px",
-            padding:"0 8px"
+            borderRadius: "8px",
+            padding: "0 8px"
+        },
+        brithStyle: {
+            height: "40px",
+            width: "158px",
+            background: "#3D3D3D",
+            color: "#FFFFFF",
         }
     };
 });
@@ -78,22 +95,25 @@ const InfoSetting = () => {
     const [userAcatar, setUserAcatar] = useState(userInfo.avatarurl || "");
     const [nameValue, setNameValue] = useState(userInfo.nickname || "");
     const [nameEditStatus, setNameEditStatus] = useState(true);
-    const [genderValue, setGenderValue] = useState(userInfo.gender);
-    // const [value, setValue] = React.useState(new Date('2014-08-18T21:11:54'));
+    const [genderValue, setGenderValue] = useState(userInfo.gender || "Other");
+    const [value, setValue] = useState(userInfo.brith || new Date('2008-01-1'));
 
-    // const handleChange = (newValue) => {
-    //     setValue(newValue);
-    // };
+    const handleBriChange = (briValue) => {
+        setValue(briValue);
+        updateUserInfo(userAcatar, nameValue, genderValue, briValue)
+
+    };
     const classes = useStyles({
         nameEditStatus: nameEditStatus
     });
- 
+
     const handleNameChange = (e) => {
         setNameValue(e.target.value)
     }
 
     const handleGenderChange = (e) => {
         setGenderValue(e.target.value);
+        console.log('handleGenderChange>>>', e.target.value);
         updateUserInfo(userAcatar, nameValue, e.target.value)
     }
 
@@ -114,10 +134,10 @@ const InfoSetting = () => {
                     {i18next.t("Edit")}
                 </Typography>
             ) : (
-                <Typography className={classes.doneStyle} 
-                        onClick={() => {
-                            handleUpdateUserInfo()
-                        }}>
+                <Typography className={classes.doneStyle}
+                    onClick={() => {
+                        handleUpdateUserInfo()
+                    }}>
                     {i18next.t("Done")}
                 </Typography>
             )}
@@ -126,7 +146,7 @@ const InfoSetting = () => {
 
 
     return (
-        <Box className={classes.infoBox}>
+        <Box >
             <Box className={classes.borderBox}>
                 <Box className={classes.nameInputBox}>
                     <Typography className={classes.userTextStyle}>
@@ -163,15 +183,31 @@ const InfoSetting = () => {
                             id="demo-simple-select"
                             value={genderValue}
                             onChange={handleGenderChange}
-                            style={{color: "#FFFFFF"}}
+                            style={{ color: "#FFFFFF" }}
                         >
-                            <MenuItem value={1} >{i18next.t("Male")}</MenuItem>
-                            <MenuItem value={2} >{i18next.t("Female")}</MenuItem>
-                            <MenuItem value={3} >{i18next.t("Other")}</MenuItem>
-                            <MenuItem value={4} >{i18next.t("Secret")}</MenuItem>
+                            {Object.keys(genderObj).map((item, i) => {
+                                // let isSelected = genderValue === Number(item);
+                                return <MenuItem value={i} style={{ display: "flex", justifyContent: "space-between" }}>
+                                    <Typography>{i18next.t(genderObj[item].gender)}</Typography>
+                                    {/* {isSelected && <img src={tickIcon} alt="" style={{ color: "red" }} />} */}
+                                </MenuItem>
+                            })}
                         </Select>
                     </FormControl>
                 </Box>
+            </Box>
+            <Box className={classes.borderBox}>
+                {/* <BasicDatePicker /> */}
+                <Typography className={classes.userTextStyle}>
+                    {i18next.t("Birthday")}
+                </Typography>
+                <LocalizationProvider dateAdapter={AdapterDateFns} >
+                    <DatePicker
+                        value={value}
+                        onChange={handleBriChange}
+                        renderInput={(params) => <TextField {...params} className={classes.brithStyle} />}
+                    />
+                </LocalizationProvider>
             </Box>
         </Box>
     )

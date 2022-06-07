@@ -62,7 +62,8 @@ const useStyles = makeStyles((theme) => ({
         padding: "0 50px;",
         borderRadius: "16px",
         border: "1px solid #666666",
-        color: "#FFFFFF !important"
+        color: "#FFFFFF !important",
+
     },
     giftImg: {
         width: "62px",
@@ -158,12 +159,12 @@ const SenfGifts = ({ open, onClose, selectGift }) => {
     }
 
     const handleAddChange = () => {
-        let addNumber = inputValue + 1;
+        let addNumber = Number(inputValue) + 1;
         setInputValue(addNumber);
     }
 
     const handleMinusChange = () => {
-        let minusNumber = inputValue - 1;
+        let minusNumber = Number(inputValue) - 1;
         if (minusNumber === 0) return
         setInputValue(minusNumber);
     }
@@ -206,8 +207,7 @@ const SenfGifts = ({ open, onClose, selectGift }) => {
                         </Box>
                         <Box className={classes.inputBox}>
                             <InputBase
-                                type="text"
-                                disabled={true}
+                                type="tel"
                                 placeholder={i18next.t('Number')}
                                 value={inputValue}
                                 className={classes.inputStyle}
