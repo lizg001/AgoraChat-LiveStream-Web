@@ -145,7 +145,7 @@ const RoomInfo = () => {
                         isStreamer: true,
                         isAdmin: roomAdmins.includes(owner),
                         isMuted: roomMuted.includes(owner),
-                        nickName: roomMemberInfo[owner]?.nickname || '',
+                        nickname: roomMemberInfo[owner]?.nickname || '',
                         avatar: roomMemberInfo[owner]?.avatarurl || '',
                     }
                 } else {
@@ -154,7 +154,7 @@ const RoomInfo = () => {
                         isStreamer: false,
                         isAdmin: roomAdmins.includes(member),
                         isMuted: roomMuted.includes(member),
-                        nickName: roomMemberInfo[member]?.nickname || '',
+                        nickname: roomMemberInfo[member]?.nickname || '',
                         avatar: roomMemberInfo[member]?.avatarurl || '',
                     }
                 }

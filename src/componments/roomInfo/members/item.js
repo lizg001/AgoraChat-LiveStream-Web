@@ -210,7 +210,7 @@ const MemberItem = ({ member, roomMembers, key }) => {
             }}
         >
             <Box className={classes.popoverBox}>
-                <img src={closeIcon} alt="close popover" className={classes.closeStyle} onClick={() => { setAnchorEl(null) }}></img>
+                <img src={closeIcon} alt="close popover" className={classes.closeStyle} onClick={() => handleConfirmClose()} ></img>
                 <Typography className={classes.renderTextStyle}>{`want to ${clickType} ${roomMemberInfo[clickUser]?.nickname || clickUser} ?`}</Typography>
                 <Box className={classes.btnBox}>
                     <Button>
