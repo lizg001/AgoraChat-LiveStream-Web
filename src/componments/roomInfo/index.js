@@ -139,7 +139,11 @@ const RoomInfo = () => {
         let roomMutedAry = [];
         if (roomMuted?.length > 0) {
             roomMuted.forEach(item => {
-                roomMutedAry.push(item.user)
+               if (item?.user) {
+                   roomMutedAry.push(item.user)
+               }else {
+                   roomMutedAry.push(item)
+               }
             })
         }
         if (memberList) {

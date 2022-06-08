@@ -195,9 +195,6 @@ const MemberItem = ({ member, roomMembers, key }) => {
                 break;
         }
     }
-
-    console.log('roomMembers[member]?.isMuted>>>>>>', member,roomMembers[member]?.isMuted);
-
     const renderComfirmModel = () => {
         return <Popover
             open={Boolean(confirmAnchorEl)}

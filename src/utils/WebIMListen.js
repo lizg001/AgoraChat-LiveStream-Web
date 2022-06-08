@@ -87,10 +87,12 @@ const initListen = () => {
 				case "removedFromGroup":
 					getLiverooms();
 					store.dispatch(roomBanAction(to))
+					store.dispatch(roomMutedAction([]))
 					break;
 				case "deleteGroupChat":
 					getLiverooms();
 					store.dispatch(roomInfoAction({}))
+					store.dispatch(roomMutedAction([]))
 					break;
 				default:
 					break;

@@ -8,6 +8,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import { TabPanel, a11yProps } from "../common/tab";
 import InfoSetting from './info'
 import { uploadAvatar } from '../../api/userInfo'
+import WebIM from '../../utils/WebIM'
 import defaultAvatarUrlImg from '../../assets/images/defaultAvatar.png'
 import infoIcon from '../../assets/images/info.png'
 import editIcon from '../../assets/images/edit.png'
@@ -89,7 +90,7 @@ const UserDialog = ({ open, onClose }) => {
     const userInfo = useSelector(state => state?.userInfo) || {};
     const [value, setValue] = useState(0);
     const [userAvatar, setUserAvatar] = useState(userInfo.avatarurl)
-    
+    let currentLoginUser = WebIM.conn.context.userId;
     const couterRef = useRef();
     const handleAvatarChange = () => {
         console.log('couterRef111>>>', couterRef);
@@ -141,7 +142,7 @@ const UserDialog = ({ open, onClose }) => {
                             </Box>
                         </Box>
                         <Box>
-                            <Typography className={classes.nameTextStyle}>{userInfo?.nickname}</Typography>
+                            <Typography className={classes.nameTextStyle}>{userInfo?.nickname || currentLoginUser}</Typography>
                         </Box>
                     </Box>
                     <Tabs
