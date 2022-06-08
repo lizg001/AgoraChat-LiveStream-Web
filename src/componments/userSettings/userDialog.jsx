@@ -78,7 +78,8 @@ const useStyles = makeStyles((theme) => {
         },
         contentStyle:{
             width:"70%",
-            height:"100%"
+            height:"100%",
+            background:"#292929"
         }
     })
 });

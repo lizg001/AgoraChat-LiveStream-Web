@@ -107,7 +107,7 @@ const Menus = ({ open, onClose, selectUserId }) => {
             case "allow":
                 addRoomWhiteUser(roomId, user, onClose)
                 break;
-            case "mute":
+            case "timeout":
                 addRoomMuted(roomId, user, onClose)
                 break;
             case "ban":
@@ -118,28 +118,28 @@ const Menus = ({ open, onClose, selectUserId }) => {
         }
     }
 
-    const RenderPopover = () => {
-        return <Box className={classes.popoverBox}>
-            <img src={closeIcon} alt="close popover" className={classes.closeStyle} onClick={() => { setAnchorEl(null) }}></img>
-            <Typography className={classes.renderTextStyle}>{`want to ${clickType} ${roomMemberInfo[clickUser]?.nickname || clickUser} ?`}</Typography>
-            <Box className={classes.btnBox}>
-                <Button>
-                    <Typography
-                        className={classes.cancelBtnStyle}
-                        onClick={() => { setAnchorEl(null) }}>
-                        {i18next.t("Cancel")}
-                    </Typography>
-                </Button>
-                <Button>
-                    <Typography
-                        className={classes.okayBtnStyle}
-                        onClick={() => { handleClick(clickType, clickUser) }}>
-                        {i18next.t("Okay")}
-                    </Typography>
-                </Button>
-            </Box>
-        </Box>
-    }
+    // const RenderPopover = () => {
+    //     return <Box className={classes.popoverBox}>
+    //         <img src={closeIcon} alt="close popover" className={classes.closeStyle} onClick={() => { setAnchorEl(null) }}></img>
+    //         <Typography className={classes.renderTextStyle}>{`want to ${clickType} ${roomMemberInfo[clickUser]?.nickname || clickUser} ?`}</Typography>
+    //         <Box className={classes.btnBox}>
+    //             <Button>
+    //                 <Typography
+    //                     className={classes.cancelBtnStyle}
+    //                     onClick={() => { setAnchorEl(null) }}>
+    //                     {i18next.t("Cancel")}
+    //                 </Typography>
+    //             </Button>
+    //             <Button>
+    //                 <Typography
+    //                     className={classes.okayBtnStyle}
+    //                     onClick={() => { handleClick(clickType, clickUser) }}>
+    //                     {i18next.t("Okay")}
+    //                 </Typography>
+    //             </Button>
+    //         </Box>
+    //     </Box>
+    // }
     return (
         <Popover
             open={Boolean(open)}
@@ -169,7 +169,7 @@ const Menus = ({ open, onClose, selectUserId }) => {
                 </ListItemButton>
                 <ListItemButton
                     className={classes.itemStyle}
-                    onClick={(e) => handleChange(e, selectUserId, 'mute')}
+                    onClick={(e) => handleChange(e, selectUserId, 'timeout')}
                 >
                     <img src={pauseIcon} alt="" className={classes.iconStyle} />
                     <Typography className={classes.textStyle}>
@@ -199,7 +199,26 @@ const Menus = ({ open, onClose, selectUserId }) => {
                     horizontal: 'left',
                 }}
             >
-                <RenderPopover />
+                <Box className={classes.popoverBox}>
+                    <img src={closeIcon} alt="close popover" className={classes.closeStyle} onClick={() => { setAnchorEl(null) }}></img>
+                    <Typography className={classes.renderTextStyle}>{`want to ${clickType} ${roomMemberInfo[clickUser]?.nickname || clickUser} ?`}</Typography>
+                    <Box className={classes.btnBox}>
+                        <Button>
+                            <Typography
+                                className={classes.cancelBtnStyle}
+                                onClick={() => { setAnchorEl(null) }}>
+                                {i18next.t("Cancel")}
+                            </Typography>
+                        </Button>
+                        <Button>
+                            <Typography
+                                className={classes.okayBtnStyle}
+                                onClick={() => { handleClick(clickType, clickUser) }}>
+                                {i18next.t("Okay")}
+                            </Typography>
+                        </Button>
+                    </Box>
+                </Box>
             </Popover>
         </Popover>
     );

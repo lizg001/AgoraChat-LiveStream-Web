@@ -16,7 +16,7 @@ export const updateUserInfo = (avatarUrl, nickName, gender, Birthday) => {
         nickname: nickName,
         avatarurl: avatarUrl || '',
         gender: gender,
-        birth: Birthday || "01/01/2008"
+        birth: Birthday
     }
     WebIM.conn.updateOwnUserInfo(options).then((res) => {
         console.log('updateUserInfo>>>', res)
