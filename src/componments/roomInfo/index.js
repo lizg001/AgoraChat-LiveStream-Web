@@ -136,6 +136,12 @@ const RoomInfo = () => {
     let isAdmins = isChatroomAdmin(WebIM.conn.context.userId) || isOwner === WebIM.conn.context.userId;
     useEffect(() => {
         let membersAry = {};
+        let roomMutedAry = [];
+        if (roomMuted?.length > 0) {
+            roomMuted.forEach(item => {
+                roomMutedAry.push(item.user)
+            })
+        }
         if (memberList) {
             memberList.length > 0 && memberList.forEach((item) => {
                 let { owner, member } = item;
@@ -144,7 +150,7 @@ const RoomInfo = () => {
                         id: owner,
                         isStreamer: true,
                         isAdmin: roomAdmins.includes(owner),
-                        isMuted: roomMuted.includes(owner),
+                        isMuted: roomMutedAry.includes(owner),
                         nickname: roomMemberInfo[owner]?.nickname || '',
                         avatar: roomMemberInfo[owner]?.avatarurl || '',
                     }
@@ -153,7 +159,7 @@ const RoomInfo = () => {
                         id: member,
                         isStreamer: false,
                         isAdmin: roomAdmins.includes(member),
-                        isMuted: roomMuted.includes(member),
+                        isMuted: roomMutedAry.includes(member),
                         nickname: roomMemberInfo[member]?.nickname || '',
                         avatar: roomMemberInfo[member]?.avatarurl || '',
                     }

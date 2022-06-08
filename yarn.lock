@@ -4416,10 +4416,10 @@ charcodes@^0.2.0:
   resolved "https://registry.npmjs.org/charcodes/-/charcodes-0.2.0.tgz"
   integrity sha512-Y4kiDb+AM4Ecy58YkuZrrSRJBDQdQ2L+NyS1vHHFtNtUjgutcZfx3yp1dAONI/oPaPmyGfCLx5CxL+zauIMyKQ==
 
-chat-uikit-live@^1.2.8:
-  version "1.2.8"
-  resolved "https://registry.yarnpkg.com/chat-uikit-live/-/chat-uikit-live-1.2.8.tgz#a005f4adecaa903051e9668a35ec7538cd0799a6"
-  integrity sha512-aLQ+9jPbaPbqfMOM1QVvqcVXXyJx7E+DRM78NjdwTIEhKrq/EwtDHpyA0jRlfEHzTR6T0XH0CiPMkvtp+1c5Wg==
+chat-uikit-live@^1.3.4:
+  version "1.3.4"
+  resolved "https://registry.yarnpkg.com/chat-uikit-live/-/chat-uikit-live-1.3.4.tgz#d5fe51da4841f2bbc28e0e61d8828ed1c3a3de34"
+  integrity sha512-LfLhgu9cioICI1JVDiEeHya33lizX8gLP/Uoc4OJrXgLX7n37CnwESIDmdIuLklL1juklmimr8dOUW3q3lYwpg==
   dependencies:
     "@emotion/react" "^11.8.2"
     "@emotion/styled" "^11.8.1"

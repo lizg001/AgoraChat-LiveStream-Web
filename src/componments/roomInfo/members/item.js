@@ -10,7 +10,7 @@ import acaratImg from '../../../assets/images/defaultAvatar.png'
 import ellipsisIcon from '../../../assets/images/ellipsis.png'
 import streamerIcon from '../../../assets/images/streamer.png'
 import moderatorIcon from '../../../assets/images/moderator.png'
-import blockedIcon from '../../../assets/images/blocked@2x.png'
+import mutedIcon from '../../../assets/images/mute.png'
 import allowIcon from '../../../assets/images/allow.png'
 import pauseIcon from '../../../assets/images/pause.png'
 import banIcon from '../../../assets/images/ban.png'
@@ -48,7 +48,8 @@ const useStyles = makeStyles((theme) => {
             overflow: "hidden",
             whiteSpace: "nowrap",
             textAlign: "left",
-            textTransform: "none"
+            textTransform: "none",
+            marginRight:"4px"
         },
         menuStyle: {
             cursor: "pointer",
@@ -195,6 +196,8 @@ const MemberItem = ({ member, roomMembers, key }) => {
         }
     }
 
+    console.log('roomMembers[member]?.isMuted>>>>>>', member,roomMembers[member]?.isMuted);
+
     const renderComfirmModel = () => {
         return <Popover
             open={Boolean(confirmAnchorEl)}
@@ -239,7 +242,7 @@ const MemberItem = ({ member, roomMembers, key }) => {
                 <Box className={classes.userInfoBox}>
                     <Box className={classes.roleStyle}>
                         <Typography className={classes.memberTextStyle} >{roomMemberInfo[member]?.nickname || member}</Typography>
-                        {roomMembers[member]?.isMuted && <img src={blockedIcon} alt="" />}
+                        {roomMembers[member]?.isMuted && <img src={mutedIcon} alt="" />}
                     </Box>
                     <Box className={classes.roleStyle}>
                         {roomMembers[member]?.isStreamer && <img src={streamerIcon} alt="" className={classes.iconRoleStyle} />}
