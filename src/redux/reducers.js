@@ -128,9 +128,9 @@ const reducer = (state = defaultState, action) => {
             };
         case "ROOM_MUTED_ACTION":
             let newData = [];
-            if (option.type === "add") {
+            if (option?.type === "add") {
                 newData = newData.concat(data);
-            } else if (option.type === "remove"){
+            } else if (option?.type === "remove"){
                 newData = (state?.roomMuted).filter(item => item !== data);
             }else{
                 newData = data

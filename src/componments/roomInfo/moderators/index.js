@@ -6,7 +6,7 @@ import { Box, Avatar, Button, Typography } from "@material-ui/core";
 import acaratImg from '../../../assets/images/defaultAvatar.png'
 import streamerIcon from '../../../assets/images/streamer.png'
 import moderatorIcon from '../../../assets/images/moderator.png'
-import muteIcon from '../../../assets/images/mute.png'
+import blockedIcon from '../../../assets/images/blocked@2x.png'
 
 
 const useStyles = makeStyles((theme) => {
@@ -73,7 +73,7 @@ const Moderators = () => {
 	const classes = useStyles();
 	const adminList = useSelector(state => state?.roomAdmins) || [];
 	const roomMemberInfo = useSelector(state => state?.roomMemberInfoObj) || {};
-	
+
 	return (
 		<Box className={classes.root}>
 			{
@@ -84,7 +84,7 @@ const Moderators = () => {
 							<Box className={classes.userInfoBox}>
 								<Box className={classes.roleStyle}>
 									<Typography className={classes.memberTextStyle} >{roomMemberInfo[item]?.nickname || item}</Typography>
-									{roomMemberInfo[item]?.isMuted && <img src={muteIcon} alt="" />}
+									{roomMemberInfo[item]?.isMuted && <img src={blockedIcon} alt="" />}
 								</Box>
 								<Box className={classes.roleStyle}>
 									{roomMemberInfo[item]?.isStreamer && <img src={streamerIcon} alt="" className={classes.iconRoleStyle} />}
