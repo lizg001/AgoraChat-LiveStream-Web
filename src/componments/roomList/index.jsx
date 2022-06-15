@@ -49,7 +49,7 @@ const useStyles = makeStyles((theme) => {
             position: "relative",
             height: "180px",
             width: "180px",
-            marginLeft: "10px",
+            margin: "0 6px",
             borderRadius: "12px",
             cursor: "pointer"
             // border: "1px solid"

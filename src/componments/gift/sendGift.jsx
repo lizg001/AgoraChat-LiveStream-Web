@@ -1,4 +1,4 @@
-import React, { useState, memo } from "react";
+import React, { useState, useRef,memo } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import { Popover, Box, Typography, InputBase } from "@material-ui/core";
 import i18next from "i18next";
@@ -10,7 +10,7 @@ import minusIcon from '../../assets/images/minus.png'
 const useStyles = makeStyles((theme) => ({
     root: {
         height: "144px",
-        width: "250px",
+        width: "238px",
         borderRadius: "8px",
         border: "1px solid #4D4D4D",
         background: "#1A1A1A",
@@ -25,7 +25,6 @@ const useStyles = makeStyles((theme) => ({
         background: "#333333",
         width: "84px",
         height: "84px",
-        padding: "3px",
         borderRadius: "12px",
         display: "flex",
         alignItems: "center",
@@ -46,6 +45,7 @@ const useStyles = makeStyles((theme) => ({
     giftPriceBox: {
         display: "flex",
         alignItems: "center",
+        height:"24px"
     },
     priceText: {
         fontFamily: "Roboto",
@@ -57,17 +57,16 @@ const useStyles = makeStyles((theme) => ({
         margin: "10px"
     },
     inputStyle: {
-        width: "122px",
+        width: "130px",
         height: "32px",
         padding: "0 50px;",
         borderRadius: "16px",
         border: "1px solid #666666",
         color: "#FFFFFF !important",
-
     },
     giftImg: {
-        width: "62px",
-        height: "56px"
+        width: "66px",
+        height: "66px"
     },
     priceImg: {
         width: "16px",
@@ -76,11 +75,13 @@ const useStyles = makeStyles((theme) => ({
     privateBox: {
         display: "flex",
         justifyContent: "space-between",
-        marginTop: "15px"
+        marginTop: "20px",
+        padding: "0 0 6px 6px"
     },
     propertyBox: {
         display: "flex",
-        alignItems: "center"
+        alignItems: "center",
+        height: "30px"
     },
     btnStyle: {
         height: "30px",
@@ -92,7 +93,7 @@ const useStyles = makeStyles((theme) => ({
         display: "flex",
         alignItems: "center",
         justifyContent: "center",
-        marginRight: "18px",
+        marginRight: "6px",
         "& hover": {
             background: "#FFFFFF"
         }
@@ -136,14 +137,22 @@ const useStyles = makeStyles((theme) => ({
 const SenfGifts = ({ open, onClose, selectGift }) => {
     const classes = useStyles();
     let { gift_img, gift_name, gift_price, goldCoins, clickStatus } = selectGift;
-    const [inputValue, setInputValue] = useState(1)
+    const [inputValue, setInputValue] = useState('1')
     const [clickFlag, setClickFlag] = useState(true)
+
+    const inputRef = useRef();
     const handleInputBaseValue = (e) => {
         let value = e.target.value;
         if (value <= 0 || value > 99) return
         setInputValue(e.target.value)
     }
 
+    const handleClickInputBase = () => {
+        inputRef.current.focus({
+            cursor: 'end',
+        });
+        setInputValue(' ')
+    }
     const handleSendGifts = (e) => {
         e.preventDefault();
         if (clickFlag) {
@@ -155,9 +164,8 @@ const SenfGifts = ({ open, onClose, selectGift }) => {
             setClickFlag(true);
         }, 300);
         onClose && onClose();
-
     }
-
+   
     const handleAddChange = () => {
         let addNumber = Number(inputValue) + 1;
         setInputValue(addNumber);
@@ -207,11 +215,14 @@ const SenfGifts = ({ open, onClose, selectGift }) => {
                         </Box>
                         <Box className={classes.inputBox}>
                             <InputBase
+                                ref={inputRef}
                                 type="tel"
                                 placeholder={i18next.t('Number')}
                                 value={inputValue}
+                                style={{textAlign:"center"}}
                                 className={classes.inputStyle}
                                 onChange={handleInputBaseValue}
+                                onClick={handleClickInputBase}
                             />
                             <Box className={classes.minusIconBox} onClick={() => handleMinusChange()}>
                                 <img src={minusIcon} alt="" />
