@@ -91,10 +91,10 @@ const useStyles = makeStyles((theme) => {
 });
 const InfoSetting = () => {
     const userInfo = useSelector(state => state?.userInfo) || {};
-    const [userAcatar, setUserAcatar] = useState(userInfo.avatarurl || "");
-    const [nameValue, setNameValue] = useState(userInfo.nickname || "");
+    const [userAcatar, setUserAcatar] = useState(userInfo?.avatarurl || "");
+    const [nameValue, setNameValue] = useState(userInfo?.nickname || "");
     const [nameEditStatus, setNameEditStatus] = useState(true);
-    const [genderValue, setGenderValue] = useState(userInfo.gender || "Other");
+    const [genderValue, setGenderValue] = useState(userInfo?.gender || "Male");
     const [value, setValue] = useState(userInfo.brith || '2008-01-01');
 
     const handleBriChange = (briValue) => {

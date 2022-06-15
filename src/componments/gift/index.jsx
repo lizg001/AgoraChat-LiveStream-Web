@@ -12,7 +12,7 @@ const useStyles = makeStyles((theme) => {
 			borderRadius: "16px",
 			border: "1px solid #3D3D3D",
 			// marginTop: "3px",
-			padding:"7px 3px"
+			padding:"7px 0"
 		},
 		textStyle: {
 			height: "19px",
@@ -23,7 +23,7 @@ const useStyles = makeStyles((theme) => {
 			letterSpacing: "0px",
 			textAlign: "left",
 			color: "#FFFFFF",
-			padding: "4px 20px"
+			padding: "4px 20px 12px"
 		},
 		giftBox: {
 			display: "flex",
@@ -41,8 +41,8 @@ const useStyles = makeStyles((theme) => {
 			position: "relative"
 		},
 		giftImg: {
-			width: "52px",
-			height: "48px"
+			width: "56px",
+			height: "56px"
 		},
 		priceBox: {
 			display: "flex",

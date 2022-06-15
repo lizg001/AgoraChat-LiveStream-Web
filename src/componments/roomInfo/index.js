@@ -23,7 +23,7 @@ const useStyles = makeStyles((theme) => {
     return ({
         root: {
             width: "340px",
-            height: "550px",
+            height: "560px",
             borderRadius: "16px",
             border: "1px solid #3D3D3D",
         },
@@ -255,7 +255,7 @@ const RoomInfo = () => {
                         <Box className={classes.searchBox}>
                             <InputBase
                                 type="search"
-                                placeholder={i18next.t("Search Username")}
+                                placeholder={i18next.t("Search Member")}
                                 className={classes.inputStyle}
                                 onChange={handleChengeValue}
                             />
@@ -290,7 +290,7 @@ const RoomInfo = () => {
 
                 </Tabs>
                 <TabPanel value={value} index={0} >
-                    <Members roomMembers={exportMembers} />
+                    <Members roomMembers={exportMembers} searchValue={searchValue} />
                 </TabPanel>
                 <TabPanel value={value} index={1} >
                     <Moderators />
@@ -304,7 +304,7 @@ const RoomInfo = () => {
                 <TabPanel value={value} index={4} >
                     <Ban />
                 </TabPanel>
-            </Box> : <Members roomMembers={exportMembers} />}
+            </Box> : <Members roomMembers={exportMembers} searchValue={searchValue} />}
         </Box>
 
     );

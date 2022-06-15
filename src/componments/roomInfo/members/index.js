@@ -11,6 +11,7 @@ const useStyles = makeStyles((theme) => {
             overflow: "hidden",
             height: (props) => (props.isAdmin ? "410px" : "480px"),
             width: (props) => (props.isAdmin ? "292px" : "340px"),
+            // width:"100%"
         },
         acaratStyle: {
             width: "40px",
@@ -20,14 +21,15 @@ const useStyles = makeStyles((theme) => {
             overflowY: "scroll",
             overflowX: "hidden",
             height: "100%",
-            cursor: "pointer"
+            // cursor: "pointer"
         },
     }
 });
-const Members = ({ roomMembers }) => {
+const Members = ({ roomMembers, searchValue }) => {
     let currentLoginUser = WebIM.conn.context.userId;
     const roomAdmins = useSelector(state => state?.roomAdmins) || [];
     let isAdmin = roomAdmins.includes(currentLoginUser);
+    console.log('isAdmin>>>', isAdmin);
     const classes = useStyles({
         isAdmin,
     });
@@ -38,7 +40,7 @@ const Members = ({ roomMembers }) => {
             <List className={classes.listBox}>
                 {roomMembersObj.length > 0 ? roomMembersObj.map((item, i) => {
                     return <MemberItem member={item} roomMembers={roomMembers} key={i} />
-                }) : <NoSearch />}
+                }) : <NoSearch value={searchValue} />}
             </List>
         </Box>
     )

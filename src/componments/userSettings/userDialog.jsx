@@ -93,7 +93,6 @@ const UserDialog = ({ open, onClose }) => {
     let currentLoginUser = WebIM.conn.context.userId;
     const couterRef = useRef();
     const handleAvatarChange = () => {
-        console.log('couterRef111>>>', couterRef);
         couterRef.current.focus();
         couterRef.current.click();
     };

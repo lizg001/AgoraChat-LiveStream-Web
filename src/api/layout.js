@@ -49,7 +49,6 @@ const loginIM = (user,) => {
 
 export const openIM = () => {
     let webimAuth = sessionStorage.getItem('webim_auth') || {}
-    console.log(webimAuth);
     if (Object.keys(webimAuth).length > 0) {
         let { user } = JSON.parse(webimAuth);
         loginIM(user)

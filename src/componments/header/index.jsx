@@ -6,6 +6,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import i18next from "i18next";
 import UserSettings from '../userSettings'
 import agoraIcon from '../../assets/images/subtractLive.png'
+import agoraTitleIcon from '../../assets/images/agoraLiveStream.png'
 import defaultAvatarImg from '../../assets/images/defaultAvatar.png'
 const useStyles = makeStyles((theme) => {
     return {
@@ -43,13 +44,13 @@ const useStyles = makeStyles((theme) => {
             height: "48px"
         },
         titleStyle: {
-            height: "28px",
-            width: "auto",
-            fontFamily: "Roboto",
-            fontWeight: "400",
-            fontSize: "24px",
-            lineHeight: "28px",
-            color: "#FFFFFF",
+            // height: "28px",
+            // width: "auto",
+            // fontFamily: "Roboto",
+            // fontWeight: "400",
+            // fontSize: "24px",
+            // lineHeight: "28px",
+            // color: "#FFFFFF",
             marginLeft: "8px"
         },
         settingBox: {
@@ -94,7 +95,8 @@ const Header = () => {
                 <Box className={classes.avatarStayle}>
                     <Avatar src={agoraIcon} className={classes.avatarStyle}></Avatar>
                 </Box>
-                <Typography className={classes.titleStyle}>{i18next.t('Agora LiveStream')}</Typography>
+                <img src={agoraTitleIcon} alt="" className={classes.titleStyle}/>
+                {/* <Typography className={classes.titleStyle}>{i18next.t('Agora LiveStream')}</Typography> */}
             </Box>
             <Box className={classes.userBox} >
                 <Avatar src={avatarurl || defaultAvatarImg} className={classes.avatarStyle} aria-describedby="user-popover" onClick={handleClick}></Avatar>

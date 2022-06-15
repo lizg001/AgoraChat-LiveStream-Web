@@ -43,7 +43,7 @@ const useStyles = makeStyles((theme) => {
             width: "100%",
             overflowX: "scroll",
             marginTop: "10px",
-            cursor: "pointer"
+            // 
         },
         itemStyle: {
             position: "relative",
@@ -51,6 +51,7 @@ const useStyles = makeStyles((theme) => {
             width: "180px",
             marginLeft: "10px",
             borderRadius: "12px",
+            cursor: "pointer"
             // border: "1px solid"
         },
         numberBox: {
@@ -248,7 +249,7 @@ const RoomList = () => {
                     <Box className={classes.searchBox}>
                         <InputBase
                             type="search"
-                            placeholder={i18next.t("Search RoomName")}
+                            placeholder={i18next.t("Search Channel")}
                             className={classes.inputStyle}
                             onChange={handleValueChange}
                         />
@@ -263,13 +264,13 @@ const RoomList = () => {
                 {exportRoomList.length > 0 ? exportRoomList.map((item, i) => {
                     let { cover, id, name, owner, affiliations_count } = item
                     return (
-                        <Box>
-                            <Box key={i} className={classes.itemStyle} onClick={() => handleJoinRoom(id)}>
+                        <Box key={i}>
+                            <Box className={classes.itemStyle} onClick={() => handleJoinRoom(id)}>
                                 <Box className={classes.numberBox}>
                                     <img src={ellipseIcon} alt="" className={classes.ellipseIconStyle} />
                                     <Typography className={classes.numberTextStyle}>{affiliations_count}</Typography>
                                 </Box>
-                                <img src={cover || liveImg} alt="" className={classes.liveImgStyle} />
+                                <img src={cover || liveImg} alt="" className={classes.liveImgStyle}/>
                                 <Box className={classes.lrsInfoBox}>
                                     <Typography className={classes.nameStyle}>{name}</Typography>
                                     <Box className={classes.lrsBox}>
@@ -280,7 +281,7 @@ const RoomList = () => {
                             </Box>
                         </Box>
                     )
-                }) : <Box className={classes.noSearchBox}><NoSearch /></Box>}
+                }) : <Box className={classes.noSearchBox}><NoSearch value={searchValue}/></Box>}
             </Box>
             {leftIconChange && <Box className={classes.iconLeftStyle} onClick={handleLeftChange}>
                 <img src={leftIcon} alt="" className={classes.iconStyle} />

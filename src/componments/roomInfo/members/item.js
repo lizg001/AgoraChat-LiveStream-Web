@@ -26,6 +26,7 @@ const useStyles = makeStyles((theme) => {
             padding: "0 10px",
             background: (props) => (props.hideMenus ? "#393939" : ""),
             display: "flex",
+            alignItems: "center",
             justifyContent: "space-between",
             marginTop: "4px",
             position: "relative"
@@ -36,7 +37,6 @@ const useStyles = makeStyles((theme) => {
             width: "100%"
         },
         memberTextStyle: {
-            // paddingLeft: "5px",
             fontFamily: "Roboto",
             fontSize: "14px",
             fontWeight: "500",
@@ -49,12 +49,13 @@ const useStyles = makeStyles((theme) => {
             whiteSpace: "nowrap",
             textAlign: "left",
             textTransform: "none",
-            marginRight:"4px"
+            marginRight: "4px"
         },
         menuStyle: {
             cursor: "pointer",
             position: "absolute",
             right: "40px",
+            display: "flex"
         },
         userInfoBox: {
             marginLeft: "10px"
@@ -235,7 +236,7 @@ const MemberItem = ({ member, roomMembers, key }) => {
         <Button className={classes.listItemStyle} key={key} onMouseOver={() => { handleHover() }}
             onMouseLeave={() => { setHideMenus(false) }}>
             <Box className={classes.memberStyle} >
-                <Avatar src={roomMemberInfo[member]?.avatarurl || acaratImg}></Avatar>
+                <Avatar src={roomMemberInfo[member]?.avatar || acaratImg}></Avatar>
                 <Box className={classes.userInfoBox}>
                     <Box className={classes.roleStyle}>
                         <Typography className={classes.memberTextStyle} >{roomMemberInfo[member]?.nickname || member}</Typography>
@@ -273,7 +274,7 @@ const MemberItem = ({ member, roomMembers, key }) => {
                             className={classes.iconStyle}
                         />
                         <Typography className={classes.textStyle}>
-                            {i18next.t("Move to Allower List")}
+                            {i18next.t("Move to Allowed List")}
                         </Typography>
                     </ListItemButton>
                     <ListItemButton
