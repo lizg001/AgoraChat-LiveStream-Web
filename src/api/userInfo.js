@@ -2,12 +2,32 @@
 import WebIM from '../utils/WebIM'
 import store from '../redux/store'
 import { userInfoAction, roomMemberInfoAction } from '../redux/actions'
-import { genderObj } from '../componments/common/contants'
+import axios from 'axios';
+import { appConfig } from '../componments/common/contants'
 
 export const uploadAvatar = (couterRef) => {
-    console.log('couterRef>>>', couterRef.current);
+    console.log('couterRef>>>', couterRef);
     let webimAuth = sessionStorage.getItem('webim_auth') || {}
     let { accessToken } = JSON.parse(webimAuth);
+    let file = couterRef.current.files[0]
+    let param = new FormData();
+    param.append('file',file,file.name)
+    let config = {
+        method: 'post',
+        url: `${appConfig.apiurl}/${appConfig.orgName}/${appConfig.appName}/chatfiles`,
+        headers: {
+            'Content-Type': 'application/x-www-form-urlencoded',
+            'Authorization': `Bearer ${accessToken} ` 
+        },
+        data: param
+    }
+    return axios(config)
+        // .then(function (response) {
+        //     console.log('AAA>>>>>',response);
+        // })
+        // .catch(function (error) {
+        //     console.log(error);
+        // });
 }
 
 

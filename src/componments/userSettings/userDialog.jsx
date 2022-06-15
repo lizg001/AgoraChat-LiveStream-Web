@@ -7,7 +7,7 @@ import { Box, Tabs, Tab, Button, Avatar, Typography } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import { TabPanel, a11yProps } from "../common/tab";
 import InfoSetting from './info'
-import { uploadAvatar } from '../../api/userInfo'
+import { uploadAvatar, updateUserInfo } from '../../api/userInfo'
 import WebIM from '../../utils/WebIM'
 import defaultAvatarUrlImg from '../../assets/images/defaultAvatar.png'
 import infoIcon from '../../assets/images/info.png'
@@ -42,6 +42,7 @@ const useStyles = makeStyles((theme) => {
             height: "100px",
             width: "100px",
             borderRadius: "50px",
+            opacity: ".4"
         },
         nameTextStyle: {
             fontFamily: "Roboto",
@@ -89,13 +90,25 @@ const UserDialog = ({ open, onClose }) => {
     const classes = useStyles();
     const userInfo = useSelector(state => state?.userInfo) || {};
     const [value, setValue] = useState(0);
-    const [userAvatar, setUserAvatar] = useState(userInfo.avatarurl)
+    // const userAvatar = useState(userInfo.avatarurl)
     let currentLoginUser = WebIM.conn.context.userId;
     const couterRef = useRef();
     const handleAvatarChange = () => {
         couterRef.current.focus();
         couterRef.current.click();
     };
+
+    const handleuploadAvatar = () => {
+        uploadAvatar(couterRef).then(function (response) {
+            console.log('AAA>>>>>', response);
+            let { uri,entities } = response.data;
+            let updateUrl = uri + '/' + entities[0].uuid
+            updateUserInfo(updateUrl);
+            couterRef.current.value = null;
+        }).catch(function (error) {
+                console.log(error);
+            });
+    }
 
     const handleChange = (event, newValue) => {
         setValue(newValue);
@@ -123,7 +136,7 @@ const UserDialog = ({ open, onClose }) => {
                 <Box style={{ width: "30%", background:"#1E1E1E" }}>
                     <Box>
                         <Box className={classes.acatarBox} onClick={handleAvatarChange}>
-                            <Avatar src={userAvatar || defaultAvatarUrlImg} className={classes.avatarStyle}>
+                            <Avatar src={userInfo.avatarurl || defaultAvatarUrlImg} className={classes.avatarStyle}>
                             </Avatar>
                             <Box className={classes.editBox}>
                                 <img src={editIcon} alt="" className={classes.editAvatarStyle} />
@@ -134,9 +147,7 @@ const UserDialog = ({ open, onClose }) => {
                                     style={{
                                         display: 'none',
                                     }}
-                                    // onChange={() => {
-                                    //     uploadAvatar(couterRef)
-                                    // }}
+                                    onChange={handleuploadAvatar}
                                 />
                             </Box>
                         </Box>
