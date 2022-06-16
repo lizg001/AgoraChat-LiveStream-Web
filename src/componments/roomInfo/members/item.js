@@ -11,9 +11,9 @@ import ellipsisIcon from '../../../assets/images/ellipsis.png'
 import streamerIcon from '../../../assets/images/streamer.png'
 import moderatorIcon from '../../../assets/images/moderator.png'
 import mutedIcon from '../../../assets/images/mute.png'
-import allowIcon from '../../../assets/images/allow.png'
-import pauseIcon from '../../../assets/images/pause.png'
-import banIcon from '../../../assets/images/ban.png'
+import allowIcon from '../../../assets/images/allowed@2x.png'
+import timeoutIcon from '../../../assets/images/timeout.png'
+import blockIcon from '../../../assets/images/blocked@2x.png'
 import closeIcon from '../../../assets/images/close.png'
 
 
@@ -110,7 +110,8 @@ const useStyles = makeStyles((theme) => {
         renderTextStyle: {
             display: "flex",
             alignItems: "center",
-            color: "#FFFFFF"
+            color: "#FFFFFF",
+            margin: "0 20px"
         },
         btnBox: {
             position: "absolute",
@@ -125,7 +126,8 @@ const useStyles = makeStyles((theme) => {
             textTransform: "none",
             display: "flex",
             alignItems: "center",
-            justifyContent: "center"
+            justifyContent: "center",
+            color:"#FFFFFF"
         },
         okayBtnStyle: {
             background: "#114EFF",
@@ -171,6 +173,11 @@ const MemberItem = ({ member, roomMembers, key }) => {
         setHideMenus(true)
     }
 
+    const handleRemove = () => {
+        setHideMenus(false);
+        setAnchorEl(null);
+        setConfirmAnchorEl(null)
+    }
     const handleConfirmChange = (e, user, type) => {
         setConfirmAnchorEl(e.currentTarget);
         setClickType(type);
@@ -234,7 +241,7 @@ const MemberItem = ({ member, roomMembers, key }) => {
     }
     return <>
         <Button className={classes.listItemStyle} key={key} onMouseOver={() => { handleHover() }}
-            onMouseLeave={() => { setHideMenus(false) }}>
+            onMouseLeave={() => { handleRemove() }}>
             <Box className={classes.memberStyle} >
                 <Avatar src={roomMemberInfo[member]?.avatar || acaratImg}></Avatar>
                 <Box className={classes.userInfoBox}>
@@ -281,7 +288,7 @@ const MemberItem = ({ member, roomMembers, key }) => {
                         className={classes.itemStyle}
                         onClick={(e) => handleConfirmChange(e, member, 'timeout')}
                     >
-                        <img src={pauseIcon} alt="" className={classes.iconStyle} />
+                        <img src={timeoutIcon} alt="" className={classes.iconStyle} />
                         <Typography className={classes.textStyle}>
                             {i18next.t("Timeout")}
                         </Typography>
@@ -290,7 +297,7 @@ const MemberItem = ({ member, roomMembers, key }) => {
                         className={classes.itemStyle}
                         onClick={(e) => handleConfirmChange(e, member, 'ban')}
                     >
-                        <img src={banIcon} alt="" className={classes.iconStyle} />
+                        <img src={blockIcon} alt="" className={classes.iconStyle} />
                         <Typography className={classes.textStyle}>
                             {i18next.t("Ban")}
                         </Typography>

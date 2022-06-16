@@ -1,4 +1,4 @@
-import React, { memo, useState } from 'react'
+import React, { memo, useState, createRef } from 'react'
 import { useSelector } from 'react-redux'
 import { Box, InputBase, Typography, MenuItem, FormControl, Select } from "@material-ui/core";
 import { makeStyles } from '@material-ui/core/styles';
@@ -12,6 +12,10 @@ import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 
 const useStyles = makeStyles((theme) => {
     return {
+        root:{
+            width:"70%",
+            padding:"6px 8px"
+        },
         infoBox: {
             width: "100%",
             marginTop: "20px",
@@ -26,7 +30,7 @@ const useStyles = makeStyles((theme) => {
             height: "56px",
             borderRadius: "16px",
             background: "#333333",
-            padding: "0 10px"
+            padding: "0 20px"
         },
         nameStyle: {
             height: "24px",
@@ -96,6 +100,7 @@ const InfoSetting = () => {
     const [nameEditStatus, setNameEditStatus] = useState(true);
     const [genderValue, setGenderValue] = useState(userInfo?.gender || "Male");
     const [value, setValue] = useState(userInfo.brith || '2008-01-01');
+    const inputRef = createRef();
 
     const handleBriChange = (briValue) => {
         setValue(briValue);
@@ -105,6 +110,12 @@ const InfoSetting = () => {
     const classes = useStyles({
         nameEditStatus: nameEditStatus
     });
+
+    const handleEditStatus = () => {
+        setNameEditStatus(false)
+        inputRef.current.focus();
+        inputRef.current.click();
+    }
 
     const handleNameChange = (e) => {
         setNameValue(e.target.value)
@@ -126,9 +137,7 @@ const InfoSetting = () => {
             {nameEditStatus ? (
                 <Typography
                     className={classes.editStyle}
-                    onClick={() => {
-                        setNameEditStatus(false);
-                    }}
+                    onClick={handleEditStatus}
                 >
                     {i18next.t("Edit")}
                 </Typography>
@@ -145,13 +154,14 @@ const InfoSetting = () => {
 
 
     return (
-        <Box >
+        <Box className={classes.root}>
             <Box className={classes.borderBox}>
                 <Box className={classes.nameInputBox}>
                     <Typography className={classes.userTextStyle}>
                         {i18next.t("UserName")}
                     </Typography>
                     <InputBase
+                        ref={inputRef}
                         type="search"
                         max={12}
                         defaultValue={nameValue}
@@ -164,6 +174,7 @@ const InfoSetting = () => {
                             fontWeight: "600",
                             lineHeight: "22px",
                             color: "#FFFFFF",
+                            textAlign:"left"
                         }}
                     />
                 </Box>

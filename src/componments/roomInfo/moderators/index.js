@@ -38,7 +38,6 @@ const useStyles = makeStyles((theme) => {
 			alignItems: "center"
 		},
 		memberTextStyle: {
-			paddingLeft: "5px",
 			fontFamily: "Roboto",
 			fontSize: "14px",
 			fontWeight: "500",

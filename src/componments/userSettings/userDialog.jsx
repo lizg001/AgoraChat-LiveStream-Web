@@ -44,6 +44,9 @@ const useStyles = makeStyles((theme) => {
             borderRadius: "50px",
             opacity: ".4"
         },
+        tabStyle:{
+            padding: "0 10px"
+        },
         nameTextStyle: {
             fontFamily: "Roboto",
             fontSize: "16px",
@@ -52,7 +55,10 @@ const useStyles = makeStyles((theme) => {
             letterSpacing: "0.15px",
             textAlign: "center",
             color: "#FFFFFF",
-            marginBottom: "30px"
+            marginBottom: "30px",
+            width: "100%",
+            overflow: "hidden",
+            textOverflow: "ellipsis"
         },
         editBox:{
             position: "absolute",
@@ -155,18 +161,30 @@ const UserDialog = ({ open, onClose }) => {
                             <Typography className={classes.nameTextStyle}>{userInfo?.nickname || currentLoginUser}</Typography>
                         </Box>
                     </Box>
-                    <Tabs
+                    {/* <Tabs
                         orientation="vertical"
                         value={value}
                         onChange={handleChange}
                         aria-label="Vertical tabs example"
                     >
                         <Tab label={infoLabel()} {...a11yProps(0)} className={classes.menus} />
-                    </Tabs>
+                    </Tabs> */}
+                    <Box className={classes.tabStyle}>
+                        <Button className={classes.infoBox}>
+                            <img
+                                src={infoIcon}
+                                alt="info"
+                                className={classes.iconStyle}
+                            ></img>
+                            <Typography className={classes.menusText}>
+                                {i18next.t("Info")}
+                            </Typography>
+                        </Button>
+                    </Box>
                 </Box>
-                <TabPanel value={value} index={0} className={classes.contentStyle}>
+                {/* <TabPanel value={value} index={0} className={classes.contentStyle}> */}
                     <InfoSetting />
-                </TabPanel>
+                {/* </TabPanel> */}
             </Box>
         )
     }
