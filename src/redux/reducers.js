@@ -86,6 +86,7 @@ let defaultState = {
         }
     ],
     liveCdnUrl: "",
+    isDisabledInput: true
 };
 
 const reducer = (state = defaultState, action) => {
@@ -177,6 +178,11 @@ const reducer = (state = defaultState, action) => {
             return{
                 ...state,
                 giftAry: giftAryCp
+            }
+        case "UIKIR_DISABLED_INPUT_ACTION":
+            return {
+                ...state,
+                isDisabledInput: data
             }
         default:
             break;

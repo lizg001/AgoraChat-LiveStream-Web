@@ -73,7 +73,9 @@ const useStyles = makeStyles((theme) => {
         },
         itemStyle: {
             background: "#393939",
-            borderRadius: "12px"
+            borderRadius: "12px",
+            height:"36px",
+            padding:"8px"
         },
         iconStyle: {
             width: "20px",
@@ -117,7 +119,7 @@ const useStyles = makeStyles((theme) => {
         userTextStyle:{
             margin: "8px",
             fontWeight: "800",
-            width: "180px",
+            maxWidth: "180px",
             overflow: "hidden",
             textOverflow: "ellipsis"
         },
@@ -145,7 +147,8 @@ const useStyles = makeStyles((theme) => {
             textTransform: "none",
             display: "flex",
             alignItems: "center",
-            justifyContent: "center"
+            justifyContent: "center",
+            color: "#FFFFFF"
         }
     }
 });
@@ -230,7 +233,7 @@ const MemberItem = ({ member, roomMembers, key }) => {
                 <Typography className={classes.renderTextStyle}>
                     {`Want to ${clickType}`} 
                     <span className={classes.userTextStyle}>{roomMemberInfo[clickUser]?.nickname || clickUser}</span>
-                    {'?'}
+                    {"?"}
                 </Typography>
                 <Box className={classes.btnBox}>
                     <Button>

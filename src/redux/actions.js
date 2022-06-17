@@ -54,3 +54,8 @@ export const clearGigtMsgAction = (data) => {
 export const updateGiftStatusAction = (data) => {
     return { type: 'UPDATE_GIFT_STATUS_ACTION', data };
 }
+
+export const uikitDisabledInputAction = (data) => {
+    return { type: 'UIKIR_DISABLED_INPUT_ACTION', data };
+
+}

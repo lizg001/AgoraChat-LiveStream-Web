@@ -73,7 +73,7 @@ const Footer = () => {
                         </a>
                     </Typography>
                     <Typography className={classes.linkStyle}>
-                        <a href="http://" className={classes.linkStyle}>
+                        <a href="https://www.agora.io/en/" target="_blank" className={classes.linkStyle}>
                             Agora.io
                         </a>
                     </Typography>

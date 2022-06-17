@@ -48,6 +48,9 @@
 .MuiBox-root {
   padding: 0;
 }
+.css-1yq5fb3-MuiButtonBase-root-MuiIconButton-root {
+  color: #FFFFFF !important;
+}
 
 /* .MuiInputBase-input {
   text-align: center !important;

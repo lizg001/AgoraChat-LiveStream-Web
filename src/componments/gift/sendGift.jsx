@@ -7,21 +7,21 @@ import goldIcon from '../../assets/gift/gold.png'
 import heartIcon from '../../assets/gift/pink_heart@2x.png'
 import addIcon from '../../assets/images/add.png'
 import minusIcon from '../../assets/images/minus.png'
+import { textAlign } from "@mui/system";
 const useStyles = makeStyles((theme) => ({
     root: {
-        height: "144px",
-        width: "238px",
+        height: "136px",
+        width: "216px",
         borderRadius: "8px",
         border: "1px solid #4D4D4D",
         background: "#1A1A1A",
-        padding: "10px"
+        padding: "16px"
     },
     giftBox: {
         display: "flex",
         alignItems: "center"
     },
     giftStyle: {
-        marginLeft: "10px",
         background: "#333333",
         width: "84px",
         height: "84px",
@@ -31,7 +31,7 @@ const useStyles = makeStyles((theme) => ({
         justifyContent: "center"
     },
     giftInfo: {
-        margin: "10px 0 0 10px",
+        marginLeft: "12px",
     },
     giftNameStyle: {
         fontFamily: "Roboto",
@@ -39,13 +39,14 @@ const useStyles = makeStyles((theme) => ({
         fontWeight: "600",
         lineHeight: "18px",
         letterSpacing: "0.15px",
-        textalign: "left",
+        textAlign: "left",
         color: "#FFFFFF"
     },
     giftPriceBox: {
         display: "flex",
         alignItems: "center",
-        height:"24px"
+        height:"20px",
+        marginTop:"4px"
     },
     priceText: {
         fontFamily: "Roboto",
@@ -57,26 +58,29 @@ const useStyles = makeStyles((theme) => ({
         margin: "10px"
     },
     inputStyle: {
-        width: "130px",
-        height: "32px",
-        padding: "0 50px;",
+        width: "116px",
+        height: "28px",
+        // padding: "0 50px;",
         borderRadius: "16px",
         border: "1px solid #666666",
         color: "#FFFFFF !important",
+        marginTop:"8px",
+        textAlign:"center",
+        background:"#4D4D4D"
     },
     giftImg: {
         width: "66px",
         height: "66px"
     },
     priceImg: {
-        width: "16px",
-        height: "16px"
+        width: "18px",
+        height: "18px"
     },
     privateBox: {
         display: "flex",
         justifyContent: "space-between",
         marginTop: "20px",
-        padding: "0 0 6px 6px"
+        // padding: "0 0 6px 6px"
     },
     propertyBox: {
         display: "flex",
@@ -84,7 +88,7 @@ const useStyles = makeStyles((theme) => ({
         height: "30px"
     },
     btnStyle: {
-        height: "30px",
+        height: "32px",
         width: "80px",
         borderRadius: "16px",
         // background: "linear-gradient(to right, red , #e252d3);",
@@ -93,10 +97,10 @@ const useStyles = makeStyles((theme) => ({
         display: "flex",
         alignItems: "center",
         justifyContent: "center",
-        marginRight: "6px",
-        "& hover": {
-            background: "#FFFFFF"
-        }
+        // marginRight: "6px",
+        // "& hover": {
+        //     background: "#FFFFFF"
+        // }
     },
     sendTextStyle: {
         fontFamily: "Roboto",
@@ -114,6 +118,7 @@ const useStyles = makeStyles((theme) => ({
     minusIconBox: {
         position: "absolute",
         left: "10px",
+        top: "16px",
         width: "16px",
         height: "16px",
         display: "flex",
@@ -124,6 +129,7 @@ const useStyles = makeStyles((theme) => ({
     addIconBox: {
         position: "absolute",
         right: "10px",
+        top: "16px",
         width: "16px",
         height: "16px",
         display: "flex",
@@ -214,7 +220,14 @@ const SenfGifts = ({ open, onClose, selectGift }) => {
                             <Typography className={classes.priceText} >{gift_price}</Typography>
                         </Box>
                         <Box className={classes.inputBox}>
-                            <InputBase
+                            <input  
+                                ref={inputRef}
+                                type="tel"
+                                value={inputValue} 
+                                className={classes.inputStyle}
+                                onChange={handleInputBaseValue}
+                                onClick={handleClickInputBase}/>
+                            {/* <InputBase
                                 ref={inputRef}
                                 type="tel"
                                 value={inputValue}
@@ -222,7 +235,7 @@ const SenfGifts = ({ open, onClose, selectGift }) => {
                                 className={classes.inputStyle}
                                 onChange={handleInputBaseValue}
                                 onClick={handleClickInputBase}
-                            />
+                            /> */}
                             <Box className={classes.minusIconBox} onClick={() => handleMinusChange()}>
                                 <img src={minusIcon} alt="" />
                             </Box>

@@ -2,7 +2,7 @@ import WebIM from '../utils/WebIM'
 import store from '../redux/store'
 import { getUserInfo } from './userInfo'
 import { getLiveCdnUrl } from './liveCdn'
-import { roomInfoAction, roomAdminsAction, roomAllowedAction, roomMutedAction, roomBanAction, getLiveCdnUrlAction } from '../redux/actions'
+import { roomInfoAction, roomAdminsAction, roomAllowedAction, roomMutedAction, roomBanAction, getLiveCdnUrlAction, uikitDisabledInputAction } from '../redux/actions'
 
 export const joinRoom = (roomId, addSessionItem) => {
     let options = {
@@ -13,6 +13,7 @@ export const joinRoom = (roomId, addSessionItem) => {
         console.log('joinRoom>>>', res);
         getLiveCdnUrl(roomId);
         getRoomInfo(roomId);
+        store.dispatch(uikitDisabledInputAction(false))
         addSessionItem && addSessionItem(roomId);
     }).catch((err) => {
         console.log('eer>>>',err);

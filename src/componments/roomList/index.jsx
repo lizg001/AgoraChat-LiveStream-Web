@@ -18,7 +18,7 @@ const useStyles = makeStyles((theme) => {
         root: {
             overflow: "hidden",
             // background: "#292929",
-            padding: " 20px 0",
+            padding: " 0 36px 37px",
             position: "relative"
         },
         titleBox: {
@@ -40,10 +40,9 @@ const useStyles = makeStyles((theme) => {
         },
         roomBox: {
             display: "flex",
-            width: "100%",
+            // width: "100%",
             overflowX: "scroll",
             marginTop: "10px",
-            // 
         },
         itemStyle: {
             position: "relative",
@@ -144,7 +143,7 @@ const useStyles = makeStyles((theme) => {
             alignItems: "center",
             justifyContent: "center",
             position: "absolute",
-            right: "10px",
+            right: "50px",
             bottom: "50px",
             cursor: "pointer"
         },
@@ -158,7 +157,7 @@ const useStyles = makeStyles((theme) => {
             alignItems: "center",
             justifyContent: "center",
             position: "absolute",
-            left: "10px",
+            left: "50px",
             bottom: "50px",
             cursor: "pointer"
         },

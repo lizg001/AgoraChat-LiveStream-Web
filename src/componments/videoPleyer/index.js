@@ -11,8 +11,13 @@ import { giftObj } from '../common/contants'
 import defaultAvatar from '../../assets/images/defaultAvatar.png'
 const useStyles = makeStyles((theme) => {
     return {
+        root:{
+            position: "relative",
+            border: "1px solid #3D3D3D",
+            borderRadius: "12px 0 0 12px"
+        },
         videoBox: {
-            width: "300px !important",
+            width: "340px !important",
             height: "398px !important",
             borderRadius: "12px 0 0 12px"
         },
@@ -22,7 +27,7 @@ const useStyles = makeStyles((theme) => {
             bottom: "40px",
             left: "10px",
             overflowY: "scroll",
-            width: "calc(100% - 30px)",
+            width: "calc(100% - 3x0px)",
         },
         giftMsgStyle: {
             height: "40px",
@@ -30,7 +35,12 @@ const useStyles = makeStyles((theme) => {
             display: "flex",
             marginTop: "15px",
             background: "#00000066",
-            padding: "4px"
+            padding: "3px 12px 3px 0",
+            alignItems: "center"
+        },
+        avatarStryle:{
+            height:"32px",
+            width:"32px"
         },
         userBox: {
             marginLeft: "8px"
@@ -55,8 +65,8 @@ const useStyles = makeStyles((theme) => {
             marginTop: "4px"
         },
         giftImg: {
-            width: "32px",
-            height: "32px",
+            width: "36px",
+            height: "36px",
             marginLeft: "8px",
         },
         giftNumberStyle: {
@@ -68,14 +78,13 @@ const useStyles = makeStyles((theme) => {
             letterSpacing: "0.15px",
             textAlign: "left",
             color: "#FFFFFF",
-            marginLeft: "8px"
+            marginLeft: "12px"
         }
     }
 });
 const VideoPlayer = () => {
     const classes = useStyles();
     const liveCdnUrl = useSelector(state => state?.liveCdnUrl);
-    console.log('liveCdnUrl>>>', liveCdnUrl);
     const giftMsgs = useSelector(state => state?.giftMsgs) || [];
     const roomMemberInfo = useSelector(state => state?.roomMemberInfo);
     const currentLoginUser = WebIM.conn.context.userId;
@@ -90,7 +99,7 @@ const VideoPlayer = () => {
     }
 
     return (
-        <Box style={{ position: "relative" }} >
+        <Box className={classes.root} >
             <Box>
                 <ReactPlayer
                     url={liveCdnUrl}
@@ -109,12 +118,10 @@ const VideoPlayer = () => {
                     clearGigtMsg(id);
                     return (
                         <Box key={id} className={classes.giftMsgStyle}>
-                            <Box>
-                                <Avatar src={roomMemberInfo[giftSender]?.avatarurl || defaultAvatar} ></Avatar>
-                            </Box>
+                            <Avatar src={roomMemberInfo[giftSender]?.avatarurl || defaultAvatar} className={classes.avatarStryle}></Avatar>
                             <Box className={classes.userBox}>
                                 <Typography className={classes.giftUserStyle}>{roomMemberInfo[giftSender]?.nickname || giftSender}</Typography>
-                                <Typography className={classes.giftNameStyle}>{gift_name}</Typography>
+                                <Typography className={classes.giftNameStyle}>{`sent ${gift_name}`}</Typography>
                             </Box>
                             <img
                                 className={classes.giftImg}

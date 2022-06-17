@@ -12,7 +12,7 @@ import RoomList from './componments/roomList'
 import Footer from './componments/footer'
 import { makeStyles } from "@material-ui/core/styles";
 import store from './redux/store'
-import { miniRoomInfoAction } from './redux/actions'
+import { miniRoomInfoAction, uikitDisabledInputAction } from './redux/actions'
 import unionIcon from './assets/images/union.png'
 import './i18n'
 
@@ -26,7 +26,7 @@ const useStyles = makeStyles((theme) => {
 		bodyBox:{
 			display: "flex", 
 			justifyContent: "space-between", 
-			padding: "5px 10px" 
+			padding: "24px 36px 28px" 
 		},
 		iconBox: {
 			height: "44px",
@@ -49,10 +49,12 @@ const useStyles = makeStyles((theme) => {
 const App = () => {
 	const classes = useStyles();
 	const roomMemberInfoObj = useSelector(state => state?.roomMemberInfoObj) || {};
+	const isDisabledInput = useSelector(state => state?.isDisabledInput);
 
 	useEffect(() => {
 		initListen()
 		openIM()
+		store.dispatch(uikitDisabledInputAction(true))
 	}, [])
 	const isMini = useSelector(state => state?.isMini);
 	const openRoomInfo = () => {
@@ -66,7 +68,11 @@ const App = () => {
 					<Box style={{ display: "flex", width: "100%",marginBottom:"4px" }}>
 						<VideoPlayer />
 						<Box className={classes.chatBox}>
-							<EaseLivestream roomUserInfo={roomMemberInfoObj}/>
+							<EaseLivestream 
+								roomUserInfo={roomMemberInfoObj} 
+								disabledInput={isDisabledInput}
+								easeInputMenu="onlyInput"
+							/>
 						</Box>
 					</Box>
 					<Gift />

@@ -12,11 +12,12 @@ const useStyles = makeStyles((theme) => {
     return {
         root: {
             height: "64px",
-            width: "100%",
+            // width: "100%",
             display: "flex",
             alignItems: "center",
             justifyContent: "space-between",
             background: "#393939",
+            padding:"0 36px",
         },
         userBox: {
             borderRadius: "0px",
