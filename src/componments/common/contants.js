@@ -65,13 +65,13 @@ export const giftObj = {
 }
 
 export const appConfig = {
-    apiurl:"http://a1.easemob.com",
+    apiurl: (window.location.protocol === 'https:' ? 'https:' : 'http:') + "//a1.easemob.com",
     orgName: "easemob-demo",
     appName: "chatdemoui"
 }
 
 export const liveStreamConfig = {
-    domain: "http://a1.easemob.com",
+    domain: (window.location.protocol === 'https:' ? 'https:' : 'http:') + "//a1.easemob.com",
     protocol: "hls",  // hls  flv  rtmp
     liveDomian: "ws-rtmp-pull.easemob.com",
     pushPoint: "live"
