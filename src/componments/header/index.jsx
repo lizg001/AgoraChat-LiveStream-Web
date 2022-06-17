@@ -20,15 +20,12 @@ const useStyles = makeStyles((theme) => {
         },
         userBox: {
             borderRadius: "0px",
-            paddingRight: "15px",
             cursor: "pointer"
         },
         headerStyle: {
             height: "100%",
-            width: "100%",
             display: 'flex',
             alignItems: "center",
-            paddingLeft: "15px"
         },
         avatarStayle: {
             width: '48px',

@@ -6,7 +6,6 @@ import axios from 'axios';
 import { appConfig } from '../componments/common/contants'
 
 export const uploadAvatar = (couterRef) => {
-    console.log('couterRef>>>', couterRef);
     let webimAuth = sessionStorage.getItem('webim_auth') || {}
     let { accessToken } = JSON.parse(webimAuth);
     let file = couterRef.current.files[0]
@@ -22,12 +21,6 @@ export const uploadAvatar = (couterRef) => {
         data: param
     }
     return axios(config)
-        // .then(function (response) {
-        //     console.log('AAA>>>>>',response);
-        // })
-        // .catch(function (error) {
-        //     console.log(error);
-        // });
 }
 
 
@@ -39,7 +32,6 @@ export const updateUserInfo = (avatarUrl, nickName, gender, Birthday) => {
         birth: Birthday
     }
     WebIM.conn.updateOwnUserInfo(options).then((res) => {
-        console.log('updateUserInfo>>>', res)
         store.dispatch(userInfoAction(res.data))
     })
 }

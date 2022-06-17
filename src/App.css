@@ -45,6 +45,10 @@
   width: 24px !important;
 }
 
+.MuiBox-root {
+  padding: 0;
+}
+
 /* .MuiInputBase-input {
   text-align: center !important;
 } */

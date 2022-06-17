@@ -193,7 +193,7 @@ const UserDialog = ({ open, onClose }) => {
         <CommonDialog
             open={Boolean(open)}
             onClose={onClose}
-            title={i18next.t('Settings')}
+            title={i18next.t('Setting')}
             content={renderDialog()}
             maxWidth={880}
             style={{background:"#292929"}}

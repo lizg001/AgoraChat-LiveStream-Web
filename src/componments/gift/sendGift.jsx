@@ -217,7 +217,6 @@ const SenfGifts = ({ open, onClose, selectGift }) => {
                             <InputBase
                                 ref={inputRef}
                                 type="tel"
-                                placeholder={i18next.t('Number')}
                                 value={inputValue}
                                 style={{textAlign:"center"}}
                                 className={classes.inputStyle}

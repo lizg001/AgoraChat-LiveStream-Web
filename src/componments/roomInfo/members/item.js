@@ -68,7 +68,6 @@ const useStyles = makeStyles((theme) => {
             width: "61px",
             height: "16px"
         },
-
         root: {
             background: "#1A1A1A"
         },
@@ -108,10 +107,19 @@ const useStyles = makeStyles((theme) => {
             cursor: "pointer"
         },
         renderTextStyle: {
+            fontFamily:"Roboto",
+            fontWeight:"400",
             display: "flex",
             alignItems: "center",
             color: "#FFFFFF",
             margin: "0 20px"
+        },
+        userTextStyle:{
+            margin: "8px",
+            fontWeight: "800",
+            width: "180px",
+            overflow: "hidden",
+            textOverflow: "ellipsis"
         },
         btnBox: {
             position: "absolute",
@@ -219,7 +227,11 @@ const MemberItem = ({ member, roomMembers, key }) => {
         >
             <Box className={classes.popoverBox}>
                 <img src={closeIcon} alt="close popover" className={classes.closeStyle} onClick={() => handleConfirmClose()} ></img>
-                <Typography className={classes.renderTextStyle}>{`want to ${clickType} ${roomMemberInfo[clickUser]?.nickname || clickUser} ?`}</Typography>
+                <Typography className={classes.renderTextStyle}>
+                    {`Want to ${clickType}`} 
+                    <span className={classes.userTextStyle}>{roomMemberInfo[clickUser]?.nickname || clickUser}</span>
+                    {'?'}
+                </Typography>
                 <Box className={classes.btnBox}>
                     <Button>
                         <Typography

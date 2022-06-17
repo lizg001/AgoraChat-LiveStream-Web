@@ -125,7 +125,9 @@ const RoomInfo = () => {
     const [searchValue, setSearchValue] = useState("");
     const [roomMembers, setRoomMembers] = useState({});
     const [searchMembers, setSearchMembers] = useState([]);
-    let isOwner = useSelector(state => state?.roomInfo?.id);
+    const isOwner = useSelector(state => state?.roomInfo?.owner);
+    const roomId = useSelector(state => state?.roomInfo?.id);
+    const roomList = useSelector(state => state?.rooms) || [];
     const memberList = useSelector(state => state?.roomInfo?.affiliations);
     const roomAdmins = useSelector(state => state?.roomAdmins);
     const roomMuted = useSelector(state => state?.roomMuted);
@@ -137,6 +139,7 @@ const RoomInfo = () => {
     useEffect(() => {
         let membersAry = {};
         let roomMutedAry = [];
+        let showidNumber = '';
         if (roomMuted?.length > 0) {
             roomMuted.forEach(item => {
                if (item?.user) {
@@ -144,6 +147,13 @@ const RoomInfo = () => {
                }else {
                    roomMutedAry.push(item)
                }
+            })
+        }
+        if (roomList.length > 0 ) {
+            roomList.forEach(item => {
+                if (item.id === roomId) {
+                    showidNumber = item.showid
+                }
             })
         }
         if (memberList) {
@@ -157,6 +167,7 @@ const RoomInfo = () => {
                         isMuted: roomMutedAry.includes(owner),
                         nickname: roomMemberInfo[owner]?.nickname || '',
                         avatar: roomMemberInfo[owner]?.avatarurl || '',
+                        showidNumber,
                     }
                 } else {
                     membersAry[member] = {
@@ -166,6 +177,7 @@ const RoomInfo = () => {
                         isMuted: roomMutedAry.includes(member),
                         nickname: roomMemberInfo[member]?.nickname || '',
                         avatar: roomMemberInfo[member]?.avatarurl || '',
+                        showidNumber
                     }
                 }
             });
@@ -255,7 +267,7 @@ const RoomInfo = () => {
                         <Box className={classes.searchBox}>
                             <InputBase
                                 type="search"
-                                placeholder={i18next.t("Search Member")}
+                                placeholder={i18next.t('Search Members')}
                                 className={classes.inputStyle}
                                 onChange={handleChengeValue}
                             />

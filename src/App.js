@@ -14,6 +14,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import store from './redux/store'
 import { miniRoomInfoAction } from './redux/actions'
 import unionIcon from './assets/images/union.png'
+import './i18n'
 
 import './App.css'
 const useStyles = makeStyles((theme) => {

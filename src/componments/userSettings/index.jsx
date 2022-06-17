@@ -49,7 +49,7 @@ const UserSettings = () => {
         <div className={classes.root}>
             <Box className={classes.settingBox} onClick={handleClick}>
                 <img src={settingIcon} alt="" className={classes.IconStyle} />
-                <Typography className={classes.textStyle}>{i18next.t("Settings")}</Typography>
+                <Typography className={classes.textStyle}>{i18next.t("Setting")}</Typography>
             </Box>
             <UserDialog open={anchorEl} onClose={handleClose} />
         </div>

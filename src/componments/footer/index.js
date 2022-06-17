@@ -29,7 +29,8 @@ const useStyles = makeStyles((theme) => {
             fontWeight: "500",
             lineHeight: "20px",
             letterSpacing: "0px",
-            marginLeft: "10px"
+            marginLeft: "10px",
+            color: "#a5a5a5"
         },
         linkStyle: {
             fontFamily: "Roboto",
